@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sumeet &amp; Priya - Wedding Invitation</title>
+  <meta name="description" content="Sumeet &amp; Priya joyfully invite you to their wedding on 02 December 2026 at Tara Bhavan Mangal Karyalay, Belagavi." />
+  <meta property="og:title" content="Sumeet &amp; Priya - Wedding Invitation" />
+  <meta property="og:description" content="02 December 2026 · Belagavi, Karnataka. Tap to open your invitation." />
+  <meta property="og:image" content="images/og-preview.jpg" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#5c141a" />
+  <link rel="preload" as="image" href="images/cover.jpg" />
+  <style>
+    :root {
+      --primary: #7c1921;
+      --primary-dark: #4f0d13;
+      --gold: #c69738;
+      --gold-light: #f6e7c1;
+      --bg-cream: #fcf7f0;
+      --card-bg: #ffffff;
+      --text-dark: #2c211d;
+      --text-muted: #6b5850;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
+      background-color: #1c0d0f;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ================= 1. FIRST PAGE COVER ================= */
+    #seal-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 45%, #5c141a 0%, #1d0608 100%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      padding: 36px 20px 44px;
+      transition: opacity 0.85s ease, visibility 0.85s ease;
+      overflow: hidden;
+    }
+
+    #seal-overlay.opened {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Grand ceremonial reveal */
+    #seal-overlay.revealing {
+      animation: coverFadeAway 1.45s cubic-bezier(.72,0,.2,1) forwards;
+    }
+    #seal-overlay.revealing .cover-bg-art img {
+      animation: coverImageZoom 1.45s cubic-bezier(.2,.75,.25,1) forwards;
+    }
+    #seal-overlay.revealing .cover-top,
+    #seal-overlay.revealing .cover-bottom {
+      animation: coverTextLift .85s ease forwards;
+    }
+    #seal-overlay.revealing .cover-bottom { animation-delay: .05s; }
+    #seal-overlay.revealing::after {
+      content: "";
+      position: absolute;
+      width: 24vmax;
+      height: 24vmax;
+      left: 50%;
+      top: 50%;
+      border: 2px solid rgba(255,231,174,.95);
+      border-radius: 50%;
+      transform: translate(-50%,-50%) scale(.05);
+      box-shadow: 0 0 35px 12px rgba(246,211,126,.65), inset 0 0 35px rgba(255,239,196,.55);
+      animation: goldenBurst 1.15s cubic-bezier(.12,.7,.18,1) forwards;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .reveal-spark {
+      position: fixed;
+      z-index: 10001;
+      left: var(--sx);
+      top: var(--sy);
+      width: var(--ss);
+      height: var(--ss);
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff9d9 0%, #ffd36b 45%, rgba(255,190,65,0) 75%);
+      box-shadow: 0 0 12px 3px rgba(255,207,105,.75);
+      pointer-events: none;
+      animation: sparkFly var(--sd) ease-out forwards;
+    }
+    .invite-wrapper.entering {
+      animation: invitationArrival 1.15s .18s both cubic-bezier(.18,.75,.25,1);
+      transform-origin: 50% 0;
+    }
+    .invite-wrapper.entering section {
+      animation: sectionRise .75s both ease-out;
+    }
+    .invite-wrapper.entering section:nth-of-type(2) { animation-delay: .12s; }
+    .invite-wrapper.entering section:nth-of-type(3) { animation-delay: .24s; }
+    .invite-wrapper.entering section:nth-of-type(4) { animation-delay: .36s; }
+
+    @keyframes coverFadeAway {
+      0% { opacity: 1; visibility: visible; }
+      65% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; }
+    }
+    @keyframes coverImageZoom {
+      to { transform: scale(1.22); filter: brightness(1.35) saturate(1.2) blur(2px); }
+    }
+    @keyframes coverTextLift {
+      to { opacity: 0; transform: translateY(-24px) scale(1.08); filter: blur(5px); }
+    }
+    @keyframes goldenBurst {
+      0% { opacity: 0; transform: translate(-50%,-50%) scale(.05); }
+      25% { opacity: 1; }
+      100% { opacity: 0; transform: translate(-50%,-50%) scale(13); }
+    }
+    @keyframes sparkFly {
+      0% { opacity: 0; transform: translate(0,0) scale(.3); }
+      15% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0); }
+    }
+    @keyframes invitationArrival {
+      from { opacity: .25; transform: translateY(55px) scale(.94); filter: blur(8px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    @keyframes sectionRise {
+      from { opacity: .35; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #seal-overlay.revealing, #seal-overlay.revealing .cover-bg-art img,
+      #seal-overlay.revealing .cover-top, #seal-overlay.revealing .cover-bottom,
+      .invite-wrapper.entering, .invite-wrapper.entering section,
+      #seal-overlay.revealing::after, .reveal-spark { animation-duration: .01ms !important; }
+    }
+
+    .cover-bg-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .cover-bg-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .cover-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(22, 5, 7, 0.72) 0%,
+        rgba(22, 5, 7, 0.18) 45%,
+        rgba(22, 5, 7, 0.85) 100%
+      );
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .cover-top, .cover-bottom {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .cover-blessing {
+      color: var(--gold-light);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .cover-names {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: #fff6e0;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 14px rgba(0, 0, 0, 0.9);
+      line-height: 1.2;
+    }
+
+    .cover-names span {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 400;
+      margin: 0 6px;
+    }
+
+    .cover-date-tag {
+      color: var(--gold-light);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    }
+
+    .reveal-btn {
+      background: linear-gradient(135deg, #e2b857 0%, #b58428 100%);
+      color: #2b070a;
+      border: 2px solid #fff2cc;
+      padding: 15px 38px;
+      border-radius: 50px;
+      font-family: Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.65);
+      animation: pulseGlow 2.2s infinite;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(226, 184, 87, 0.65); }
+      70% { box-shadow: 0 0 0 18px rgba(226, 184, 87, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(226, 184, 87, 0); }
+    }
+
+    /* ================= MAIN INVITATION CONTAINER ================= */
+    .invite-wrapper {
+      max-width: 520px;
+      margin: 0 auto;
+      background-color: var(--bg-cream);
+      min-height: 100vh;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+      padding-bottom: 44px;
+    }
+
+    section {
+      padding: 36px 22px;
+      text-align: center;
+      border-bottom: 1px dashed rgba(198, 151, 56, 0.45);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    .blessing {
+      font-family: Georgia, serif;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .sub-label {
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .couple-hero {
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: 46px;
+      color: var(--primary);
+      line-height: 1.15;
+      margin: 12px 0;
+    }
+
+    .couple-hero .amp {
+      display: block;
+      font-size: 28px;
+      color: var(--gold);
+      margin: 4px 0;
+    }
+
+    .serif-body {
+      font-family: Georgia, serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-dark);
+    }
+
+    /* ================= 2. SCRATCH CARD ================= */
+    .scratch-container {
+      position: relative;
+      width: 260px;
+      height: 150px;
+      margin: 18px auto 12px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
+    }
+
+    .revealed-date .big-day {
+      font-family: Georgia, serif;
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .revealed-date .day-name {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .revealed-date .month-year {
+      font-family: Georgia, serif;
+      font-size: 19px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    #scratch-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      touch-action: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .tap-reveal-link {
+      background: none;
+      border: none;
+      color: var(--primary);
+      text-decoration: underline;
+      font-size: 13px;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    /* ================= 3. CALENDAR ================= */
+    .calendar-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 20px 14px;
+      border: 1px solid rgba(198, 151, 56, 0.4);
+      margin-top: 14px;
+    }
+
+    .cal-title {
+      font-family: Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .cal-head {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 11px;
+      padding-bottom: 6px;
+    }
+
+    .cal-day {
+      padding: 8px 0;
+      border-radius: 50%;
+    }
+
+    .cal-day.pre-event {
+      background-color: var(--gold-light);
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .cal-day.wedding-day {
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(124, 25, 33, 0.4);
+    }
+
+    .cal-day.pooja-day {
+      background-color: #e9d8fd;
+      color: #44337a;
+      font-weight: 700;
+    }
+
+    .cal-legend {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 12px;
+      margin-top: 16px;
+      color: var(--text-muted);
+    }
+
+    /* ================= 4. COUNTDOWN ================= */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .time-box {
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 6px;
+      border-radius: 10px;
+      border: 1px solid var(--gold);
+    }
+
+    .time-box span {
+      display: block;
+      font-family: Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .time-box small {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-light);
+    }
+
+    /* ================= 5. EVENT CARDS (NO MAPS POPUPS) ================= */
+    .event-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(198, 151, 56, 0.45);
+      border-radius: 14px;
+      padding: 22px 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .event-card.highlight {
+      background: linear-gradient(180deg, #fffdf9 0%, #f9efe0 100%);
+      border: 2px solid var(--gold);
+    }
+
+    .event-title {
+      font-family: Georgia, serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 4px 0 10px;
+    }
+
+    .event-meta {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-dark);
+    }
+
+    .event-art {
+      margin: -22px -18px 16px -18px;
+      border-radius: 13px 13px 0 0;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(198, 151, 56, 0.35);
+      background-color: #faf5ed;
+    }
+
+    .event-art img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ================= 6. FAMILY & DIRECT VENUE DIRECTIONS ================= */
+    .family-block {
+      margin: 14px 0;
+      line-height: 1.65;
+    }
+
+    .person-name {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 4px 0;
+    }
+
+    .venue-box {
+      background: var(--card-bg);
+      border: 1px solid rgba(198, 151, 56, 0.5);
+      border-radius: 14px;
+      padding: 22px 18px;
+      margin-top: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    }
+
+    .venue-box h4 {
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .venue-events-tag {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--primary-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+
+
+    footer {
+      padding: 28px 20px 10px;
+      text-align: center;
+      font-family: Georgia, serif;
+      font-size: 19px;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= 1. COVER SLIDE WITH SHANKAR & PARVATI HANDS ================= -->
+  <div id="seal-overlay">
+    <div class="cover-bg-art" aria-hidden="true">
+      <img src="images/cover.jpg" alt="Decorative wedding cover artwork" />
+    </div>
+
+    <div class="cover-vignette"></div>
+
+    <div class="cover-top">
+      <p class="cover-blessing">&#2405; Shree Ganeshaya Namah &#2405;</p>
+      <h1 class="cover-names">Sumeet <span>&amp;</span> Priya</h1>
+      <p class="cover-date-tag">02 December 2026</p>
+    </div>
+
+    <div class="cover-bottom">
+      <button class="reveal-btn" id="open-seal-btn">Tap to Reveal</button>
+    </div>
+  </div>
+
+  <!-- ================= MAIN INVITATION ================= -->
+  <main class="invite-wrapper">
+
+    <!-- HERO SECTION -->
+    <section>
+      <p class="blessing">&#2405; Shree Ganeshaya Namah &#2405;</p>
+      <p class="sub-label">The Wedding Of</p>
+      <h2 class="couple-hero">
+        Sumeet
+        <span class="amp">&amp;</span>
+        Priya
+      </h2>
+      <p class="serif-body">Together with their families, they joyfully invite you to celebrate their wedding</p>
+    </section>
+
+    <!-- SCRATCH CARD SECTION -->
+    <section>
+      <p class="sub-label">Scratch the hearts to reveal the date</p>
+      <div class="scratch-container">
+        <div class="revealed-date">
+          <div class="big-day">02</div>
+          <div class="day-name">Wednesday</div>
+          <div class="month-year">December 2026</div>
+        </div>
+        <canvas id="scratch-canvas" width="260" height="150"></canvas>
+      </div>
+      <p class="serif-body" style="font-weight:700;">Wednesday, 02 December 2026</p>
+      <button class="tap-reveal-link" id="tap-reveal-btn">or tap here to reveal</button>
+    </section>
+
+    <!-- INTERACTIVE CALENDAR -->
+    <section>
+      <p class="sub-label">Save the Date</p>
+      <div class="calendar-card">
+        <div class="cal-title">December 2026</div>
+        <div class="cal-grid" id="calendar-grid"></div>
+        <div class="cal-legend">
+          <span><strong style="color:var(--gold);">&#9679;</strong> 01 Sangeet &amp; Haldi</span>
+          <span><strong style="color:var(--primary);">&#9829;</strong> 02 Marriage</span>
+          <span><strong style="color:#553c9a;">&#9679;</strong> 03 Satyanarayana Pooja</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE COUNTDOWN -->
+    <section>
+      <p class="sub-label">Counting down to the muhurtham</p>
+      <div class="countdown-grid">
+        <div class="time-box"><span id="cd-days">00</span><small>Days</small></div>
+        <div class="time-box"><span id="cd-hours">00</span><small>Hours</small></div>
+        <div class="time-box"><span id="cd-mins">00</span><small>Mins</small></div>
+        <div class="time-box"><span id="cd-secs">00</span><small>Secs</small></div>
+      </div>
+    </section>
+
+    <!-- CELEBRATION SCHEDULE (CLEAN CARDS WITHOUT MAPS POPUPS) -->
+    <section>
+      <p class="sub-label" style="margin-bottom:18px;">Celebration Schedule</p>
+
+      <div class="event-card">
+        <div class="event-art">
+          <img src="images/sangeet.jpg" alt="Sangeet Ceremony Illustration" loading="lazy" />
+        </div>
+        <p class="sub-label">Musical Evening</p>
+        <h3 class="event-title">Sangeet</h3>
+        <div class="event-meta">
+          <p><strong>Tuesday, 01 December 2026</strong></p>
+          <p>7:00 PM onwards</p>
+          <p style="color:var(--text-muted); margin-top:4px;">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-art">
+          <img src="images/haldi.jpg" alt="Haldi Ceremony Illustration" loading="lazy" />
+        </div>
+        <p class="sub-label">Come, Play With Colour</p>
+        <h3 class="event-title">Haldi</h3>
+        <div class="event-meta">
+          <p><strong>Tuesday, 01 December 2026</strong></p>
+          <p>8:00 PM onwards</p>
+          <p style="color:var(--text-muted); margin-top:4px;">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
+        </div>
+      </div>
+
+      <div class="event-card highlight">
+        <div class="event-art">
+          <img src="images/marriage.jpg" alt="Marriage Ceremony Illustration" loading="lazy" />
+        </div>
+        <p class="sub-label">Auspicious Muhurtham</p>
+        <h3 class="event-title">Marriage</h3>
+        <div class="event-meta">
+          <p><strong>Wednesday, 02 December 2026</strong></p>
+          <p>12:55 PM onwards</p>
+          <p style="color:var(--text-muted); margin-top:4px;">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-art">
+          <img src="images/pooja.jpg" alt="Satyanarayana Pooja Illustration" loading="lazy" />
+        </div>
+        <p class="sub-label">Sacred Ritual</p>
+        <h3 class="event-title">Satyanarayana Pooja</h3>
+        <div class="event-meta">
+          <p><strong>Thursday, 03 December 2026</strong></p>
+          <p>1:00 PM onwards</p>
+          <p style="color:var(--text-muted); margin-top:4px;">Ravalnath Temple, Bazar Peth, Khanapur</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMAL FAMILY INVITATION -->
+    <section>
+      <p class="blessing">With the blessings of Lord Ganesha</p>
+      <div class="family-block">
+        <p class="serif-body"><strong>Mrs. Suvarna Gurav &amp; Mr. Suhas Gurav</strong></p>
+        <p class="serif-body">cordially invite you to grace the wedding ceremony of their beloved son</p>
+        <div class="person-name">Sumeet</div>
+      </div>
+
+      <p class="serif-body" style="font-style:italic; margin: 8px 0;">with</p>
+
+      <div class="family-block">
+        <div class="person-name">Priya</div>
+        <p class="serif-body">D/o <strong>Mrs. Neha Patil &amp; Mr. Ramachandra Patil</strong></p>
+      </div>
+
+      <p class="serif-body" style="margin-top:18px;">
+        Your esteemed presence and blessings will make this celebration truly memorable.
+      </p>
+    </section>
+
+    <!-- LAST SLIDE: CELEBRATION VENUES -->
+    <section>
+      <p class="sub-label">Our Celebration Venues</p>
+      <p class="serif-body" style="margin: 8px auto 18px; max-width: 420px;">
+        We would be delighted to celebrate these special moments with you. Please find the venue details below.
+      </p>
+
+      <div class="venue-box">
+        <span class="venue-events-tag">Sangeet &bull; Haldi &bull; Marriage</span>
+        <h4>Tara Bhavan Mangal Karyalay</h4>
+        <p class="serif-body" style="font-size:15px;">Ambewadi, Belagavi, Karnataka</p>
+      </div>
+
+      <div class="venue-box">
+        <span class="venue-events-tag">Satyanarayana Pooja</span>
+        <h4>Ravalnath Temple</h4>
+        <p class="serif-body" style="font-size:15px;">Bazar Peth, Khanapur, Karnataka</p>
+      </div>
+
+      <p class="serif-body" style="margin-top:18px; font-style:italic;">
+        Your presence and blessings are the most precious part of our celebration.
+      </p>
+    </section>
+
+    <footer>
+      <p>See you there!</p>
+      <p style="font-weight:700; margin-top:4px;">With love, the Gurav &amp; Patil families</p>
+    </footer>
+
+  </main>
+
+  <script>
+    // 1. Grand ceremonial cover reveal
+    document.getElementById("open-seal-btn").addEventListener("click", function () {
+      const cover = document.getElementById("seal-overlay");
+      const invitation = document.querySelector(".invite-wrapper");
+      const button = this;
+      if (cover.classList.contains("revealing") || cover.classList.contains("opened")) return;
+      button.disabled = true;
+      button.textContent = "Revealing Your Invitation…";
+      cover.classList.add("revealing");
+      invitation.classList.add("entering");
+
+      // A burst of warm golden sparkles radiates from the reveal button.
+      const rect = button.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      for (let i = 0; i < 46; i++) {
+        const spark = document.createElement("i");
+        const angle = (Math.PI * 2 * i / 46) + (Math.random() - .5) * .18;
+        const distance = 90 + Math.random() * Math.max(window.innerWidth, window.innerHeight) * .48;
+        spark.className = "reveal-spark";
+        spark.style.setProperty("--sx", cx + "px");
+        spark.style.setProperty("--sy", cy + "px");
+        spark.style.setProperty("--dx", Math.cos(angle) * distance + "px");
+        spark.style.setProperty("--dy", Math.sin(angle) * distance + "px");
+        spark.style.setProperty("--ss", (3 + Math.random() * 7) + "px");
+        spark.style.setProperty("--sd", (750 + Math.random() * 650) + "ms");
+        document.body.appendChild(spark);
+        spark.addEventListener("animationend", () => spark.remove(), { once: true });
+      }
+
+      window.setTimeout(function () {
+        cover.classList.add("opened");
+        cover.classList.remove("revealing");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 1450);
+      window.setTimeout(function () { invitation.classList.remove("entering"); }, 2600);
+    });
+
+    // 2. Build December 2026 Calendar
+    const calGrid = document.getElementById("calendar-grid");
+    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach(function (d) {
+      const h = document.createElement("div");
+      h.className = "cal-head";
+      h.textContent = d;
+      calGrid.appendChild(h);
+    });
+
+    // December 2026 starts on Tuesday (index 2) and has 31 days
+    const firstDay = new Date(2026, 11, 1).getDay();
+    const totalDays = 31;
+
+    for (let i = 0; i < firstDay; i++) {
+      calGrid.appendChild(document.createElement("div"));
+    }
+
+    for (let day = 1; day <= totalDays; day++) {
+      const cell = document.createElement("div");
+      cell.className = "cal-day";
+      if (day === 2) {
+        cell.classList.add("wedding-day");
+        cell.textContent = "♥ " + day;
+      } else if (day === 1) {
+        cell.classList.add("pre-event");
+        cell.textContent = day;
+      } else if (day === 3) {
+        cell.classList.add("pooja-day");
+        cell.textContent = day;
+      } else {
+        cell.textContent = day;
+      }
+      calGrid.appendChild(cell);
+    }
+
+    // 3. Live Countdown Timer to 02 Dec 2026, 12:55 PM IST
+    const targetTime = new Date("2026-12-02T12:55:00+05:30").getTime();
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = Math.max(0, targetTime - now);
+      document.getElementById("cd-days").textContent = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, "0");
+      document.getElementById("cd-hours").textContent = String(Math.floor((diff / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+      document.getElementById("cd-mins").textContent = String(Math.floor((diff / 1000 / 60) % 60)).padStart(2, "0");
+      document.getElementById("cd-secs").textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // 4. Interactive Scratch Card Canvas
+    const canvas = document.getElementById("scratch-canvas");
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#c69738";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#fff8e7";
+    ctx.font = "22px Georgia, serif";
+    ctx.textAlign = "center";
+    ctx.fillText("♥   ♥   ♥", canvas.width / 2, 65);
+    ctx.font = "13px sans-serif";
+    ctx.fillText("Scratch Here", canvas.width / 2, 95);
+
+    let isDrawing = false;
+    function scratch(x, y) {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: clientX - rect.left, y: clientY - rect.top };
+    }
+
+    canvas.addEventListener("mousedown", function () { isDrawing = true; });
+    canvas.addEventListener("mouseup", function () { isDrawing = false; });
+    canvas.addEventListener("mousemove", function (e) {
+      if (isDrawing) {
+        const p = getPos(e);
+        scratch(p.x, p.y);
+      }
+    });
+
+    canvas.addEventListener("touchstart", function (e) {
+      isDrawing = true;
+      const p = getPos(e);
+      scratch(p.x, p.y);
+    });
+    canvas.addEventListener("touchend", function () { isDrawing = false; });
+    canvas.addEventListener("touchmove", function (e) {
+      e.preventDefault();
+      if (isDrawing) {
+        const p = getPos(e);
+        scratch(p.x, p.y);
+      }
+    }, { passive: false });
+
+    document.getElementById("tap-reveal-btn").addEventListener("click", function () {
+      canvas.style.opacity = "0";
+      setTimeout(function () { canvas.style.display = "none"; }, 600);
+    });
+  </script>
+</body>
+</html>
