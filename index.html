@@ -2,749 +2,443 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Sumeet &amp; Priya - Wedding Invitation</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
   <meta name="description" content="Sumeet &amp; Priya joyfully invite you to their wedding on 02 December 2026 at Tara Bhavan Mangal Karyalay, Belagavi." />
   <meta property="og:title" content="Sumeet &amp; Priya - Wedding Invitation" />
   <meta property="og:description" content="02 December 2026 · Belagavi, Karnataka. Tap to open your invitation." />
   <meta property="og:image" content="images/og-preview.jpg" />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#5c141a" />
+  <meta name="theme-color" content="#1d0b22" />
   <link rel="preload" as="image" href="images/cover.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&family=Noto+Serif+Kannada:wght@400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Mukta:wght@400;600;700&family=Yatra+One&family=Tiro+Devanagari+Marathi:ital@0;1&family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Serif+Kannada:wght@400;600;700&family=Baloo+Tamma+2:wght@500;700&display=swap" />
   <style>
+    /* Layout: one centred column of "chapters"; each chapter is a full-bleed band
+       (aubergine night or cream paper) separated by a Paithani border. */
     :root {
-      --primary: #7c1921;
-      --primary-dark: #4f0d13;
-      --gold: #c69738;
-      --gold-light: #f6e7c1;
-      --bg-cream: #fcf7f0;
-      --card-bg: #ffffff;
-      --text-dark: #2c211d;
-      --text-muted: #6b5850;
+      --night: #1d0b22;
+      --paithani: #3b1442;
+      --magenta: #b0175b;
+      --parrot: #2f7d4f;
+      --zari: #d9a93f;
+      --zari-light: #f3dc9b;
+      --kumkum: #b3121f;
+      --haldi: #f2c230;
+      --paper: #fbf3e4;
+      --paper-2: #f4e6cc;
+      --ink: #2a1626;
+      --muted: #6d5566;
+      --line: rgba(217, 169, 63, 0.45);
+
+      --fd: "Cormorant Garamond", Georgia, serif;
+      --fb: "Cormorant Garamond", Georgia, serif;
+      --fu: "Mukta", system-ui, sans-serif;
+      --names: "Cormorant Garamond", Georgia, serif;
+      --body-size: 19px;
+      --track: 0.18em;
+      color-scheme: dark;
     }
+    html:lang(mr) { --fd: "Yatra One", "Tiro Devanagari Marathi", serif; --fb: "Tiro Devanagari Marathi", "Mukta", serif; --names: "Yatra One", serif; --body-size: 18px; --track: 0; }
+    html:lang(hi) { --fd: "Yatra One", "Tiro Devanagari Hindi", serif; --fb: "Tiro Devanagari Hindi", "Mukta", serif; --names: "Yatra One", serif; --body-size: 18px; --track: 0; }
+    html:lang(kn) { --fd: "Baloo Tamma 2", "Noto Serif Kannada", serif; --fb: "Noto Serif Kannada", serif; --fu: "Baloo Tamma 2", "Noto Serif Kannada", sans-serif; --names: "Baloo Tamma 2", serif; --body-size: 17px; --track: 0; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    [hidden] { display: none !important; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Georgia, serif;
-      background-color: #1c0d0f;
-      color: var(--text-dark);
+      background: var(--night);
+      color: var(--ink);
+      font-family: var(--fb);
+      font-size: var(--body-size);
+      line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.locked { overflow: hidden; height: 100vh; }
+    img { max-width: 100%; display: block; }
+    button, input, textarea { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--zari); outline-offset: 3px; }
+
+    /* ---------- shared pieces ---------- */
+    .band { position: relative; padding-block: 64px; padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+    .band.dark { background: var(--night); color: var(--paper); }
+    .band.paper { background: var(--paper); color: var(--ink); }
+    .band.paper::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+      background: radial-gradient(rgba(176, 23, 91, 0.06) 1.2px, transparent 1.6px) 0 0 / 22px 22px;
+    }
+    .wrap { position: relative; max-width: 560px; margin: 0 auto; }
+    .center { text-align: center; }
+
+    .eyebrow {
+      font-family: var(--fu); font-size: 13px; font-weight: 600;
+      letter-spacing: var(--track); text-transform: uppercase; color: var(--magenta);
+    }
+    .dark .eyebrow { color: var(--zari); }
+    .title {
+      font-family: var(--fd); font-weight: 600; font-size: clamp(32px, 8.5vw, 44px);
+      line-height: 1.15; margin-top: 6px; color: var(--paithani); text-wrap: balance;
+    }
+    .dark .title { color: var(--zari-light); }
+    .ornament { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 14px auto 26px; color: var(--zari); }
+    .ornament::before, .ornament::after { content: ""; width: 54px; height: 1px; background: linear-gradient(90deg, transparent, var(--zari)); }
+    .ornament::after { transform: scaleX(-1); }
+    .ornament svg { width: 22px; height: 22px; }
+    .lead { max-width: 34ch; margin: 0 auto; color: var(--muted); text-wrap: pretty; }
+    .dark .lead { color: rgba(251, 243, 228, 0.78); }
+
+    /* Paithani border ("padar") between chapters */
+    .padar {
+      height: 28px; position: relative; z-index: 2;
+      background:
+        linear-gradient(var(--zari), var(--zari)) 0 3px / 100% 2px no-repeat,
+        linear-gradient(var(--zari), var(--zari)) 0 23px / 100% 2px no-repeat,
+        conic-gradient(from 135deg at 50% 0, var(--zari-light) 0 90deg, transparent 0) 0 6px / 16px 8px repeat-x,
+        conic-gradient(from -45deg at 50% 100%, var(--zari) 0 90deg, transparent 0) 8px 14px / 16px 8px repeat-x,
+        linear-gradient(180deg, var(--magenta) 0 50%, var(--parrot) 50% 100%);
     }
 
-    /* ================= 1. FIRST PAGE COVER ================= */
-    #seal-overlay {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 45%, #5c141a 0%, #1d0608 100%);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      text-align: center;
-      padding: 36px 20px 44px;
-      transition: opacity 0.85s ease, visibility 0.85s ease;
-      overflow: hidden;
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--fu); font-weight: 600; font-size: 15px; letter-spacing: .02em;
+      padding: 11px 18px; border-radius: 999px; cursor: pointer; text-decoration: none;
+      border: 1.5px solid var(--zari); background: transparent; color: var(--paithani);
+      transition: transform .15s ease, background .2s ease;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn svg { width: 17px; height: 17px; flex: none; }
+    .btn.solid {
+      background: linear-gradient(135deg, #f0c766 0%, var(--zari) 55%, #b5842a 100%);
+      color: #2b0f12; border-color: #fff0c4; box-shadow: 0 8px 22px rgba(0, 0, 0, .25);
+    }
+    .demo-tag {
+      position: absolute; top: 10px; left: 10px; z-index: 2;
+      font-family: var(--fu); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      background: rgba(29, 11, 34, .78); color: var(--zari-light); padding: 3px 9px; border-radius: 999px;
     }
 
-    #seal-overlay.opened {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+    /* scroll progress — a thread of zari */
+    #progress {
+      position: fixed; top: 0; left: 0; right: 0; height: calc(3px + env(safe-area-inset-top, 0px)); z-index: 9000;
+      background: linear-gradient(90deg, var(--magenta), var(--zari), var(--zari-light));
+      transform-origin: 0 50%; transform: scaleX(0); pointer-events: none;
+      border-top: env(safe-area-inset-top, 0px) solid var(--night);
     }
 
-    /* Grand ceremonial reveal */
-    #seal-overlay.revealing {
-      animation: coverFadeAway 1.45s cubic-bezier(.72,0,.2,1) forwards;
+    /* ================= COVER: THE ANTARPAT ================= */
+    #cover {
+      position: fixed; inset: 0; z-index: 9500; overflow: hidden;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center;
+      padding: calc(22px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) calc(28px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+      background: var(--night); color: var(--paper);
+      transition: opacity 1s ease, visibility 1s ease;
     }
-    #seal-overlay.revealing .cover-bg-art img {
-      animation: coverImageZoom 1.45s cubic-bezier(.2,.75,.25,1) forwards;
-    }
-    #seal-overlay.revealing .cover-top,
-    #seal-overlay.revealing .cover-bottom {
-      animation: coverTextLift .85s ease forwards;
-    }
-    #seal-overlay.revealing .cover-bottom { animation-delay: .05s; }
-    #seal-overlay.revealing::after {
-      content: "";
-      position: absolute;
-      width: 24vmax;
-      height: 24vmax;
-      left: 50%;
-      top: 50%;
-      border: 2px solid rgba(255,231,174,.95);
-      border-radius: 50%;
-      transform: translate(-50%,-50%) scale(.05);
-      box-shadow: 0 0 35px 12px rgba(246,211,126,.65), inset 0 0 35px rgba(255,239,196,.55);
-      animation: goldenBurst 1.15s cubic-bezier(.12,.7,.18,1) forwards;
-      pointer-events: none;
-      z-index: 5;
-    }
-    .reveal-spark {
-      position: fixed;
-      z-index: 10001;
-      left: var(--sx);
-      top: var(--sy);
-      width: var(--ss);
-      height: var(--ss);
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff9d9 0%, #ffd36b 45%, rgba(255,190,65,0) 75%);
-      box-shadow: 0 0 12px 3px rgba(255,207,105,.75);
-      pointer-events: none;
-      animation: sparkFly var(--sd) ease-out forwards;
-    }
-    .invite-wrapper.entering {
-      animation: invitationArrival 1.15s .18s both cubic-bezier(.18,.75,.25,1);
-      transform-origin: 50% 0;
-    }
-    .invite-wrapper.entering section {
-      animation: sectionRise .75s both ease-out;
-    }
-    .invite-wrapper.entering section:nth-of-type(2) { animation-delay: .12s; }
-    .invite-wrapper.entering section:nth-of-type(3) { animation-delay: .24s; }
-    .invite-wrapper.entering section:nth-of-type(4) { animation-delay: .36s; }
+    #cover.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+    .cover-art { position: absolute; inset: 0; }
+    .cover-art img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); filter: saturate(1.05) brightness(.62); transition: transform 2.6s cubic-bezier(.2,.7,.2,1), filter 2s ease; }
+    #cover.open .cover-art img { transform: scale(1); filter: saturate(1.15) brightness(.5); }
+    .cover-art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(29,11,34,.85) 0%, rgba(29,11,34,.15) 40%, rgba(29,11,34,.2) 60%, rgba(29,11,34,.92) 100%); }
+    .cover-top, .cover-stage, .cover-bottom { position: relative; z-index: 2; width: 100%; max-width: 440px; }
 
-    @keyframes coverFadeAway {
-      0% { opacity: 1; visibility: visible; }
-      65% { opacity: 1; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
+    .lang-switch { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .lang-switch button {
+      font-family: var(--fu); font-size: 14px; cursor: pointer; border-radius: 999px; padding: 5px 13px;
+      background: rgba(29, 11, 34, .55); color: var(--zari-light); border: 1px solid rgba(243, 220, 155, .45);
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
     }
-    @keyframes coverImageZoom {
-      to { transform: scale(1.22); filter: brightness(1.35) saturate(1.2) blur(2px); }
-    }
-    @keyframes coverTextLift {
-      to { opacity: 0; transform: translateY(-24px) scale(1.08); filter: blur(5px); }
-    }
-    @keyframes goldenBurst {
-      0% { opacity: 0; transform: translate(-50%,-50%) scale(.05); }
-      25% { opacity: 1; }
-      100% { opacity: 0; transform: translate(-50%,-50%) scale(13); }
-    }
-    @keyframes sparkFly {
-      0% { opacity: 0; transform: translate(0,0) scale(.3); }
-      15% { opacity: 1; }
-      100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0); }
-    }
-    @keyframes invitationArrival {
-      from { opacity: .25; transform: translateY(55px) scale(.94); filter: blur(8px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
-    @keyframes sectionRise {
-      from { opacity: .35; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #seal-overlay.revealing, #seal-overlay.revealing .cover-bg-art img,
-      #seal-overlay.revealing .cover-top, #seal-overlay.revealing .cover-bottom,
-      .invite-wrapper.entering, .invite-wrapper.entering section,
-      #seal-overlay.revealing::after, .reveal-spark { animation-duration: .01ms !important; }
-    }
+    .lang-switch button[aria-pressed="true"] { background: var(--zari); color: #2b0f12; border-color: #fff0c4; font-weight: 700; }
+    .cover-blessing { font-family: var(--fd); color: var(--zari-light); font-size: 17px; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+    .cover-kicker { font-family: var(--fu); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--zari); margin-top: 6px; }
+    html:not(:lang(en)) .cover-kicker { font-size: 15px; letter-spacing: 0; }
 
-    .cover-bg-art {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
+    .cover-stage { flex: 1; display: grid; place-items: center; min-height: 0; perspective: 900px; }
+    .cover-names { grid-area: 1 / 1; opacity: 0; transform: scale(.9); transition: opacity 1.1s .5s ease, transform 1.4s .5s cubic-bezier(.2,.7,.2,1); }
+    #cover.open .cover-names { opacity: 1; transform: scale(1); }
+    .cover-names h1 {
+      font-family: var(--names); font-style: italic; font-weight: 600; line-height: 1; font-size: clamp(54px, 16vw, 86px);
+      background: linear-gradient(180deg, #fff6d8 0%, var(--zari-light) 45%, var(--zari) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,.7));
     }
+    html:not(:lang(en)) .cover-names h1 { font-style: normal; line-height: 1.25; }
+    .cover-names .amp { display: block; font-size: .5em; color: var(--zari); -webkit-text-fill-color: var(--zari); margin: 2px 0; }
+    .cover-names p { font-family: var(--fu); letter-spacing: var(--track); text-transform: uppercase; font-size: 14px; color: var(--zari-light); margin-top: 14px; }
 
-    .cover-bg-art img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
+    .antarpat {
+      grid-area: 1 / 1; position: relative; width: min(74vw, 300px); height: min(48vh, 360px);
+      transform-origin: 50% 0; animation: clothSway 5s ease-in-out infinite;
+      transition: transform 1.25s cubic-bezier(.55,0,.75,.2), opacity 1.25s ease;
     }
-
-    .cover-vignette {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(22, 5, 7, 0.72) 0%,
-        rgba(22, 5, 7, 0.18) 45%,
-        rgba(22, 5, 7, 0.85) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
+    .antarpat .cloth {
+      position: absolute; inset: 14px 0 0; border-radius: 2px 2px 8px 8px;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.08), transparent 18%, transparent 82%, rgba(0,0,0,.1)),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0) 0 22px, rgba(160,120,90,.07) 22px 24px),
+        #fff8ea;
+      border: 10px solid var(--kumkum);
+      box-shadow: inset 0 0 0 3px var(--zari), inset 0 0 0 7px #fff8ea, inset 0 0 0 8px var(--zari), 0 24px 50px rgba(0,0,0,.55);
+      display: grid; place-items: center;
     }
-
-    .cover-top, .cover-bottom {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 440px;
+    .antarpat .cloth::after {
+      content: ""; position: absolute; left: -10px; right: -10px; bottom: -16px; height: 16px;
+      background: repeating-linear-gradient(90deg, var(--zari) 0 3px, transparent 3px 7px);
+      -webkit-mask: linear-gradient(#000, transparent); mask: linear-gradient(#000, transparent);
     }
+    .antarpat .rod { position: absolute; top: 0; left: -14px; right: -14px; height: 16px; border-radius: 8px; background: linear-gradient(180deg, #f6dc8f, #a87a24); box-shadow: 0 4px 10px rgba(0,0,0,.4); }
+    .antarpat .rod::before, .antarpat .rod::after { content: ""; position: absolute; top: -3px; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff2c2, var(--zari) 55%, #8c6118); }
+    .antarpat .rod::before { left: -8px; } .antarpat .rod::after { right: -8px; }
+    .antarpat svg { width: 58%; height: auto; }
+    .antarpat .hint { position: absolute; bottom: 18px; left: 0; right: 0; font-family: var(--fd); color: var(--kumkum); font-size: 18px; }
+    #cover.open .antarpat { transform: translateY(115vh) rotateX(14deg) rotate(-4deg); opacity: .2; animation: none; }
+    @keyframes clothSway { 0%, 100% { transform: rotate(-.6deg) skewX(.4deg); } 50% { transform: rotate(.6deg) skewX(-.4deg); } }
 
-    .cover-blessing {
-      color: var(--gold-light);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 16px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-    }
-
-    .cover-names {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 38px;
-      font-weight: 700;
-      color: #fff6e0;
-      letter-spacing: 1px;
-      text-shadow: 0 3px 14px rgba(0, 0, 0, 0.9);
-      line-height: 1.2;
-    }
-
-    .cover-names span {
-      color: var(--gold);
-      font-style: italic;
-      font-weight: 400;
-      margin: 0 6px;
-    }
-
-    .cover-date-tag {
-      color: var(--gold-light);
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-top: 8px;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
-    }
-
-    .reveal-btn {
-      background: linear-gradient(135deg, #e2b857 0%, #b58428 100%);
-      color: #2b070a;
-      border: 2px solid #fff2cc;
-      padding: 15px 38px;
-      border-radius: 50px;
-      font-family: Georgia, serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.65);
+    .open-btn {
+      font-family: var(--fu); font-weight: 700; font-size: 16px; letter-spacing: .12em; text-transform: uppercase;
+      padding: 15px 34px; border-radius: 999px; cursor: pointer;
+      background: linear-gradient(135deg, #f0c766 0%, var(--zari) 55%, #b5842a 100%); color: #2b0f12; border: 2px solid #fff0c4;
       animation: pulseGlow 2.2s infinite;
     }
+    html:not(:lang(en)) .open-btn { letter-spacing: 0; font-size: 17px; }
+    .sound-hint { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; font-family: var(--fu); font-size: 13px; color: rgba(251,243,228,.75); }
+    .sound-hint svg { width: 16px; height: 16px; }
+    #cover.open .cover-bottom, #cover.open .cover-top { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(240, 199, 102, .6); } 70% { box-shadow: 0 0 0 18px rgba(240, 199, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(240, 199, 102, 0); } }
 
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 0 0 0 rgba(226, 184, 87, 0.65); }
-      70% { box-shadow: 0 0 0 18px rgba(226, 184, 87, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(226, 184, 87, 0); }
+    /* ================= HERO ================= */
+    .hero {
+      position: relative; overflow: hidden; text-align: center; color: var(--paper);
+      padding: calc(96px + env(safe-area-inset-top, 0px)) max(18px, env(safe-area-inset-right, 0px)) 56px max(18px, env(safe-area-inset-left, 0px));
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(176, 23, 91, .45), transparent 60%),
+        radial-gradient(ellipse at 50% 120%, rgba(47, 125, 79, .35), transparent 55%),
+        radial-gradient(rgba(217, 169, 63, .2) 1.4px, transparent 1.9px) 0 0 / 26px 26px,
+        var(--night);
     }
+    #toran { position: absolute; top: 0; left: 0; width: 100%; height: 86px; pointer-events: none; }
+    #toran .swing { transform-box: fill-box; transform-origin: 50% 0; animation: swing 3.6s ease-in-out infinite; }
+    @keyframes swing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+    .mandala { position: absolute; left: 50%; top: 52%; width: 640px; height: 640px; margin: -320px 0 0 -320px; opacity: .16; animation: spin 120s linear infinite; pointer-events: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero .wrap { z-index: 1; }
+    .hero .blessing { font-family: var(--fd); color: var(--zari-light); font-size: 18px; }
+    .hero .eyebrow { margin-top: 18px; color: var(--zari); }
+    .hero-names {
+      font-family: var(--names); font-style: italic; font-weight: 600; line-height: .95;
+      font-size: clamp(64px, 21vw, 128px); margin: 10px 0 4px;
+      background: linear-gradient(100deg, var(--zari) 0%, #fff3cf 20%, var(--zari) 40%, var(--zari-light) 60%, var(--zari) 100%);
+      background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: shimmer 6s ease-in-out infinite;
+    }
+    html:not(:lang(en)) .hero-names { font-style: normal; line-height: 1.2; font-size: clamp(56px, 17vw, 104px); }
+    .hero-names .amp { display: block; font-size: .42em; line-height: 1.3; -webkit-text-fill-color: var(--magenta); color: var(--magenta); font-style: italic; }
+    @keyframes shimmer { 0% { background-position: 100% 0; } 60%, 100% { background-position: 0 0; } }
+    .hero-alt { font-family: "Yatra One", var(--fd); color: var(--zari); font-size: 20px; }
+    .hero .lead { margin-top: 18px; color: rgba(251, 243, 228, .82); }
+    .hero-meta { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin-top: 22px; font-family: var(--fu); font-size: 15px; color: var(--zari-light); }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .hero-meta svg { width: 16px; height: 16px; color: var(--zari); }
 
-    /* ================= MAIN INVITATION CONTAINER ================= */
-    .invite-wrapper {
-      max-width: 520px;
-      margin: 0 auto;
-      background-color: var(--bg-cream);
-      min-height: 100vh;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-      padding-bottom: 44px;
-    }
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 400px; margin: 30px auto 0; }
+    .cd { border: 1px solid var(--line); border-radius: 14px; padding: 12px 4px 8px; background: rgba(59, 20, 66, .55); }
+    .cd b { display: block; font-family: "Cormorant Garamond", serif; font-weight: 600; font-size: clamp(30px, 9vw, 42px); line-height: 1; color: #fff3cf; font-variant-numeric: tabular-nums; }
+    .cd small { font-family: var(--fu); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--zari); }
+    html:not(:lang(en)) .cd small { letter-spacing: 0; font-size: 13px; }
+    .cd-label { font-family: var(--fu); font-size: 13px; letter-spacing: var(--track); text-transform: uppercase; color: rgba(251,243,228,.7); margin-top: 34px; }
+    .married { font-family: var(--fd); font-size: 30px; color: var(--zari-light); margin-top: 24px; }
+    .scroll-hint { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 34px; font-family: var(--fu); font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: rgba(251,243,228,.6); text-decoration: none; }
+    .scroll-hint svg { width: 22px; height: 22px; animation: nudge 1.8s ease-in-out infinite; }
+    @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 
-    section {
-      padding: 36px 22px;
-      text-align: center;
-      border-bottom: 1px dashed rgba(198, 151, 56, 0.45);
+    /* ================= SAVE THE DATE ================= */
+    .scratch-box {
+      position: relative; width: 270px; height: 160px; margin: 0 auto; border-radius: 18px; overflow: hidden;
+      background: #fff; border: 2px solid var(--zari); box-shadow: 0 14px 30px rgba(59, 20, 66, .18);
+      display: grid; place-items: center; user-select: none; -webkit-user-select: none;
     }
+    .scratch-date .d { font-family: "Cormorant Garamond", serif; font-size: 64px; font-weight: 700; color: var(--kumkum); line-height: .9; }
+    .scratch-date .w { font-family: var(--fu); font-weight: 700; font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--zari); }
+    html:not(:lang(en)) .scratch-date .w { letter-spacing: 0; font-size: 15px; }
+    .scratch-date .m { font-family: var(--fd); font-size: 22px; color: var(--paithani); }
+    #scratch { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; transition: opacity .7s ease; }
+    .link-btn { background: none; border: 0; color: var(--magenta); text-decoration: underline; font-family: var(--fu); font-size: 14px; cursor: pointer; margin-top: 12px; }
+    .full-date { font-family: var(--fd); font-size: 22px; color: var(--paithani); margin-top: 14px; }
 
-    section:last-of-type { border-bottom: none; }
+    .calendar { margin-top: 34px; background: #fffaf1; border: 1px solid var(--line); border-radius: 20px; padding: 20px 14px 18px; box-shadow: 0 10px 24px rgba(59, 20, 66, .08); }
+    .calendar h3 { font-family: var(--fd); font-size: 24px; color: var(--paithani); margin-bottom: 12px; font-weight: 600; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; font-family: var(--fu); font-size: 14px; font-variant-numeric: tabular-nums; }
+    .cal-grid .h { font-size: 12px; font-weight: 700; color: var(--muted); padding-bottom: 4px; }
+    .cal-grid .c { aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; }
+    .cal-grid .e1 { background: var(--haldi); color: #3a2a00; font-weight: 700; }
+    .cal-grid .e2 { background: var(--kumkum); color: #fff; font-weight: 700; box-shadow: 0 0 0 3px #fffaf1, 0 0 0 5px var(--zari); animation: beat 1.6s ease-in-out infinite; }
+    .cal-grid .e3 { background: var(--parrot); color: #fff; font-weight: 700; }
+    @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.12); } 30% { transform: scale(1); } 45% { transform: scale(1.08); } }
+    .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 16px; margin-top: 14px; font-family: var(--fu); font-size: 14px; color: var(--muted); }
+    .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: 0; }
 
-    .blessing {
-      font-family: Georgia, serif;
-      color: var(--primary);
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
+    /* ================= EVENTS CAROUSEL ================= */
+    .events { margin: 0 calc(-1 * max(18px, env(safe-area-inset-left, 0px))); }
+    .track {
+      display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      padding: 6px max(18px, env(safe-area-inset-left, 0px)) 18px;
+      scroll-padding: 0 max(18px, env(safe-area-inset-left, 0px));
     }
+    .track::-webkit-scrollbar { display: none; }
+    .ev {
+      --accent: var(--magenta);
+      flex: 0 0 min(84%, 400px); scroll-snap-align: center; min-width: 0;
+      background: var(--paper); color: var(--ink); border-radius: 22px; overflow: hidden;
+      border-top: 6px solid var(--accent); box-shadow: 0 18px 40px rgba(0, 0, 0, .35);
+      display: flex; flex-direction: column;
+    }
+    .ev.haldi { --accent: var(--haldi); } .ev.wed { --accent: var(--kumkum); } .ev.pooja { --accent: var(--parrot); }
+    .ev .art { aspect-ratio: 4 / 3.4; overflow: hidden; background: #faf3e6; }
+    .ev .art img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+    .ev .body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .ev .day { font-family: var(--fu); font-size: 13px; font-weight: 700; letter-spacing: var(--track); text-transform: uppercase; color: var(--accent); filter: brightness(.8); }
+    .ev h3 { font-family: var(--fd); font-weight: 600; font-size: 32px; line-height: 1.1; color: var(--paithani); }
+    .ev .sub { font-style: italic; color: var(--muted); margin-top: -2px; }
+    .ev .facts { display: grid; gap: 6px; margin-top: 8px; font-family: var(--fu); font-size: 15px; }
+    .ev .facts div { display: flex; gap: 8px; align-items: flex-start; }
+    .ev .facts svg { width: 17px; height: 17px; flex: none; margin-top: 3px; color: var(--accent); filter: brightness(.85); }
+    .ev .dress { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; margin-top: 8px; padding: 4px 12px 4px 6px; border-radius: 999px; background: var(--paper-2); font-family: var(--fu); font-size: 13px; }
+    .ev .dress i { width: 18px; height: 18px; border-radius: 50%; background: var(--accent); box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
+    .ev .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 14px; }
+    .ev .actions .btn { flex: 1 1 auto; font-size: 14px; padding: 9px 12px; }
+    .dots { display: flex; justify-content: center; gap: 8px; }
+    .dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; background: rgba(243, 220, 155, .35); cursor: pointer; transition: width .3s ease, background .3s ease; padding: 0; }
+    .dots button[aria-current="true"] { width: 26px; border-radius: 6px; background: var(--zari); }
 
-    .sub-label {
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
+    /* ================= STORY ================= */
+    .story { position: relative; display: grid; gap: 40px; margin-top: 8px; padding-left: 34px; }
+    .story::before { content: ""; position: absolute; left: 10px; top: 6px; bottom: 6px; width: 2px; background: rgba(217, 169, 63, .25); }
+    .story .thread { position: absolute; left: 10px; top: 6px; width: 2px; height: calc(100% - 12px); background: linear-gradient(var(--magenta), var(--zari)); transform-origin: 0 0; transform: scaleY(0); }
+    .chapter { position: relative; min-width: 0; }
+    .chapter::before { content: ""; position: absolute; left: -31px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); border: 3px solid var(--zari); box-shadow: 0 0 0 4px var(--paper); }
+    .chapter .ph { position: relative; aspect-ratio: 4 / 3; border-radius: 16px; overflow: hidden; border: 6px solid #fff; box-shadow: 0 12px 28px rgba(59, 20, 66, .18); transform: rotate(var(--tilt, -1.2deg)); }
+    .chapter:nth-child(odd) .ph { --tilt: 1.2deg; }
+    .chapter .ph img { width: 100%; height: 100%; object-fit: cover; }
+    .chapter .no { font-family: var(--fu); font-size: 13px; font-weight: 700; letter-spacing: var(--track); text-transform: uppercase; color: var(--magenta); margin-top: 16px; }
+    .chapter h3 { font-family: var(--fd); font-weight: 600; font-size: 28px; line-height: 1.2; color: var(--paithani); }
+    .chapter p { color: var(--muted); margin-top: 4px; }
+    .demo-note { display: inline-block; margin-top: 10px; font-family: var(--fu); font-size: 13px; color: var(--muted); background: var(--paper-2); padding: 4px 12px; border-radius: 999px; }
 
-    .couple-hero {
-      font-family: Georgia, "Times New Roman", serif;
-      font-style: italic;
-      font-size: 46px;
-      color: var(--primary);
-      line-height: 1.15;
-      margin: 12px 0;
+    /* ================= GALLERY STACK ================= */
+    .stack { position: relative; width: min(78vw, 300px); height: calc(min(78vw, 300px) * 1.22); margin: 8px auto 20px; touch-action: pan-y; }
+    .polaroid {
+      position: absolute; inset: 0; background: #fffdf7; border-radius: 6px; padding: 12px 12px 54px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .45); cursor: grab; user-select: none; -webkit-user-select: none;
+      transition: transform .5s cubic-bezier(.2,.7,.2,1), opacity .4s ease;
     }
+    .polaroid img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; pointer-events: none; }
+    .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-family: var(--fd); font-size: 22px; color: var(--paithani); }
+    .polaroid.empty .slot { width: 100%; height: 100%; border: 2px dashed rgba(176, 23, 91, .4); border-radius: 4px; display: grid; place-items: center; text-align: center; font-family: var(--fu); color: var(--magenta); padding: 16px; background: repeating-linear-gradient(45deg, #fff7ec 0 12px, #fbefdd 12px 24px); }
+    .stack-ctrl { display: flex; justify-content: center; gap: 12px; }
+    .stack-ctrl .btn { color: var(--zari-light); }
 
-    .couple-hero .amp {
-      display: block;
-      font-size: 28px;
-      color: var(--gold);
-      margin: 4px 0;
-    }
+    /* ================= FAMILY ================= */
+    .family { text-align: center; }
+    .family .blessing { font-family: var(--fd); color: var(--magenta); font-size: 21px; }
+    .family .parents { font-weight: 700; margin-top: 18px; }
+    .family .person { font-family: var(--names); font-size: clamp(40px, 12vw, 56px); font-weight: 600; font-style: italic; color: var(--paithani); line-height: 1.15; margin: 6px 0; }
+    html:not(:lang(en)) .family .person { font-style: normal; }
+    .seal { width: 86px; height: 86px; margin: 18px auto; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #c41d2c, #7a0b14); color: #fff0c4; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 26px; font-weight: 600; box-shadow: 0 0 0 4px var(--paper), 0 0 0 6px var(--zari), 0 10px 22px rgba(122, 11, 20, .35); }
+    .family .with { font-style: italic; color: var(--muted); }
 
-    .serif-body {
-      font-family: Georgia, serif;
-      font-size: 17px;
-      line-height: 1.65;
-      color: var(--text-dark);
-    }
+    /* ================= VENUES ================= */
+    .venue { position: relative; background: #fffaf1; border: 1px solid var(--line); border-radius: 20px; padding: 22px 20px; margin-top: 16px; text-align: left; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; box-shadow: 0 10px 24px rgba(59, 20, 66, .07); }
+    .venue .pin { grid-row: span 4; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--paithani); color: var(--zari-light); }
+    .venue .pin svg { width: 22px; height: 22px; }
+    .venue .tag { font-family: var(--fu); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--magenta); }
+    html:not(:lang(en)) .venue .tag { letter-spacing: 0; font-size: 13px; }
+    .venue h3 { font-family: var(--fd); font-size: 24px; font-weight: 600; color: var(--paithani); line-height: 1.2; }
+    .venue p { color: var(--muted); font-size: .92em; }
+    .venue .btn { justify-self: start; margin-top: 10px; }
 
-    /* ================= 2. SCRATCH CARD ================= */
-    .scratch-container {
-      position: relative;
-      width: 260px;
-      height: 150px;
-      margin: 18px auto 12px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 2px solid var(--gold);
-      background: #fff;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      user-select: none;
-    }
+    /* ================= AKSHATA ================= */
+    .akshata-band { background: radial-gradient(ellipse at 50% 30%, #4a1650 0%, var(--night) 70%); }
+    .couple-frame { position: relative; width: 220px; height: 220px; margin: 6px auto 0; border-radius: 50%; padding: 8px; background: conic-gradient(var(--zari), var(--zari-light), var(--zari), #a87a24, var(--zari)); box-shadow: 0 0 60px rgba(217, 169, 63, .35); }
+    .couple-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 28%; border: 4px solid var(--night); }
+    .kalash-btn { display: block; margin: 18px auto 0; background: none; border: 0; cursor: pointer; width: 112px; transition: transform .15s ease; }
+    .kalash-btn:active { transform: scale(.92) rotate(-6deg); }
+    .kalash-btn svg { width: 100%; height: auto; filter: drop-shadow(0 8px 16px rgba(0,0,0,.5)); }
+    .ak-count { font-family: var(--fd); font-size: 22px; color: var(--zari-light); margin-top: 8px; min-height: 1.6em; }
+    .ak-flash { font-family: var(--fd); font-size: 26px; color: var(--haldi); min-height: 1.4em; transition: opacity .4s ease; }
 
-    .revealed-date .big-day {
-      font-family: Georgia, serif;
-      font-size: 46px;
-      font-weight: 700;
-      color: var(--primary);
-      line-height: 1;
-    }
+    /* ================= RSVP ================= */
+    .rsvp { background: #fffaf1; border: 1px solid var(--line); border-radius: 22px; padding: 22px 18px; box-shadow: 0 14px 30px rgba(59, 20, 66, .1); display: grid; gap: 16px; text-align: left; }
+    .field { display: grid; gap: 6px; }
+    .field > label, .field > .lbl { font-family: var(--fu); font-weight: 600; font-size: 14px; color: var(--paithani); }
+    .rsvp input[type="text"], .rsvp textarea { width: 100%; border: 1.5px solid rgba(59, 20, 66, .2); border-radius: 12px; padding: 11px 14px; background: #fff; font-family: var(--fb); font-size: 17px; color: var(--ink); }
+    .rsvp textarea { min-height: 84px; resize: vertical; }
+    .rsvp input:focus, .rsvp textarea:focus { outline: none; border-color: var(--zari); box-shadow: 0 0 0 3px rgba(217, 169, 63, .3); }
+    .stepper { display: inline-flex; align-items: center; gap: 0; border: 1.5px solid rgba(59, 20, 66, .2); border-radius: 999px; overflow: hidden; background: #fff; justify-self: start; }
+    .stepper button { width: 44px; height: 42px; border: 0; background: transparent; font-size: 22px; cursor: pointer; color: var(--paithani); }
+    .stepper output { min-width: 40px; text-align: center; font-family: var(--fu); font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips label { position: relative; cursor: pointer; }
+    .chips input { position: absolute; opacity: 0; pointer-events: none; }
+    .chips span { display: inline-block; padding: 7px 14px; border-radius: 999px; border: 1.5px solid rgba(59, 20, 66, .2); font-family: var(--fu); font-size: 14px; background: #fff; transition: background .2s ease, border-color .2s ease; }
+    .chips input:checked + span { background: var(--paithani); color: var(--zari-light); border-color: var(--paithani); }
+    .chips input:focus-visible + span { outline: 2px solid var(--zari); outline-offset: 2px; }
+    .rsvp .error { color: var(--kumkum); font-family: var(--fu); font-size: 14px; }
+    .rsvp .btn.solid { width: 100%; padding: 14px; font-size: 16px; }
 
-    .revealed-date .day-name {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--gold);
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    .revealed-date .month-year {
-      font-family: Georgia, serif;
-      font-size: 19px;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-
-    #scratch-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      cursor: crosshair;
-      touch-action: none;
-      transition: opacity 0.6s ease;
-    }
-
-    .tap-reveal-link {
-      background: none;
-      border: none;
-      color: var(--primary);
-      text-decoration: underline;
-      font-size: 13px;
-      cursor: pointer;
-      margin-top: 6px;
-    }
-
-    /* ================= 3. CALENDAR ================= */
-    .calendar-card {
-      background: var(--card-bg);
-      border-radius: 14px;
-      padding: 20px 14px;
-      border: 1px solid rgba(198, 151, 56, 0.4);
-      margin-top: 14px;
-    }
-
-    .cal-title {
-      font-family: Georgia, serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 14px;
-    }
-
-    .cal-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      font-size: 13px;
-    }
-
-    .cal-head {
-      font-weight: 700;
-      color: var(--text-muted);
-      font-size: 11px;
-      padding-bottom: 6px;
-    }
-
-    .cal-day {
-      padding: 8px 0;
-      border-radius: 50%;
-    }
-
-    .cal-day.pre-event {
-      background-color: var(--gold-light);
-      color: var(--text-dark);
-      font-weight: 700;
-    }
-
-    .cal-day.wedding-day {
-      background-color: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      box-shadow: 0 3px 10px rgba(124, 25, 33, 0.4);
-    }
-
-    .cal-day.pooja-day {
-      background-color: #e9d8fd;
-      color: #44337a;
-      font-weight: 700;
-    }
-
-    .cal-legend {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 14px;
-      font-size: 12px;
-      margin-top: 16px;
-      color: var(--text-muted);
-    }
-
-    /* ================= 4. COUNTDOWN ================= */
-    .countdown-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .time-box {
-      background: var(--primary);
-      color: #fff;
-      padding: 14px 6px;
-      border-radius: 10px;
-      border: 1px solid var(--gold);
-    }
-
-    .time-box span {
-      display: block;
-      font-family: Georgia, serif;
-      font-size: 26px;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-
-    .time-box small {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gold-light);
-    }
-
-    /* ================= 5. EVENT CARDS (NO MAPS POPUPS) ================= */
-    .event-card {
-      background: var(--card-bg);
-      border: 1px solid rgba(198, 151, 56, 0.45);
-      border-radius: 14px;
-      padding: 22px 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-    }
-
-    .event-card.highlight {
-      background: linear-gradient(180deg, #fffdf9 0%, #f9efe0 100%);
-      border: 2px solid var(--gold);
-    }
-
-    .event-title {
-      font-family: Georgia, serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 4px 0 10px;
-    }
-
-    .event-meta {
-      font-size: 14px;
-      line-height: 1.65;
-      color: var(--text-dark);
-    }
-
-    .event-art {
-      margin: -22px -18px 16px -18px;
-      border-radius: 13px 13px 0 0;
-      overflow: hidden;
-      border-bottom: 1px solid rgba(198, 151, 56, 0.35);
-      background-color: #faf5ed;
-    }
-
-    .event-art img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* ================= 6. FAMILY & DIRECT VENUE DIRECTIONS ================= */
-    .family-block {
-      margin: 14px 0;
-      line-height: 1.65;
-    }
-
-    .person-name {
-      font-family: Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--primary);
-      margin: 4px 0;
-    }
-
-    .venue-box {
-      background: var(--card-bg);
-      border: 1px solid rgba(198, 151, 56, 0.5);
-      border-radius: 14px;
-      padding: 22px 18px;
-      margin-top: 16px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    }
-
-    .venue-box h4 {
-      font-family: Georgia, serif;
-      font-size: 20px;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-
-    .venue-events-tag {
-      display: inline-block;
-      background: var(--gold-light);
-      color: var(--primary-dark);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-    }
-
-
-    footer {
-      padding: 28px 20px 10px;
-      text-align: center;
-      font-family: Georgia, serif;
-      font-size: 19px;
-      color: var(--primary);
-    }
-  
-    [hidden] { display: none !important; }
-
-    /* ================= LANGUAGES ================= */
-    html:lang(mr) body *, html:lang(hi) body * {
-      font-family: "Noto Serif Devanagari", Georgia, serif !important;
-      letter-spacing: 0 !important;
-    }
-    html:lang(kn) body * {
-      font-family: "Noto Serif Kannada", Georgia, serif !important;
-      letter-spacing: 0 !important;
-    }
-    html:not(:lang(en)) .sub-label { font-size: 14px; }
-    html:not(:lang(en)) .cover-date-tag { font-size: 15px; }
-    html:not(:lang(en)) .revealed-date .day-name { font-size: 14px; }
-    html:not(:lang(en)) .time-box small { font-size: 12px; }
-    html:not(:lang(en)) .cal-head { font-size: 12px; }
-    html:lang(kn) .sub-label, html:lang(kn) .lang-switch button { font-size: 15px; }
-    html:not(:lang(en)) .venue-events-tag { font-size: 12px; }
-    html:not(:lang(en)) .reveal-btn { font-size: 17px; padding: 14px 30px; }
-
-    .lang-switch {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 18px;
-    }
-    .lang-switch button, .lang-menu button {
-      font: inherit;
-      font-size: 14px;
-      cursor: pointer;
-      border-radius: 20px;
-      padding: 6px 13px;
-    }
-    .lang-switch button {
-      background: rgba(28, 8, 10, 0.5);
-      color: var(--gold-light);
-      border: 1px solid rgba(246, 231, 193, 0.45);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-    .lang-switch button[aria-pressed="true"] {
-      background: var(--gold);
-      color: #2b070a;
-      border-color: #fff2cc;
-      font-weight: 700;
-    }
-    .lang-switch button:focus-visible, .fab:focus-visible, .lang-menu button:focus-visible,
-    .reveal-btn:focus-visible, .tap-reveal-link:focus-visible {
-      outline: 2px solid #fff2cc;
-      outline-offset: 3px;
-    }
+    /* ================= FOOTER ================= */
+    .foot { text-align: center; padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+    .diyas { display: flex; justify-content: center; gap: 46px; margin-bottom: 18px; }
+    .diya { position: relative; width: 50px; height: 44px; }
+    .diya .lamp { position: absolute; bottom: 0; left: 0; width: 50px; height: 20px; border-radius: 4px 4px 50px 50px / 4px 4px 20px 20px; background: linear-gradient(180deg, #e0a03a, #a8541c); box-shadow: inset 0 3px 0 rgba(255,230,170,.6); }
+    .diya .flame { position: absolute; left: 50%; bottom: 17px; width: 13px; height: 24px; margin-left: -6.5px; border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%; background: radial-gradient(ellipse at 50% 72%, #fffbe6 0%, #ffd55c 38%, #ff9a1f 72%, rgba(255,120,20,0) 100%); box-shadow: 0 0 22px 8px rgba(255, 190, 80, .45); transform-origin: 50% 100%; animation: flicker 1.6s ease-in-out infinite alternate; }
+    .diya:nth-child(2) .flame { animation-delay: -.7s; }
+    @keyframes flicker { 0% { transform: scale(1, 1) rotate(-2deg); } 40% { transform: scale(.92, 1.08) rotate(2deg); } 70% { transform: scale(1.04, .94) rotate(-1deg); } 100% { transform: scale(.97, 1.05) rotate(1.5deg); } }
+    .foot .see { font-family: var(--fd); font-size: 34px; color: var(--zari-light); line-height: 1.2; }
+    .foot .love { font-family: var(--fu); color: rgba(251,243,228,.8); margin-top: 6px; }
+    .foot .closing { font-style: italic; color: rgba(251,243,228,.7); max-width: 32ch; margin: 18px auto 0; }
+    .foot .btn { color: var(--zari-light); margin-top: 24px; }
+    .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); opacity: 0; z-index: 9800; background: var(--paper); color: var(--paithani); font-family: var(--fu); font-weight: 600; padding: 10px 18px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,.4); transition: opacity .3s ease, transform .3s ease; pointer-events: none; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
     /* ================= FLOATING CONTROLS ================= */
-    .floating-controls {
-      position: fixed;
-      right: calc(14px + env(safe-area-inset-right, 0px));
-      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
-      z-index: 10002;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-    }
-    .fab {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 35% 30%, #9a2630 0%, var(--primary-dark) 100%);
-      border: 2px solid var(--gold);
-      color: var(--gold-light);
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-      font-family: Georgia, serif;
-      font-size: 17px;
-      font-weight: 700;
-    }
-    .fab svg { width: 22px; height: 22px; display: block; }
+    .floating { position: fixed; z-index: 9400; right: calc(14px + env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .fab { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: radial-gradient(circle at 35% 30%, #5a1f63, var(--night)); border: 2px solid var(--zari); color: var(--zari-light); box-shadow: 0 8px 20px rgba(0,0,0,.4); font-family: "Yatra One", serif; font-size: 20px; }
+    .fab svg { width: 22px; height: 22px; }
     .eq { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
-    .eq i {
-      width: 3px;
-      background: var(--gold-light);
-      border-radius: 2px;
-      animation: eqBounce 1.1s ease-in-out infinite;
-    }
-    .eq i:nth-child(2) { animation-delay: -0.35s; }
-    .eq i:nth-child(3) { animation-delay: -0.7s; }
-    @keyframes eqBounce { 0%, 100% { height: 5px; } 50% { height: 17px; } }
+    .eq i { width: 3px; background: var(--zari-light); border-radius: 2px; animation: eq 1s ease-in-out infinite; }
+    .eq i:nth-child(2) { animation-delay: -.33s; } .eq i:nth-child(3) { animation-delay: -.66s; }
+    @keyframes eq { 0%, 100% { height: 5px; } 50% { height: 17px; } }
+    .lang-menu { background: var(--paper); border: 1px solid var(--zari); border-radius: 16px; padding: 6px; display: grid; gap: 2px; box-shadow: 0 14px 34px rgba(0,0,0,.4); }
+    .lang-menu button { background: transparent; border: 0; border-radius: 10px; padding: 8px 18px; text-align: left; cursor: pointer; color: var(--paithani); font-size: 16px; }
+    .lang-menu button[aria-pressed="true"] { background: var(--paper-2); font-weight: 700; }
 
-    .lang-menu {
-      background: #fffaf2;
-      border: 1px solid var(--gold);
-      border-radius: 16px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    .lang-menu button {
-      background: transparent;
-      border: 1px solid transparent;
-      color: var(--primary-dark);
-      text-align: left;
-      font-size: 15px;
-      padding: 8px 16px;
-    }
-    .lang-menu button[aria-pressed="true"] {
-      background: var(--gold-light);
-      border-color: rgba(198, 151, 56, 0.6);
-      font-weight: 700;
-    }
+    #fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9600; }
 
-    /* ================= GENTLE EFFECTS ================= */
-    #petals {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 60;
-    }
+    /* reveal on scroll — visible at rest; only off-screen items wait */
+    .rv { transition: opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1); }
+    .rv.wait { opacity: 0; transform: translateY(30px); }
 
-    .couple-hero {
-      background: linear-gradient(100deg, var(--primary) 0%, var(--primary) 42%, #d9ab4f 50%, var(--primary) 58%, var(--primary) 100%);
-      background-size: 260% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: nameShimmer 7s ease-in-out infinite;
+    @media (min-width: 760px) {
+      .band { padding-block: 88px; }
+      .ev { flex-basis: 380px; }
+      .track { justify-content: safe center; }
     }
-    @keyframes nameShimmer {
-      0% { background-position: 100% 0; }
-      55%, 100% { background-position: 0 0; }
-    }
-    .cover-names span { animation: softGlow 3.5s ease-in-out infinite; }
-    @keyframes softGlow {
-      0%, 100% { text-shadow: 0 3px 14px rgba(0, 0, 0, 0.9); }
-      50% { text-shadow: 0 0 18px rgba(246, 211, 126, 0.85), 0 3px 14px rgba(0, 0, 0, 0.9); }
-    }
-
-    .rv { transition: opacity 0.9s ease, transform 0.9s cubic-bezier(.2, .7, .25, 1); }
-    .rv-pending { opacity: 0; transform: translateY(26px); }
-
-    .diya-row { display: flex; justify-content: center; gap: 46px; margin-bottom: 14px; }
-    .diya { position: relative; width: 46px; height: 40px; }
-    .diya .lamp {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 46px;
-      height: 18px;
-      border-radius: 4px 4px 46px 46px / 4px 4px 18px 18px;
-      background: linear-gradient(180deg, #e0a03a 0%, #a8541c 100%);
-      box-shadow: inset 0 3px 0 rgba(255, 230, 170, 0.6);
-    }
-    .diya .flame {
-      position: absolute;
-      left: 50%;
-      bottom: 15px;
-      width: 12px;
-      height: 22px;
-      margin-left: -6px;
-      border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
-      background: radial-gradient(ellipse at 50% 72%, #fffbe6 0%, #ffd55c 38%, #ff9a1f 72%, rgba(255, 120, 20, 0) 100%);
-      box-shadow: 0 0 16px 6px rgba(255, 190, 80, 0.45);
-      transform-origin: 50% 100%;
-      animation: flicker 1.6s ease-in-out infinite alternate;
-    }
-    .diya:nth-child(2) .flame { animation-delay: -0.7s; }
-    @keyframes flicker {
-      0% { transform: scale(1, 1) rotate(-2deg); opacity: 0.95; }
-      40% { transform: scale(0.92, 1.08) rotate(2deg); opacity: 1; }
-      70% { transform: scale(1.04, 0.94) rotate(-1deg); opacity: 0.9; }
-      100% { transform: scale(0.97, 1.05) rotate(1.5deg); opacity: 1; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .couple-hero, .cover-names span, .diya .flame, .eq i, .reveal-btn { animation: none !important; }
-      .rv { transition: none !important; }
-      #petals { display: none; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      html { scroll-behavior: auto; }
+      #fx { display: none; }
     }
   </style>
 </head>
-<body>
+<body class="locked">
 
-  <!-- ================= 1. COVER SLIDE WITH SHANKAR & PARVATI HANDS ================= -->
-  <div id="seal-overlay">
-    <div class="cover-bg-art" aria-hidden="true">
-      <img src="images/cover.jpg" alt="Decorative wedding cover artwork" />
-    </div>
+  <div id="progress" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
 
-    <div class="cover-vignette"></div>
+  <!-- ================= COVER: THE ANTARPAT ================= -->
+  <div id="cover" role="dialog" aria-modal="true" aria-labelledby="cover-title">
+    <div class="cover-art" aria-hidden="true"><img src="images/cover.jpg" alt="" /></div>
 
     <div class="cover-top">
       <div class="lang-switch" role="group" aria-label="Language">
@@ -753,973 +447,1219 @@
         <button type="button" data-set-lang="kn">ಕನ್ನಡ</button>
         <button type="button" data-set-lang="hi">हिंदी</button>
       </div>
-      <p class="cover-blessing" data-i18n="blessing">&#2405; Shree Ganeshaya Namah &#2405;</p>
-      <h1 class="cover-names" data-i18n="coverNames">Sumeet <span>&amp;</span> Priya</h1>
-      <p class="cover-date-tag" data-i18n="date">02 December 2026</p>
+      <p class="cover-blessing" data-i18n="blessing"></p>
+      <p class="cover-kicker" data-i18n="kicker"></p>
+    </div>
+
+    <div class="cover-stage">
+      <div class="cover-names">
+        <h1 id="cover-title" data-i18n="names"></h1>
+        <p data-i18n="date"></p>
+      </div>
+      <div class="antarpat" aria-hidden="true">
+        <div class="cloth">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#b3121f" stroke-width="7" stroke-linecap="square">
+            <path d="M50 14 V86 M14 50 H86 M50 14 H80 M86 50 V80 M50 86 H20 M14 50 V20" />
+            <g fill="#b3121f" stroke="none"><circle cx="32" cy="32" r="5"/><circle cx="68" cy="32" r="5"/><circle cx="32" cy="68" r="5"/><circle cx="68" cy="68" r="5"/></g>
+          </svg>
+          <span class="hint" data-i18n="kicker"></span>
+        </div>
+        <div class="rod"></div>
+      </div>
     </div>
 
     <div class="cover-bottom">
-      <button class="reveal-btn" id="open-seal-btn" data-i18n="reveal">Tap to Reveal</button>
+      <button class="open-btn" id="open-btn" type="button" data-i18n="open"></button>
+      <p class="sound-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+        <span data-i18n="soundHint"></span>
+      </p>
     </div>
   </div>
 
-  <canvas id="petals" aria-hidden="true"></canvas>
+  <main id="main">
 
-  <div class="floating-controls" id="floating-controls" hidden>
+    <!-- ================= HERO ================= -->
+    <header class="hero" id="top">
+      <svg id="toran" viewBox="0 0 400 86" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <svg class="mandala" id="mandala" viewBox="-100 -100 200 200" aria-hidden="true"></svg>
+      <div class="wrap">
+        <p class="blessing" data-i18n="blessing"></p>
+        <p class="eyebrow" data-i18n="weddingOf"></p>
+        <h2 class="hero-names" data-i18n="heroNames"></h2>
+        <p class="hero-alt" data-i18n="heroAlt"></p>
+        <p class="lead" data-i18n="heroBody"></p>
+        <div class="hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg><span data-i18n="date"></span></span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span data-i18n="place"></span></span>
+        </div>
+        <p class="cd-label" data-i18n="countdown"></p>
+        <div class="countdown" id="countdown">
+          <div class="cd"><b id="cd-d">00</b><small data-i18n="days"></small></div>
+          <div class="cd"><b id="cd-h">00</b><small data-i18n="hours"></small></div>
+          <div class="cd"><b id="cd-m">00</b><small data-i18n="mins"></small></div>
+          <div class="cd"><b id="cd-s">00</b><small data-i18n="secs"></small></div>
+        </div>
+        <p class="married" id="married" data-i18n="married" hidden></p>
+        <a class="scroll-hint" href="#date">
+          <span data-i18n="scroll"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+      </div>
+    </header>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= SAVE THE DATE ================= -->
+    <section class="band paper" id="date">
+      <div class="wrap center">
+        <p class="eyebrow" data-i18n="saveDate"></p>
+        <h2 class="title" data-i18n="scratchLabel"></h2>
+        <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+        <div class="scratch-box rv">
+          <div class="scratch-date">
+            <div class="d">02</div>
+            <div class="w" data-i18n="wednesday"></div>
+            <div class="m" data-i18n="monthYear"></div>
+          </div>
+          <canvas id="scratch" width="270" height="160" aria-label="Scratch card"></canvas>
+        </div>
+        <p class="full-date" id="full-date" data-i18n="fullDate" hidden></p>
+        <button class="link-btn" id="scratch-skip" type="button" data-i18n="tapReveal"></button>
+
+        <div class="calendar rv">
+          <h3 data-i18n="monthYear"></h3>
+          <div class="cal-grid" id="cal"></div>
+          <div class="legend">
+            <span><i style="background:var(--haldi)"></i><span data-i18n="leg1"></span></span>
+            <span><i style="background:var(--kumkum)"></i><span data-i18n="leg2"></span></span>
+            <span><i style="background:var(--parrot)"></i><span data-i18n="leg3"></span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= EVENTS ================= -->
+    <section class="band dark" id="events">
+      <div class="wrap center">
+        <p class="eyebrow" data-i18n="schedule"></p>
+        <h2 class="title" data-i18n="eventsTitle"></h2>
+        <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+        <p class="lead" data-i18n="swipeHint" style="margin-bottom:22px"></p>
+      </div>
+      <div class="events">
+        <div class="track" id="track"></div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= STORY ================= -->
+    <section class="band paper" id="story">
+      <div class="wrap">
+        <div class="center">
+          <p class="eyebrow" data-i18n="storyEyebrow"></p>
+          <h2 class="title" data-i18n="storyTitle"></h2>
+          <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8.2 3.4 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 6 3.7 4.5 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
+        </div>
+        <div class="story" id="story-list">
+          <div class="thread" id="thread"></div>
+        </div>
+        <p class="center" style="margin-top:28px"><span class="demo-note" data-i18n="demoNote"></span></p>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= GALLERY ================= -->
+    <section class="band dark" id="gallery">
+      <div class="wrap center">
+        <p class="eyebrow" data-i18n="galleryEyebrow"></p>
+        <h2 class="title" data-i18n="galleryTitle"></h2>
+        <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+        <div class="stack" id="stack"></div>
+        <div class="stack-ctrl">
+          <button class="btn" type="button" id="stack-next">
+            <span data-i18n="nextPhoto"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= FAMILY ================= -->
+    <section class="band paper" id="family">
+      <div class="wrap family">
+        <p class="blessing" data-i18n="ganeshBlessing"></p>
+        <p class="parents" data-i18n="groomParents"></p>
+        <p data-i18n="inviteLine"></p>
+        <p class="person rv" data-i18n="groom"></p>
+        <div class="seal rv" aria-hidden="true">S&amp;P</div>
+        <p class="with" data-i18n="with"></p>
+        <p class="person rv" data-i18n="bride"></p>
+        <p data-i18n="brideParents"></p>
+        <p class="lead" style="margin-top:20px" data-i18n="presence"></p>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= VENUES ================= -->
+    <section class="band paper" id="venues" style="background:var(--paper-2)">
+      <div class="wrap">
+        <div class="center">
+          <p class="eyebrow" data-i18n="venues"></p>
+          <h2 class="title" data-i18n="venuesTitle"></h2>
+          <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+          <p class="lead" data-i18n="venuesIntro"></p>
+        </div>
+        <div class="venue rv">
+          <div class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg></div>
+          <span class="tag" data-i18n="tag1"></span>
+          <h3 data-i18n="v1"></h3>
+          <p data-i18n="v1addr"></p>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Tara+Bhavan+Mangal+Karyalay+Ambewadi+Belagavi+Karnataka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg><span data-i18n="directions"></span>
+          </a>
+        </div>
+        <div class="venue rv">
+          <div class="pin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 2v3M8 9l4-4 4 4M6 21V11h12v10M3 21h18M10 21v-5h4v5"/></svg></div>
+          <span class="tag" data-i18n="pooja"></span>
+          <h3 data-i18n="v2"></h3>
+          <p data-i18n="v2addr"></p>
+          <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ravalnath+Temple+Bazar+Peth+Khanapur+Karnataka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg><span data-i18n="directions"></span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= AKSHATA ================= -->
+    <section class="band dark akshata-band" id="akshata">
+      <div class="wrap center">
+        <p class="eyebrow" data-i18n="akEyebrow"></p>
+        <h2 class="title" data-i18n="akTitle"></h2>
+        <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+        <p class="lead" data-i18n="akText" style="margin-bottom:24px"></p>
+        <div class="couple-frame" id="couple-frame"><img src="images/marriage.jpg" alt="Illustration of Sumeet and Priya at the wedding mandap" loading="lazy" /></div>
+        <button class="kalash-btn" id="kalash" type="button" data-i18n-aria="akBtn">
+          <svg viewBox="0 0 120 130" aria-hidden="true">
+            <g fill="#2f7d4f"><path d="M60 30 C40 10 22 14 14 20 C30 22 44 28 56 36z"/><path d="M60 30 C80 10 98 14 106 20 C90 22 76 28 64 36z"/><path d="M60 32 C52 12 56 2 60 0 C64 2 68 12 60 32z"/></g>
+            <circle cx="60" cy="30" r="13" fill="#c98b2b"/><path d="M50 26 q10 -8 20 0" stroke="#7a4a12" stroke-width="2" fill="none"/>
+            <path d="M38 44 h44 l-4 8 h-36z" fill="#d9a93f"/>
+            <path d="M42 52 C14 64 16 118 60 122 C104 118 106 64 78 52z" fill="url(#kg)"/>
+            <path d="M28 86 h64" stroke="#b3121f" stroke-width="5"/><path d="M30 96 h60" stroke="#fff0c4" stroke-width="2" stroke-dasharray="4 4"/>
+            <g stroke="#b3121f" stroke-width="3.5" fill="none" stroke-linecap="square"><path d="M60 62 v18 M51 71 h18 M60 62 h7 M69 71 v7 M60 80 h-7 M51 71 v-7"/></g>
+            <defs><linearGradient id="kg" x1="0" x2="1"><stop offset="0" stop-color="#8c5a12"/><stop offset=".45" stop-color="#f0c766"/><stop offset="1" stop-color="#9a6416"/></linearGradient></defs>
+          </svg>
+        </button>
+        <p class="ak-count" id="ak-count" aria-live="polite"></p>
+        <p class="ak-flash" id="ak-flash" aria-hidden="true"></p>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= RSVP ================= -->
+    <section class="band paper" id="rsvp">
+      <div class="wrap">
+        <div class="center">
+          <p class="eyebrow" data-i18n="rsvpEyebrow"></p>
+          <h2 class="title" data-i18n="rsvpTitle"></h2>
+          <div class="ornament" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.5 3 4 4.5 4 7.5S14 15 12 15s-4-2.5-4-5.5S10.5 5 12 2zm0 14c3 0 6 1.5 8 4H4c2-2.5 5-4 8-4z"/></svg></div>
+          <p class="lead" data-i18n="rsvpText" style="margin-bottom:24px"></p>
+        </div>
+        <form class="rsvp rv" id="rsvp-form" novalidate>
+          <div class="field">
+            <label for="r-name" data-i18n="rName"></label>
+            <input type="text" id="r-name" autocomplete="name" />
+          </div>
+          <div class="field">
+            <span class="lbl" id="r-guests-label" data-i18n="rGuests"></span>
+            <div class="stepper" role="group" aria-labelledby="r-guests-label">
+              <button type="button" id="r-minus" aria-label="−">−</button>
+              <output id="r-guests" aria-live="polite">2</output>
+              <button type="button" id="r-plus" aria-label="+">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="lbl" data-i18n="rEvents"></span>
+            <div class="chips" id="r-events">
+              <label><input type="checkbox" value="sangeet" id="r-ev-sangeet" checked /><span data-i18n="sangeet"></span></label>
+              <label><input type="checkbox" value="haldi" id="r-ev-haldi" checked /><span data-i18n="haldi"></span></label>
+              <label><input type="checkbox" value="marriage" id="r-ev-marriage" checked /><span data-i18n="marriage"></span></label>
+              <label><input type="checkbox" value="pooja" id="r-ev-pooja" checked /><span data-i18n="pooja"></span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="r-wish" data-i18n="rWish"></label>
+            <textarea id="r-wish"></textarea>
+          </div>
+          <p class="error" id="r-error" role="alert" hidden data-i18n="rNeedName"></p>
+          <a class="btn solid" id="r-send" href="https://wa.me/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+            <span data-i18n="rSend"></span>
+          </a>
+        </form>
+      </div>
+    </section>
+    <div class="padar" aria-hidden="true"></div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="band dark foot">
+      <div class="wrap">
+        <div class="diyas" aria-hidden="true">
+          <div class="diya"><span class="flame"></span><span class="lamp"></span></div>
+          <div class="diya"><span class="flame"></span><span class="lamp"></span></div>
+        </div>
+        <p class="see" data-i18n="seeYou"></p>
+        <p class="love" data-i18n="withLove"></p>
+        <p class="closing" data-i18n="closing"></p>
+        <button class="btn" type="button" id="copy-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>
+          <span data-i18n="copyLink"></span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <div class="floating" id="floating" hidden>
     <div class="lang-menu" id="lang-menu" role="group" aria-label="Language" hidden>
       <button type="button" data-set-lang="en">English</button>
       <button type="button" data-set-lang="mr">मराठी</button>
       <button type="button" data-set-lang="kn">ಕನ್ನಡ</button>
       <button type="button" data-set-lang="hi">हिंदी</button>
     </div>
-    <button type="button" class="fab" id="lang-fab" aria-expanded="false" aria-controls="lang-menu" aria-label="Change language">अ</button>
-    <button type="button" class="fab" id="music-btn" aria-pressed="true" aria-label="Mute music">
+    <button type="button" class="fab" id="lang-fab" aria-expanded="false" aria-controls="lang-menu">अ</button>
+    <button type="button" class="fab" id="music-btn">
       <span class="eq" id="music-on" aria-hidden="true"><i></i><i></i><i></i></span>
-      <svg id="music-off" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/>
-      </svg>
+      <svg id="music-off" hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/></svg>
     </button>
   </div>
-
-  <!-- ================= MAIN INVITATION ================= -->
-  <main class="invite-wrapper">
-
-    <!-- HERO SECTION -->
-    <section>
-      <p class="blessing" data-i18n="blessing">&#2405; Shree Ganeshaya Namah &#2405;</p>
-      <p class="sub-label" data-i18n="weddingOf">The Wedding Of</p>
-      <h2 class="couple-hero" data-i18n="heroNames">
-        Sumeet
-        <span class="amp">&amp;</span>
-        Priya
-      </h2>
-      <p class="serif-body" data-i18n="heroBody">Together with their families, they joyfully invite you to celebrate their wedding</p>
-    </section>
-
-    <!-- SCRATCH CARD SECTION -->
-    <section>
-      <p class="sub-label" data-i18n="scratchLabel">Scratch the hearts to reveal the date</p>
-      <div class="scratch-container rv">
-        <div class="revealed-date">
-          <div class="big-day">02</div>
-          <div class="day-name" data-i18n="wednesday">Wednesday</div>
-          <div class="month-year" data-i18n="monthYear">December 2026</div>
-        </div>
-        <canvas id="scratch-canvas" width="260" height="150"></canvas>
-      </div>
-      <p class="serif-body" style="font-weight:700;" data-i18n="fullDate">Wednesday, 02 December 2026</p>
-      <button class="tap-reveal-link" id="tap-reveal-btn" data-i18n="tapReveal">or tap here to reveal</button>
-    </section>
-
-    <!-- INTERACTIVE CALENDAR -->
-    <section>
-      <p class="sub-label" data-i18n="saveDate">Save the Date</p>
-      <div class="calendar-card rv">
-        <div class="cal-title" data-i18n="monthYear">December 2026</div>
-        <div class="cal-grid" id="calendar-grid"></div>
-        <div class="cal-legend">
-          <span><strong style="color:var(--gold);">&#9679;</strong> <span data-i18n="leg1">01 Sangeet &amp; Haldi</span></span>
-          <span><strong style="color:var(--primary);">&#9829;</strong> <span data-i18n="leg2">02 Marriage</span></span>
-          <span><strong style="color:#553c9a;">&#9679;</strong> <span data-i18n="leg3">03 Satyanarayana Pooja</span></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- LIVE COUNTDOWN -->
-    <section>
-      <p class="sub-label" data-i18n="countdown">Counting down to the muhurtham</p>
-      <div class="countdown-grid rv">
-        <div class="time-box"><span id="cd-days">00</span><small data-i18n="days">Days</small></div>
-        <div class="time-box"><span id="cd-hours">00</span><small data-i18n="hours">Hours</small></div>
-        <div class="time-box"><span id="cd-mins">00</span><small data-i18n="mins">Mins</small></div>
-        <div class="time-box"><span id="cd-secs">00</span><small data-i18n="secs">Secs</small></div>
-      </div>
-    </section>
-
-    <!-- CELEBRATION SCHEDULE -->
-    <section>
-      <p class="sub-label" style="margin-bottom:18px;" data-i18n="schedule">Celebration Schedule</p>
-
-      <div class="event-card rv">
-        <div class="event-art">
-          <img src="images/sangeet.jpg" alt="Sangeet Ceremony Illustration" loading="lazy" />
-        </div>
-        <p class="sub-label" data-i18n="sangeetSub">Musical Evening</p>
-        <h3 class="event-title" data-i18n="sangeet">Sangeet</h3>
-        <div class="event-meta">
-          <p><strong data-i18n="tue">Tuesday, 01 December 2026</strong></p>
-          <p data-i18n="t7">7:00 PM onwards</p>
-          <p style="color:var(--text-muted); margin-top:4px;" data-i18n="venue1Full">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
-        </div>
-      </div>
-
-      <div class="event-card rv">
-        <div class="event-art">
-          <img src="images/haldi.jpg" alt="Haldi Ceremony Illustration" loading="lazy" />
-        </div>
-        <p class="sub-label" data-i18n="haldiSub">Come, Play With Colour</p>
-        <h3 class="event-title" data-i18n="haldi">Haldi</h3>
-        <div class="event-meta">
-          <p><strong data-i18n="tue">Tuesday, 01 December 2026</strong></p>
-          <p data-i18n="t8">8:00 PM onwards</p>
-          <p style="color:var(--text-muted); margin-top:4px;" data-i18n="venue1Full">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
-        </div>
-      </div>
-
-      <div class="event-card highlight rv">
-        <div class="event-art">
-          <img src="images/marriage.jpg" alt="Marriage Ceremony Illustration" loading="lazy" />
-        </div>
-        <p class="sub-label" data-i18n="marriageSub">Auspicious Muhurtham</p>
-        <h3 class="event-title" data-i18n="marriage">Marriage</h3>
-        <div class="event-meta">
-          <p><strong data-i18n="fullDate">Wednesday, 02 December 2026</strong></p>
-          <p data-i18n="t1255">12:55 PM onwards</p>
-          <p style="color:var(--text-muted); margin-top:4px;" data-i18n="venue1Full">Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka</p>
-        </div>
-      </div>
-
-      <div class="event-card rv">
-        <div class="event-art">
-          <img src="images/pooja.jpg" alt="Satyanarayana Pooja Illustration" loading="lazy" />
-        </div>
-        <p class="sub-label" data-i18n="poojaSub">Sacred Ritual</p>
-        <h3 class="event-title" data-i18n="pooja">Satyanarayana Pooja</h3>
-        <div class="event-meta">
-          <p><strong data-i18n="thu">Thursday, 03 December 2026</strong></p>
-          <p data-i18n="t1">1:00 PM onwards</p>
-          <p style="color:var(--text-muted); margin-top:4px;" data-i18n="venue2Full">Ravalnath Temple, Bazar Peth, Khanapur</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FORMAL FAMILY INVITATION -->
-    <section>
-      <p class="blessing" data-i18n="ganeshBlessing">With the blessings of Lord Ganesha</p>
-      <div class="family-block rv">
-        <p class="serif-body"><strong data-i18n="groomParents">Mrs. Suvarna Gurav &amp; Mr. Suhas Gurav</strong></p>
-        <p class="serif-body" data-i18n="inviteLine">cordially invite you to grace the wedding ceremony of their beloved son</p>
-        <div class="person-name" data-i18n="groom">Sumeet</div>
-      </div>
-
-      <p class="serif-body" style="font-style:italic; margin: 8px 0;" data-i18n="with">with</p>
-
-      <div class="family-block rv">
-        <div class="person-name" data-i18n="bride">Priya</div>
-        <p class="serif-body" data-i18n="brideParents">D/o <strong>Mrs. Neha Patil &amp; Mr. Ramachandra Patil</strong></p>
-      </div>
-
-      <p class="serif-body" style="margin-top:18px;" data-i18n="presence">
-        Your esteemed presence and blessings will make this celebration truly memorable.
-      </p>
-    </section>
-
-    <!-- LAST SLIDE: CELEBRATION VENUES -->
-    <section>
-      <p class="sub-label" data-i18n="venues">Our Celebration Venues</p>
-      <p class="serif-body" style="margin: 8px auto 18px; max-width: 420px;" data-i18n="venuesIntro">
-        We would be delighted to celebrate these special moments with you. Please find the venue details below.
-      </p>
-
-      <div class="venue-box rv">
-        <span class="venue-events-tag" data-i18n="tag1">Sangeet &bull; Haldi &bull; Marriage</span>
-        <h4 data-i18n="v1">Tara Bhavan Mangal Karyalay</h4>
-        <p class="serif-body" style="font-size:15px;" data-i18n="v1addr">Ambewadi, Belagavi, Karnataka</p>
-      </div>
-
-      <div class="venue-box rv">
-        <span class="venue-events-tag" data-i18n="pooja">Satyanarayana Pooja</span>
-        <h4 data-i18n="v2">Ravalnath Temple</h4>
-        <p class="serif-body" style="font-size:15px;" data-i18n="v2addr">Bazar Peth, Khanapur, Karnataka</p>
-      </div>
-
-      <p class="serif-body" style="margin-top:18px; font-style:italic;" data-i18n="closing">
-        Your presence and blessings are the most precious part of our celebration.
-      </p>
-    </section>
-
-    <footer>
-      <div class="diya-row" aria-hidden="true">
-        <div class="diya"><span class="flame"></span><span class="lamp"></span></div>
-        <div class="diya"><span class="flame"></span><span class="lamp"></span></div>
-      </div>
-      <p data-i18n="seeYou">See you there!</p>
-      <p style="font-weight:700; margin-top:4px;" data-i18n="withLove">With love, the Gurav &amp; Patil families</p>
-    </footer>
-
-  </main>
+  <div class="toast" id="toast" role="status"></div>
 
   <script>
-    /* =====================================================================
-       TRANSLATIONS — English, Marathi, Kannada, Hindi
-       ===================================================================== */
-    const I18N = {
-      en: {
-        title: "Sumeet & Priya - Wedding Invitation",
-        blessing: "&#2405; Shree Ganeshaya Namah &#2405;",
-        coverNames: "Sumeet <span>&amp;</span> Priya",
-        date: "02 December 2026",
-        reveal: "Tap to Reveal",
-        revealing: "Revealing Your Invitation…",
-        weddingOf: "The Wedding Of",
-        heroNames: "Sumeet <span class=\"amp\">&amp;</span> Priya",
-        heroBody: "Together with their families, they joyfully invite you to celebrate their wedding",
-        scratchLabel: "Scratch the hearts to reveal the date",
-        scratchHere: "Scratch Here",
-        wednesday: "Wednesday",
-        monthYear: "December 2026",
-        fullDate: "Wednesday, 02 December 2026",
-        tapReveal: "or tap here to reveal",
-        saveDate: "Save the Date",
-        weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-        leg1: "01 Sangeet &amp; Haldi",
-        leg2: "02 Marriage",
-        leg3: "03 Satyanarayana Pooja",
-        countdown: "Counting down to the muhurtham",
-        days: "Days", hours: "Hours", mins: "Mins", secs: "Secs",
-        schedule: "Celebration Schedule",
-        sangeetSub: "Musical Evening", sangeet: "Sangeet",
-        haldiSub: "Come, Play With Colour", haldi: "Haldi",
-        marriageSub: "Auspicious Muhurtham", marriage: "Marriage",
-        poojaSub: "Sacred Ritual", pooja: "Satyanarayana Pooja",
-        tue: "Tuesday, 01 December 2026",
-        thu: "Thursday, 03 December 2026",
-        t7: "7:00 PM onwards", t8: "8:00 PM onwards", t1255: "12:55 PM onwards", t1: "1:00 PM onwards",
-        venue1Full: "Tara Bhavan Mangal Karyalay, Ambewadi, Belagavi, Karnataka",
-        venue2Full: "Ravalnath Temple, Bazar Peth, Khanapur",
-        ganeshBlessing: "With the blessings of Lord Ganesha",
-        groomParents: "Mrs. Suvarna Gurav &amp; Mr. Suhas Gurav",
-        inviteLine: "cordially invite you to grace the wedding ceremony of their beloved son",
-        groom: "Sumeet",
-        with: "with",
-        bride: "Priya",
-        brideParents: "D/o <strong>Mrs. Neha Patil &amp; Mr. Ramachandra Patil</strong>",
-        presence: "Your esteemed presence and blessings will make this celebration truly memorable.",
-        venues: "Our Celebration Venues",
-        venuesIntro: "We would be delighted to celebrate these special moments with you. Please find the venue details below.",
-        tag1: "Sangeet &bull; Haldi &bull; Marriage",
-        v1: "Tara Bhavan Mangal Karyalay", v1addr: "Ambewadi, Belagavi, Karnataka",
-        v2: "Ravalnath Temple", v2addr: "Bazar Peth, Khanapur, Karnataka",
-        closing: "Your presence and blessings are the most precious part of our celebration.",
-        seeYou: "See you there!",
-        withLove: "With love, the Gurav &amp; Patil families",
-        muteMusic: "Mute music", playMusic: "Play music", changeLang: "Change language"
-      },
+  /* =======================================================================
+     WORDS — English, Marathi, Kannada, Hindi
+     ======================================================================= */
+  const I18N = {
+    en: {
+      title: "Sumeet & Priya - Wedding Invitation",
+      blessing: "&#2405; Shree Ganeshaya Namah &#2405;",
+      kicker: "Shubh Mangal Saavdhan",
+      names: "Sumeet <span class=\"amp\">&amp;</span> Priya",
+      heroNames: "Sumeet <span class=\"amp\">&amp;</span> Priya",
+      heroAlt: "सुमीत ♥ प्रिया",
+      date: "02 December 2026",
+      place: "Belagavi, Karnataka",
+      open: "Open the Invitation",
+      soundHint: "Best with sound on",
+      weddingOf: "The Wedding Of",
+      heroBody: "Together with their families, they joyfully invite you to celebrate their wedding",
+      countdown: "Counting down to the muhurtham",
+      days: "Days", hours: "Hours", mins: "Mins", secs: "Secs",
+      married: "Shubh Vivah! They're married.",
+      scroll: "Scroll",
+      saveDate: "Save the Date",
+      scratchLabel: "Scratch the card to reveal the day",
+      scratchHere: "Scratch Here",
+      wednesday: "Wednesday",
+      monthYear: "December 2026",
+      fullDate: "Wednesday, 02 December 2026",
+      tapReveal: "or tap here to reveal",
+      weekdays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      leg1: "01 Sangeet &amp; Haldi", leg2: "02 Marriage", leg3: "03 Satyanarayana Pooja",
+      schedule: "Celebration Schedule",
+      eventsTitle: "Three Days of Celebration",
+      swipeHint: "Swipe to see each ceremony",
+      sangeet: "Sangeet", sangeetSub: "A musical evening",
+      haldi: "Haldi", haldiSub: "Come, play with colour",
+      marriage: "Marriage", marriageSub: "The auspicious muhurtham",
+      pooja: "Satyanarayana Pooja", poojaSub: "A sacred thanksgiving",
+      tue: "Tuesday, 01 December", wed: "Wednesday, 02 December", thu: "Thursday, 03 December",
+      day1: "Day 1", day2: "Day 2", day3: "Day 3",
+      t7: "7:00 PM onwards", t8: "8:00 PM onwards", t1255: "Muhurtham at 12:55 PM", t1: "1:00 PM onwards",
+      v1: "Tara Bhavan Mangal Karyalay", v1addr: "Ambewadi, Belagavi, Karnataka",
+      v2: "Ravalnath Temple", v2addr: "Bazar Peth, Khanapur, Karnataka",
+      dSangeet: "Wear: festive & bright", dHaldi: "Wear: yellow", dWedding: "Wear: Paithani, Nauvari, Kurta", dPooja: "Wear: traditional",
+      addCal: "Add to calendar", directions: "Directions",
+      storyEyebrow: "How it all began",
+      storyTitle: "Our Story",
+      chapter: "Chapter",
+      s1t: "The First Meeting", s1: "A cup of tea, a plate of kanda-pohe, and a conversation that didn't want to end.",
+      s2t: "The Families Said Yes", s2: "Two families, one big smile. Pedhe were shared the very same evening.",
+      s3t: "Sakharpuda", s3: "Rings exchanged, sweets shared, and the muhurtham was fixed for 02 December 2026.",
+      s4t: "Forever Begins", s4: "Now we'd love you beside us as we take our seven steps together.",
+      demo: "Demo photo",
+      demoNote: "Sample photos and story, to be replaced with the couple's own",
+      galleryEyebrow: "Moments",
+      galleryTitle: "Glimpses of Joy",
+      nextPhoto: "Next photo",
+      preShoot: "Pre-wedding shoot",
+      morePhotos: "More photos coming soon",
+      hastMilap: "Hast Milap",
+      ganeshBlessing: "With the blessings of Lord Ganesha",
+      groomParents: "Mrs. Suvarna Gurav &amp; Mr. Suhas Gurav",
+      inviteLine: "cordially invite you to grace the wedding ceremony of their beloved son",
+      groom: "Sumeet", with: "with", bride: "Priya",
+      brideParents: "D/o <strong>Mrs. Neha Patil &amp; Mr. Ramachandra Patil</strong>",
+      presence: "Your esteemed presence and blessings will make this celebration truly memorable.",
+      venues: "Venues",
+      venuesTitle: "Where to Find Us",
+      venuesIntro: "We would be delighted to celebrate these special moments with you.",
+      tag1: "Sangeet &bull; Haldi &bull; Marriage",
+      akEyebrow: "Akshata",
+      akTitle: "Shower Your Blessings",
+      akText: "Can't wait for the day? Tap the kalash to shower akshata on the couple.",
+      akBtn: "Shower akshata",
+      akCount: "You have showered {n} blessings",
+      akWow: ["Shubh Mangal Saavdhan!", "Sada Saubhagyavati Bhava!", "May they be happy forever!"],
+      rsvpEyebrow: "RSVP",
+      rsvpTitle: "Will You Join Us?",
+      rsvpText: "Let the family know you're coming. Your reply opens in WhatsApp, ready to send.",
+      rName: "Your name", rGuests: "Number of guests", rEvents: "Attending",
+      rWish: "A wish for the couple (optional)", rSend: "Send RSVP on WhatsApp",
+      rNeedName: "Please enter your name first.",
+      rmHead: "RSVP: Sumeet & Priya's wedding", rmName: "Name", rmGuests: "Guests", rmEvents: "Attending", rmWish: "Wishes",
+      seeYou: "See you there!",
+      withLove: "With love, the Gurav &amp; Patil families",
+      closing: "Your presence and blessings are the most precious part of our celebration.",
+      copyLink: "Copy invitation link", copied: "Link copied", copyFail: "Copy the link from your browser's address bar",
+      muteMusic: "Mute music", playMusic: "Play music", changeLang: "Change language"
+    },
 
-      mr: {
-        title: "सुमीत व प्रिया - शुभविवाह निमंत्रण",
-        blessing: "&#2405; श्री गणेशाय नमः &#2405;",
-        coverNames: "सुमीत <span>&amp;</span> प्रिया",
-        date: "02 डिसेंबर 2026",
-        reveal: "उघडण्यासाठी स्पर्श करा",
-        revealing: "आपली निमंत्रणपत्रिका उघडत आहे…",
-        weddingOf: "शुभविवाह",
-        heroNames: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
-        heroBody: "आपल्या कुटुंबीयांसह, ते आपणास त्यांच्या विवाहसोहळ्यास सहर्ष आमंत्रित करीत आहेत",
-        scratchLabel: "तारीख पाहण्यासाठी हृदये खरवडा",
-        scratchHere: "येथे खरवडा",
-        wednesday: "बुधवार",
-        monthYear: "डिसेंबर 2026",
-        fullDate: "बुधवार, 02 डिसेंबर 2026",
-        tapReveal: "किंवा पाहण्यासाठी येथे स्पर्श करा",
-        saveDate: "तारीख लक्षात ठेवा",
-        weekdays: ["रवि", "सोम", "मंगळ", "बुध", "गुरु", "शुक्र", "शनि"],
-        leg1: "01 संगीत व हळद",
-        leg2: "02 विवाह",
-        leg3: "03 सत्यनारायण पूजा",
-        countdown: "शुभ मुहूर्तापर्यंतची उलटी गणती",
-        days: "दिवस", hours: "तास", mins: "मिनिटे", secs: "सेकंद",
-        schedule: "कार्यक्रमांची रूपरेषा",
-        sangeetSub: "संगीतमय संध्याकाळ", sangeet: "संगीत",
-        haldiSub: "या, रंगात रंगूया", haldi: "हळद",
-        marriageSub: "शुभ मुहूर्त", marriage: "विवाह",
-        poojaSub: "पवित्र विधी", pooja: "सत्यनारायण पूजा",
-        tue: "मंगळवार, 01 डिसेंबर 2026",
-        thu: "गुरुवार, 03 डिसेंबर 2026",
-        t7: "सायं. 7:00 पासून", t8: "रात्री 8:00 पासून", t1255: "दुपारी 12:55 वाजता", t1: "दुपारी 1:00 पासून",
-        venue1Full: "तारा भवन मंगल कार्यालय, आंबेवाडी, बेळगाव, कर्नाटक",
-        venue2Full: "रवळनाथ मंदिर, बाजार पेठ, खानापूर",
-        ganeshBlessing: "श्री गणरायाच्या आशीर्वादाने",
-        groomParents: "सौ. सुवर्णा गुरव व श्री. सुहास गुरव",
-        inviteLine: "आपल्या लाडक्या चिरंजीवांच्या शुभविवाहास आपण उपस्थित राहावे, ही नम्र विनंती",
-        groom: "चि. सुमीत",
-        with: "आणि",
-        bride: "चि. सौ. कां. प्रिया",
-        brideParents: "<strong>सौ. नेहा व श्री. रामचंद्र पाटील</strong> यांची कन्या",
-        presence: "आपली उपस्थिती आणि आशीर्वाद हा सोहळा अविस्मरणीय करतील.",
-        venues: "कार्यक्रमांची स्थळे",
-        venuesIntro: "हे खास क्षण आपल्यासोबत साजरे करताना आम्हाला आनंद होईल. स्थळांची माहिती खाली दिली आहे.",
-        tag1: "संगीत &bull; हळद &bull; विवाह",
-        v1: "तारा भवन मंगल कार्यालय", v1addr: "आंबेवाडी, बेळगाव, कर्नाटक",
-        v2: "रवळनाथ मंदिर", v2addr: "बाजार पेठ, खानापूर, कर्नाटक",
-        closing: "आपली उपस्थिती व आशीर्वाद हेच आमच्या आनंदाचे सर्वांत मौल्यवान धन आहे.",
-        seeYou: "आपली वाट पाहत आहोत!",
-        withLove: "स्नेहांकित, गुरव व पाटील परिवार",
-        muteMusic: "संगीत बंद करा", playMusic: "संगीत सुरू करा", changeLang: "भाषा बदला"
-      },
+    mr: {
+      title: "सुमीत व प्रिया - शुभविवाह निमंत्रण",
+      blessing: "&#2405; श्री गणेशाय नमः &#2405;",
+      kicker: "शुभमंगल सावधान",
+      names: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
+      heroNames: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
+      heroAlt: "Sumeet ♥ Priya",
+      date: "02 डिसेंबर 2026",
+      place: "बेळगाव, कर्नाटक",
+      open: "निमंत्रण उघडा",
+      soundHint: "आवाज सुरू ठेवा",
+      weddingOf: "शुभविवाह",
+      heroBody: "आपल्या कुटुंबीयांसह, ते आपणास त्यांच्या विवाहसोहळ्यास सहर्ष आमंत्रित करीत आहेत",
+      countdown: "शुभ मुहूर्तापर्यंतची उलटी गणती",
+      days: "दिवस", hours: "तास", mins: "मिनिटे", secs: "सेकंद",
+      married: "शुभविवाह संपन्न!",
+      scroll: "खाली सरका",
+      saveDate: "तारीख लक्षात ठेवा",
+      scratchLabel: "दिवस पाहण्यासाठी कार्ड खरवडा",
+      scratchHere: "येथे खरवडा",
+      wednesday: "बुधवार",
+      monthYear: "डिसेंबर 2026",
+      fullDate: "बुधवार, 02 डिसेंबर 2026",
+      tapReveal: "किंवा पाहण्यासाठी येथे स्पर्श करा",
+      weekdays: ["रवि", "सोम", "मंगळ", "बुध", "गुरु", "शुक्र", "शनि"],
+      leg1: "01 संगीत व हळद", leg2: "02 विवाह", leg3: "03 सत्यनारायण पूजा",
+      schedule: "कार्यक्रमांची रूपरेषा",
+      eventsTitle: "तीन दिवसांचा सोहळा",
+      swipeHint: "प्रत्येक विधी पाहण्यासाठी सरकवा",
+      sangeet: "संगीत", sangeetSub: "संगीतमय संध्याकाळ",
+      haldi: "हळद", haldiSub: "या, रंगात रंगूया",
+      marriage: "विवाह", marriageSub: "शुभ मुहूर्त",
+      pooja: "सत्यनारायण पूजा", poojaSub: "पवित्र विधी",
+      tue: "मंगळवार, 01 डिसेंबर", wed: "बुधवार, 02 डिसेंबर", thu: "गुरुवार, 03 डिसेंबर",
+      day1: "पहिला दिवस", day2: "दुसरा दिवस", day3: "तिसरा दिवस",
+      t7: "सायं. 7:00 पासून", t8: "रात्री 8:00 पासून", t1255: "मुहूर्त दुपारी 12:55", t1: "दुपारी 1:00 पासून",
+      v1: "तारा भवन मंगल कार्यालय", v1addr: "आंबेवाडी, बेळगाव, कर्नाटक",
+      v2: "रवळनाथ मंदिर", v2addr: "बाजार पेठ, खानापूर, कर्नाटक",
+      dSangeet: "पेहराव: रंगीबेरंगी, उत्सवी", dHaldi: "पेहराव: पिवळा रंग", dWedding: "पेहराव: पैठणी, नऊवारी, कुर्ता", dPooja: "पेहराव: पारंपरिक",
+      addCal: "कॅलेंडरमध्ये जोडा", directions: "मार्ग पहा",
+      storyEyebrow: "सुरुवात कशी झाली",
+      storyTitle: "आमची कहाणी",
+      chapter: "प्रकरण",
+      s1t: "पहिली भेट", s1: "एक कप चहा, कांदेपोहे आणि कधीही न संपणाऱ्या गप्पा.",
+      s2t: "घरच्यांचा होकार", s2: "दोन कुटुंबे, एकच आनंद. त्याच संध्याकाळी पेढे वाटले गेले.",
+      s3t: "साखरपुडा", s3: "अंगठ्यांची देवाणघेवाण, तोंड गोड आणि मुहूर्त ठरला: 02 डिसेंबर 2026.",
+      s4t: "सात जन्मांची साथ", s4: "आता आमच्या सप्तपदीच्या क्षणी आपण सोबत असावे, अशी इच्छा आहे.",
+      demo: "नमुना फोटो",
+      demoNote: "नमुना फोटो व मजकूर, वधू-वरांच्या स्वतःच्या फोटोंनी बदलले जातील",
+      galleryEyebrow: "क्षणचित्रे",
+      galleryTitle: "आनंदाचे क्षण",
+      nextPhoto: "पुढचा फोटो",
+      preShoot: "प्री-वेडिंग शूट",
+      morePhotos: "आणखी फोटो लवकरच",
+      hastMilap: "हस्तमिलाप",
+      ganeshBlessing: "श्री गणरायाच्या आशीर्वादाने",
+      groomParents: "सौ. सुवर्णा गुरव व श्री. सुहास गुरव",
+      inviteLine: "आपल्या लाडक्या चिरंजीवांच्या शुभविवाहास आपण उपस्थित राहावे, ही नम्र विनंती",
+      groom: "चि. सुमीत", with: "आणि", bride: "चि. सौ. कां. प्रिया",
+      brideParents: "<strong>सौ. नेहा व श्री. रामचंद्र पाटील</strong> यांची कन्या",
+      presence: "आपली उपस्थिती आणि आशीर्वाद हा सोहळा अविस्मरणीय करतील.",
+      venues: "स्थळे",
+      venuesTitle: "कार्यक्रमांची ठिकाणे",
+      venuesIntro: "हे खास क्षण आपल्यासोबत साजरे करताना आम्हाला आनंद होईल.",
+      tag1: "संगीत &bull; हळद &bull; विवाह",
+      akEyebrow: "अक्षता",
+      akTitle: "अक्षता टाका, आशीर्वाद द्या",
+      akText: "दिवसाची वाट पाहवत नाही? कलशावर टॅप करून वधू-वरांवर अक्षता टाका.",
+      akBtn: "अक्षता टाका",
+      akCount: "आपण {n} वेळा अक्षता टाकल्या",
+      akWow: ["शुभमंगल सावधान!", "सदा सौभाग्यवती भव!", "लक्ष्मी-नारायणाचा जोडा!"],
+      rsvpEyebrow: "उपस्थिती",
+      rsvpTitle: "आपण येणार ना?",
+      rsvpText: "आपण येत असल्याचे कुटुंबाला कळवा. आपला निरोप WhatsApp मध्ये तयार होईल.",
+      rName: "आपले नाव", rGuests: "पाहुण्यांची संख्या", rEvents: "या कार्यक्रमांना येणार",
+      rWish: "वधू-वरांसाठी शुभेच्छा (ऐच्छिक)", rSend: "WhatsApp वर कळवा",
+      rNeedName: "कृपया आधी आपले नाव लिहा.",
+      rmHead: "सुमीत व प्रिया यांच्या विवाहासाठी उपस्थिती", rmName: "नाव", rmGuests: "पाहुणे", rmEvents: "कार्यक्रम", rmWish: "शुभेच्छा",
+      seeYou: "आपली वाट पाहत आहोत!",
+      withLove: "स्नेहांकित, गुरव व पाटील परिवार",
+      closing: "आपली उपस्थिती व आशीर्वाद हेच आमच्या आनंदाचे सर्वांत मौल्यवान धन आहे.",
+      copyLink: "निमंत्रणाची लिंक कॉपी करा", copied: "लिंक कॉपी झाली", copyFail: "ब्राउझरच्या पत्त्यावरून लिंक कॉपी करा",
+      muteMusic: "संगीत बंद करा", playMusic: "संगीत सुरू करा", changeLang: "भाषा बदला"
+    },
 
-      kn: {
-        title: "ಸುಮೀತ್ ಮತ್ತು ಪ್ರಿಯಾ - ವಿವಾಹ ಆಮಂತ್ರಣ",
-        blessing: "&#2405; ಶ್ರೀ ಗಣೇಶಾಯ ನಮಃ &#2405;",
-        coverNames: "ಸುಮೀತ್ <span>&amp;</span> ಪ್ರಿಯಾ",
-        date: "02 ಡಿಸೆಂಬರ್ 2026",
-        reveal: "ತೆರೆಯಲು ಸ್ಪರ್ಶಿಸಿ",
-        revealing: "ನಿಮ್ಮ ಆಮಂತ್ರಣ ತೆರೆಯುತ್ತಿದೆ…",
-        weddingOf: "ಶುಭ ವಿವಾಹ",
-        heroNames: "ಸುಮೀತ್ <span class=\"amp\">&amp;</span> ಪ್ರಿಯಾ",
-        heroBody: "ತಮ್ಮ ಕುಟುಂಬಗಳೊಂದಿಗೆ, ಅವರು ತಮ್ಮ ವಿವಾಹ ಸಮಾರಂಭಕ್ಕೆ ನಿಮ್ಮನ್ನು ಸಂತೋಷದಿಂದ ಆಹ್ವಾನಿಸುತ್ತಾರೆ",
-        scratchLabel: "ದಿನಾಂಕ ನೋಡಲು ಹೃದಯಗಳನ್ನು ಉಜ್ಜಿ",
-        scratchHere: "ಇಲ್ಲಿ ಉಜ್ಜಿ",
-        wednesday: "ಬುಧವಾರ",
-        monthYear: "ಡಿಸೆಂಬರ್ 2026",
-        fullDate: "ಬುಧವಾರ, 02 ಡಿಸೆಂಬರ್ 2026",
-        tapReveal: "ಅಥವಾ ನೋಡಲು ಇಲ್ಲಿ ಸ್ಪರ್ಶಿಸಿ",
-        saveDate: "ದಿನಾಂಕವನ್ನು ನೆನಪಿಡಿ",
-        weekdays: ["ಭಾನು", "ಸೋಮ", "ಮಂಗಳ", "ಬುಧ", "ಗುರು", "ಶುಕ್ರ", "ಶನಿ"],
-        leg1: "01 ಸಂಗೀತ್ ಮತ್ತು ಅರಿಶಿನ ಶಾಸ್ತ್ರ",
-        leg2: "02 ವಿವಾಹ",
-        leg3: "03 ಸತ್ಯನಾರಾಯಣ ಪೂಜೆ",
-        countdown: "ಶುಭ ಮುಹೂರ್ತಕ್ಕೆ ಕ್ಷಣಗಣನೆ",
-        days: "ದಿನ", hours: "ಗಂಟೆ", mins: "ನಿಮಿಷ", secs: "ಸೆಕೆಂಡ್",
-        schedule: "ಕಾರ್ಯಕ್ರಮಗಳ ವಿವರ",
-        sangeetSub: "ಸಂಗೀತ ಸಂಜೆ", sangeet: "ಸಂಗೀತ್",
-        haldiSub: "ಬನ್ನಿ, ಬಣ್ಣಗಳಲ್ಲಿ ಮಿಂದೇಳೋಣ", haldi: "ಅರಿಶಿನ ಶಾಸ್ತ್ರ",
-        marriageSub: "ಶುಭ ಮುಹೂರ್ತ", marriage: "ವಿವಾಹ",
-        poojaSub: "ಪವಿತ್ರ ವಿಧಿ", pooja: "ಸತ್ಯನಾರಾಯಣ ಪೂಜೆ",
-        tue: "ಮಂಗಳವಾರ, 01 ಡಿಸೆಂಬರ್ 2026",
-        thu: "ಗುರುವಾರ, 03 ಡಿಸೆಂಬರ್ 2026",
-        t7: "ಸಂಜೆ 7:00 ರಿಂದ", t8: "ರಾತ್ರಿ 8:00 ರಿಂದ", t1255: "ಮಧ್ಯಾಹ್ನ 12:55 ಕ್ಕೆ", t1: "ಮಧ್ಯಾಹ್ನ 1:00 ರಿಂದ",
-        venue1Full: "ತಾರಾ ಭವನ ಮಂಗಲ ಕಾರ್ಯಾಲಯ, ಅಂಬೇವಾಡಿ, ಬೆಳಗಾವಿ, ಕರ್ನಾಟಕ",
-        venue2Full: "ರವಳನಾಥ ದೇವಸ್ಥಾನ, ಬಜಾರ್ ಪೇಟೆ, ಖಾನಾಪುರ",
-        ganeshBlessing: "ಶ್ರೀ ಗಣೇಶನ ಆಶೀರ್ವಾದದೊಂದಿಗೆ",
-        groomParents: "ಶ್ರೀಮತಿ ಸುವರ್ಣಾ ಗುರವ್ ಮತ್ತು ಶ್ರೀ ಸುಹಾಸ್ ಗುರವ್",
-        inviteLine: "ತಮ್ಮ ಪ್ರೀತಿಯ ಪುತ್ರನ ವಿವಾಹ ಸಮಾರಂಭಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆದರದಿಂದ ಆಹ್ವಾನಿಸುತ್ತಾರೆ",
-        groom: "ಚಿ. ಸುಮೀತ್",
-        with: "ಮತ್ತು",
-        bride: "ಚಿ. ಸೌ. ಪ್ರಿಯಾ",
-        brideParents: "<strong>ಶ್ರೀಮತಿ ನೇಹಾ ಪಾಟೀಲ್ ಮತ್ತು ಶ್ರೀ ರಾಮಚಂದ್ರ ಪಾಟೀಲ್</strong> ಅವರ ಪುತ್ರಿ",
-        presence: "ನಿಮ್ಮ ಉಪಸ್ಥಿತಿ ಮತ್ತು ಆಶೀರ್ವಾದ ಈ ಸಮಾರಂಭವನ್ನು ಸ್ಮರಣೀಯಗೊಳಿಸುತ್ತದೆ.",
-        venues: "ಕಾರ್ಯಕ್ರಮ ಸ್ಥಳಗಳು",
-        venuesIntro: "ಈ ವಿಶೇಷ ಕ್ಷಣಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಚರಿಸಲು ನಮಗೆ ಸಂತೋಷವಾಗುತ್ತದೆ. ಸ್ಥಳಗಳ ವಿವರ ಕೆಳಗಿದೆ.",
-        tag1: "ಸಂಗೀತ್ &bull; ಅರಿಶಿನ &bull; ವಿವಾಹ",
-        v1: "ತಾರಾ ಭವನ ಮಂಗಲ ಕಾರ್ಯಾಲಯ", v1addr: "ಅಂಬೇವಾಡಿ, ಬೆಳಗಾವಿ, ಕರ್ನಾಟಕ",
-        v2: "ರವಳನಾಥ ದೇವಸ್ಥಾನ", v2addr: "ಬಜಾರ್ ಪೇಟೆ, ಖಾನಾಪುರ, ಕರ್ನಾಟಕ",
-        closing: "ನಿಮ್ಮ ಉಪಸ್ಥಿತಿ ಮತ್ತು ಆಶೀರ್ವಾದವೇ ನಮ್ಮ ಸಂಭ್ರಮದ ಅತ್ಯಮೂಲ್ಯ ಭಾಗ.",
-        seeYou: "ನಿಮ್ಮ ಬರುವಿಕೆಗಾಗಿ ಕಾಯುತ್ತಿದ್ದೇವೆ!",
-        withLove: "ಪ್ರೀತಿಯಿಂದ, ಗುರವ್ ಮತ್ತು ಪಾಟೀಲ್ ಕುಟುಂಬ",
-        muteMusic: "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ", playMusic: "ಸಂಗೀತ ಪ್ರಾರಂಭಿಸಿ", changeLang: "ಭಾಷೆ ಬದಲಿಸಿ"
-      },
+    kn: {
+      title: "ಸುಮೀತ್ ಮತ್ತು ಪ್ರಿಯಾ - ವಿವಾಹ ಆಮಂತ್ರಣ",
+      blessing: "&#2405; ಶ್ರೀ ಗಣೇಶಾಯ ನಮಃ &#2405;",
+      kicker: "ಶುಭಮಂಗಳ ಸಾವಧಾನ",
+      names: "ಸುಮೀತ್ <span class=\"amp\">&amp;</span> ಪ್ರಿಯಾ",
+      heroNames: "ಸುಮೀತ್ <span class=\"amp\">&amp;</span> ಪ್ರಿಯಾ",
+      heroAlt: "Sumeet ♥ Priya",
+      date: "02 ಡಿಸೆಂಬರ್ 2026",
+      place: "ಬೆಳಗಾವಿ, ಕರ್ನಾಟಕ",
+      open: "ಆಮಂತ್ರಣ ತೆರೆಯಿರಿ",
+      soundHint: "ಧ್ವನಿ ಆನ್ ಮಾಡಿ",
+      weddingOf: "ಶುಭ ವಿವಾಹ",
+      heroBody: "ತಮ್ಮ ಕುಟುಂಬಗಳೊಂದಿಗೆ, ಅವರು ತಮ್ಮ ವಿವಾಹ ಸಮಾರಂಭಕ್ಕೆ ನಿಮ್ಮನ್ನು ಸಂತೋಷದಿಂದ ಆಹ್ವಾನಿಸುತ್ತಾರೆ",
+      countdown: "ಶುಭ ಮುಹೂರ್ತಕ್ಕೆ ಕ್ಷಣಗಣನೆ",
+      days: "ದಿನ", hours: "ಗಂಟೆ", mins: "ನಿಮಿಷ", secs: "ಸೆಕೆಂಡ್",
+      married: "ವಿವಾಹ ಸಂಪನ್ನ!",
+      scroll: "ಕೆಳಗೆ ಸರಿಸಿ",
+      saveDate: "ದಿನಾಂಕವನ್ನು ನೆನಪಿಡಿ",
+      scratchLabel: "ದಿನ ನೋಡಲು ಕಾರ್ಡ್ ಉಜ್ಜಿ",
+      scratchHere: "ಇಲ್ಲಿ ಉಜ್ಜಿ",
+      wednesday: "ಬುಧವಾರ",
+      monthYear: "ಡಿಸೆಂಬರ್ 2026",
+      fullDate: "ಬುಧವಾರ, 02 ಡಿಸೆಂಬರ್ 2026",
+      tapReveal: "ಅಥವಾ ನೋಡಲು ಇಲ್ಲಿ ಸ್ಪರ್ಶಿಸಿ",
+      weekdays: ["ಭಾನು", "ಸೋಮ", "ಮಂಗಳ", "ಬುಧ", "ಗುರು", "ಶುಕ್ರ", "ಶನಿ"],
+      leg1: "01 ಸಂಗೀತ್ ಮತ್ತು ಅರಿಶಿನ", leg2: "02 ವಿವಾಹ", leg3: "03 ಸತ್ಯನಾರಾಯಣ ಪೂಜೆ",
+      schedule: "ಕಾರ್ಯಕ್ರಮಗಳ ವಿವರ",
+      eventsTitle: "ಮೂರು ದಿನಗಳ ಸಂಭ್ರಮ",
+      swipeHint: "ಪ್ರತಿ ಕಾರ್ಯಕ್ರಮ ನೋಡಲು ಸರಿಸಿ",
+      sangeet: "ಸಂಗೀತ್", sangeetSub: "ಸಂಗೀತ ಸಂಜೆ",
+      haldi: "ಅರಿಶಿನ ಶಾಸ್ತ್ರ", haldiSub: "ಬನ್ನಿ, ಬಣ್ಣಗಳಲ್ಲಿ ಮಿಂದೇಳೋಣ",
+      marriage: "ವಿವಾಹ", marriageSub: "ಶುಭ ಮುಹೂರ್ತ",
+      pooja: "ಸತ್ಯನಾರಾಯಣ ಪೂಜೆ", poojaSub: "ಪವಿತ್ರ ವಿಧಿ",
+      tue: "ಮಂಗಳವಾರ, 01 ಡಿಸೆಂಬರ್", wed: "ಬುಧವಾರ, 02 ಡಿಸೆಂಬರ್", thu: "ಗುರುವಾರ, 03 ಡಿಸೆಂಬರ್",
+      day1: "ಮೊದಲ ದಿನ", day2: "ಎರಡನೇ ದಿನ", day3: "ಮೂರನೇ ದಿನ",
+      t7: "ಸಂಜೆ 7:00 ರಿಂದ", t8: "ರಾತ್ರಿ 8:00 ರಿಂದ", t1255: "ಮುಹೂರ್ತ ಮಧ್ಯಾಹ್ನ 12:55", t1: "ಮಧ್ಯಾಹ್ನ 1:00 ರಿಂದ",
+      v1: "ತಾರಾ ಭವನ ಮಂಗಲ ಕಾರ್ಯಾಲಯ", v1addr: "ಅಂಬೇವಾಡಿ, ಬೆಳಗಾವಿ, ಕರ್ನಾಟಕ",
+      v2: "ರವಳನಾಥ ದೇವಸ್ಥಾನ", v2addr: "ಬಜಾರ್ ಪೇಟೆ, ಖಾನಾಪುರ, ಕರ್ನಾಟಕ",
+      dSangeet: "ಉಡುಪು: ಹಬ್ಬದ ಬಣ್ಣಬಣ್ಣದ", dHaldi: "ಉಡುಪು: ಹಳದಿ", dWedding: "ಉಡುಪು: ಪೈಠಣಿ, ನೌವಾರಿ, ಕುರ್ತಾ", dPooja: "ಉಡುಪು: ಸಾಂಪ್ರದಾಯಿಕ",
+      addCal: "ಕ್ಯಾಲೆಂಡರ್‌ಗೆ ಸೇರಿಸಿ", directions: "ದಾರಿ ನೋಡಿ",
+      storyEyebrow: "ಎಲ್ಲವೂ ಆರಂಭವಾದದ್ದು ಹೀಗೆ",
+      storyTitle: "ನಮ್ಮ ಕಥೆ",
+      chapter: "ಅಧ್ಯಾಯ",
+      s1t: "ಮೊದಲ ಭೇಟಿ", s1: "ಒಂದು ಕಪ್ ಚಹಾ, ಕಾಂದಾ ಪೋಹಾ ಮತ್ತು ಮುಗಿಯದ ಮಾತುಕತೆ.",
+      s2t: "ಮನೆಯವರ ಒಪ್ಪಿಗೆ", s2: "ಎರಡು ಕುಟುಂಬ, ಒಂದೇ ನಗು. ಅದೇ ಸಂಜೆ ಪೇಡಾ ಹಂಚಲಾಯಿತು.",
+      s3t: "ನಿಶ್ಚಿತಾರ್ಥ", s3: "ಉಂಗುರಗಳ ವಿನಿಮಯ, ಸಿಹಿ ಹಂಚಿಕೆ, ಮತ್ತು ಮುಹೂರ್ತ ನಿಗದಿ: 02 ಡಿಸೆಂಬರ್ 2026.",
+      s4t: "ಏಳೇಳು ಜನ್ಮದ ಜೊತೆ", s4: "ನಮ್ಮ ಸಪ್ತಪದಿಯ ಕ್ಷಣದಲ್ಲಿ ನೀವು ಜೊತೆಗಿರಬೇಕೆಂಬುದು ನಮ್ಮ ಆಸೆ.",
+      demo: "ಮಾದರಿ ಫೋಟೋ",
+      demoNote: "ಮಾದರಿ ಫೋಟೋ ಮತ್ತು ಕಥೆ, ವಧು-ವರರ ಸ್ವಂತ ಫೋಟೋಗಳಿಂದ ಬದಲಾಯಿಸಲಾಗುವುದು",
+      galleryEyebrow: "ಕ್ಷಣಗಳು",
+      galleryTitle: "ಸಂತಸದ ನೋಟಗಳು",
+      nextPhoto: "ಮುಂದಿನ ಫೋಟೋ",
+      preShoot: "ಪ್ರೀ-ವೆಡ್ಡಿಂಗ್ ಶೂಟ್",
+      morePhotos: "ಇನ್ನಷ್ಟು ಫೋಟೋಗಳು ಶೀಘ್ರದಲ್ಲೇ",
+      hastMilap: "ಹಸ್ತ ಮಿಲನ",
+      ganeshBlessing: "ಶ್ರೀ ಗಣೇಶನ ಆಶೀರ್ವಾದದೊಂದಿಗೆ",
+      groomParents: "ಶ್ರೀಮತಿ ಸುವರ್ಣಾ ಗುರವ್ ಮತ್ತು ಶ್ರೀ ಸುಹಾಸ್ ಗುರವ್",
+      inviteLine: "ತಮ್ಮ ಪ್ರೀತಿಯ ಪುತ್ರನ ವಿವಾಹ ಸಮಾರಂಭಕ್ಕೆ ನಿಮ್ಮನ್ನು ಆದರದಿಂದ ಆಹ್ವಾನಿಸುತ್ತಾರೆ",
+      groom: "ಚಿ. ಸುಮೀತ್", with: "ಮತ್ತು", bride: "ಚಿ. ಸೌ. ಪ್ರಿಯಾ",
+      brideParents: "<strong>ಶ್ರೀಮತಿ ನೇಹಾ ಪಾಟೀಲ್ ಮತ್ತು ಶ್ರೀ ರಾಮಚಂದ್ರ ಪಾಟೀಲ್</strong> ಅವರ ಪುತ್ರಿ",
+      presence: "ನಿಮ್ಮ ಉಪಸ್ಥಿತಿ ಮತ್ತು ಆಶೀರ್ವಾದ ಈ ಸಮಾರಂಭವನ್ನು ಸ್ಮರಣೀಯಗೊಳಿಸುತ್ತದೆ.",
+      venues: "ಸ್ಥಳಗಳು",
+      venuesTitle: "ಕಾರ್ಯಕ್ರಮ ಸ್ಥಳಗಳು",
+      venuesIntro: "ಈ ವಿಶೇಷ ಕ್ಷಣಗಳನ್ನು ನಿಮ್ಮೊಂದಿಗೆ ಆಚರಿಸಲು ನಮಗೆ ಸಂತೋಷವಾಗುತ್ತದೆ.",
+      tag1: "ಸಂಗೀತ್ &bull; ಅರಿಶಿನ &bull; ವಿವಾಹ",
+      akEyebrow: "ಅಕ್ಷತೆ",
+      akTitle: "ಅಕ್ಷತೆ ಹಾಕಿ ಆಶೀರ್ವದಿಸಿ",
+      akText: "ದಿನಕ್ಕಾಗಿ ಕಾಯಲಾಗುತ್ತಿಲ್ಲವೇ? ಕಲಶವನ್ನು ಸ್ಪರ್ಶಿಸಿ ವಧು-ವರರಿಗೆ ಅಕ್ಷತೆ ಹಾಕಿ.",
+      akBtn: "ಅಕ್ಷತೆ ಹಾಕಿ",
+      akCount: "ನೀವು {n} ಬಾರಿ ಅಕ್ಷತೆ ಹಾಕಿದ್ದೀರಿ",
+      akWow: ["ಶುಭಮಂಗಳ ಸಾವಧಾನ!", "ಸದಾ ಸುಖವಾಗಿರಿ!", "ಶುಭವಾಗಲಿ!"],
+      rsvpEyebrow: "ಹಾಜರಾತಿ",
+      rsvpTitle: "ನೀವು ಬರುತ್ತೀರಲ್ಲವೇ?",
+      rsvpText: "ನೀವು ಬರುವುದನ್ನು ಕುಟುಂಬಕ್ಕೆ ತಿಳಿಸಿ. ನಿಮ್ಮ ಉತ್ತರ WhatsApp ನಲ್ಲಿ ಸಿದ್ಧವಾಗುತ್ತದೆ.",
+      rName: "ನಿಮ್ಮ ಹೆಸರು", rGuests: "ಅತಿಥಿಗಳ ಸಂಖ್ಯೆ", rEvents: "ಭಾಗವಹಿಸುವ ಕಾರ್ಯಕ್ರಮಗಳು",
+      rWish: "ವಧು-ವರರಿಗೆ ಶುಭಾಶಯ (ಐಚ್ಛಿಕ)", rSend: "WhatsApp ನಲ್ಲಿ ಕಳುಹಿಸಿ",
+      rNeedName: "ದಯವಿಟ್ಟು ಮೊದಲು ನಿಮ್ಮ ಹೆಸರು ಬರೆಯಿರಿ.",
+      rmHead: "ಸುಮೀತ್ ಮತ್ತು ಪ್ರಿಯಾ ವಿವಾಹಕ್ಕೆ ಹಾಜರಾತಿ", rmName: "ಹೆಸರು", rmGuests: "ಅತಿಥಿಗಳು", rmEvents: "ಕಾರ್ಯಕ್ರಮಗಳು", rmWish: "ಶುಭಾಶಯ",
+      seeYou: "ನಿಮ್ಮ ಬರುವಿಕೆಗಾಗಿ ಕಾಯುತ್ತಿದ್ದೇವೆ!",
+      withLove: "ಪ್ರೀತಿಯಿಂದ, ಗುರವ್ ಮತ್ತು ಪಾಟೀಲ್ ಕುಟುಂಬ",
+      closing: "ನಿಮ್ಮ ಉಪಸ್ಥಿತಿ ಮತ್ತು ಆಶೀರ್ವಾದವೇ ನಮ್ಮ ಸಂಭ್ರಮದ ಅತ್ಯಮೂಲ್ಯ ಭಾಗ.",
+      copyLink: "ಆಮಂತ್ರಣದ ಲಿಂಕ್ ನಕಲಿಸಿ", copied: "ಲಿಂಕ್ ನಕಲಾಯಿತು", copyFail: "ಬ್ರೌಸರ್ ವಿಳಾಸದಿಂದ ಲಿಂಕ್ ನಕಲಿಸಿ",
+      muteMusic: "ಸಂಗೀತ ನಿಲ್ಲಿಸಿ", playMusic: "ಸಂಗೀತ ಪ್ರಾರಂಭಿಸಿ", changeLang: "ಭಾಷೆ ಬದಲಿಸಿ"
+    },
 
-      hi: {
-        title: "सुमीत और प्रिया - विवाह निमंत्रण",
-        blessing: "&#2405; श्री गणेशाय नमः &#2405;",
-        coverNames: "सुमीत <span>&amp;</span> प्रिया",
-        date: "02 दिसंबर 2026",
-        reveal: "खोलने के लिए स्पर्श करें",
-        revealing: "आपका निमंत्रण खुल रहा है…",
-        weddingOf: "शुभ विवाह",
-        heroNames: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
-        heroBody: "अपने परिवारों के साथ, वे आपको अपने विवाह समारोह में सहर्ष आमंत्रित करते हैं",
-        scratchLabel: "तारीख देखने के लिए दिलों को खुरचें",
-        scratchHere: "यहाँ खुरचें",
-        wednesday: "बुधवार",
-        monthYear: "दिसंबर 2026",
-        fullDate: "बुधवार, 02 दिसंबर 2026",
-        tapReveal: "या देखने के लिए यहाँ स्पर्श करें",
-        saveDate: "तारीख याद रखें",
-        weekdays: ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"],
-        leg1: "01 संगीत और हल्दी",
-        leg2: "02 विवाह",
-        leg3: "03 सत्यनारायण पूजा",
-        countdown: "शुभ मुहूर्त की उलटी गिनती",
-        days: "दिन", hours: "घंटे", mins: "मिनट", secs: "सेकंड",
-        schedule: "समारोह कार्यक्रम",
-        sangeetSub: "संगीतमय संध्या", sangeet: "संगीत",
-        haldiSub: "आइए, रंगों में रंग जाएँ", haldi: "हल्दी",
-        marriageSub: "शुभ मुहूर्त", marriage: "विवाह",
-        poojaSub: "पवित्र अनुष्ठान", pooja: "सत्यनारायण पूजा",
-        tue: "मंगलवार, 01 दिसंबर 2026",
-        thu: "गुरुवार, 03 दिसंबर 2026",
-        t7: "शाम 7:00 बजे से", t8: "रात 8:00 बजे से", t1255: "दोपहर 12:55 बजे", t1: "दोपहर 1:00 बजे से",
-        venue1Full: "तारा भवन मंगल कार्यालय, आंबेवाडी, बेलगावी, कर्नाटक",
-        venue2Full: "रवलनाथ मंदिर, बाज़ार पेठ, खानापुर",
-        ganeshBlessing: "श्री गणेश जी के आशीर्वाद से",
-        groomParents: "श्रीमती सुवर्णा गुरव एवं श्री सुहास गुरव",
-        inviteLine: "अपने प्रिय सुपुत्र के शुभ विवाह समारोह में आपको सादर आमंत्रित करते हैं",
-        groom: "चि. सुमीत",
-        with: "संग",
-        bride: "आयुष्मती प्रिया",
-        brideParents: "सुपुत्री <strong>श्रीमती नेहा पाटिल एवं श्री रामचंद्र पाटिल</strong>",
-        presence: "आपकी गरिमामयी उपस्थिति और आशीर्वाद इस उत्सव को अविस्मरणीय बना देंगे।",
-        venues: "समारोह स्थल",
-        venuesIntro: "इन विशेष पलों को आपके साथ मनाकर हमें अत्यंत प्रसन्नता होगी। स्थलों का विवरण नीचे दिया गया है।",
-        tag1: "संगीत &bull; हल्दी &bull; विवाह",
-        v1: "तारा भवन मंगल कार्यालय", v1addr: "आंबेवाडी, बेलगावी, कर्नाटक",
-        v2: "रवलनाथ मंदिर", v2addr: "बाज़ार पेठ, खानापुर, कर्नाटक",
-        closing: "आपकी उपस्थिति और आशीर्वाद ही हमारे उत्सव का सबसे अनमोल हिस्सा हैं।",
-        seeYou: "आपकी प्रतीक्षा रहेगी!",
-        withLove: "सप्रेम, गुरव एवं पाटिल परिवार",
-        muteMusic: "संगीत बंद करें", playMusic: "संगीत चलाएँ", changeLang: "भाषा बदलें"
-      }
+    hi: {
+      title: "सुमीत और प्रिया - विवाह निमंत्रण",
+      blessing: "&#2405; श्री गणेशाय नमः &#2405;",
+      kicker: "शुभ मंगल सावधान",
+      names: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
+      heroNames: "सुमीत <span class=\"amp\">&amp;</span> प्रिया",
+      heroAlt: "Sumeet ♥ Priya",
+      date: "02 दिसंबर 2026",
+      place: "बेलगावी, कर्नाटक",
+      open: "निमंत्रण खोलें",
+      soundHint: "आवाज़ चालू रखें",
+      weddingOf: "शुभ विवाह",
+      heroBody: "अपने परिवारों के साथ, वे आपको अपने विवाह समारोह में सहर्ष आमंत्रित करते हैं",
+      countdown: "शुभ मुहूर्त की उलटी गिनती",
+      days: "दिन", hours: "घंटे", mins: "मिनट", secs: "सेकंड",
+      married: "विवाह संपन्न!",
+      scroll: "नीचे देखें",
+      saveDate: "तारीख याद रखें",
+      scratchLabel: "दिन देखने के लिए कार्ड खुरचें",
+      scratchHere: "यहाँ खुरचें",
+      wednesday: "बुधवार",
+      monthYear: "दिसंबर 2026",
+      fullDate: "बुधवार, 02 दिसंबर 2026",
+      tapReveal: "या देखने के लिए यहाँ स्पर्श करें",
+      weekdays: ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"],
+      leg1: "01 संगीत और हल्दी", leg2: "02 विवाह", leg3: "03 सत्यनारायण पूजा",
+      schedule: "समारोह कार्यक्रम",
+      eventsTitle: "तीन दिनों का उत्सव",
+      swipeHint: "हर समारोह देखने के लिए स्वाइप करें",
+      sangeet: "संगीत", sangeetSub: "संगीतमय संध्या",
+      haldi: "हल्दी", haldiSub: "आइए, रंगों में रंग जाएँ",
+      marriage: "विवाह", marriageSub: "शुभ मुहूर्त",
+      pooja: "सत्यनारायण पूजा", poojaSub: "पवित्र अनुष्ठान",
+      tue: "मंगलवार, 01 दिसंबर", wed: "बुधवार, 02 दिसंबर", thu: "गुरुवार, 03 दिसंबर",
+      day1: "पहला दिन", day2: "दूसरा दिन", day3: "तीसरा दिन",
+      t7: "शाम 7:00 बजे से", t8: "रात 8:00 बजे से", t1255: "मुहूर्त दोपहर 12:55", t1: "दोपहर 1:00 बजे से",
+      v1: "तारा भवन मंगल कार्यालय", v1addr: "आंबेवाडी, बेलगावी, कर्नाटक",
+      v2: "रवलनाथ मंदिर", v2addr: "बाज़ार पेठ, खानापुर, कर्नाटक",
+      dSangeet: "पहनावा: रंग-बिरंगा, उत्सवी", dHaldi: "पहनावा: पीला रंग", dWedding: "पहनावा: पैठणी, नौवारी, कुर्ता", dPooja: "पहनावा: पारंपरिक",
+      addCal: "कैलेंडर में जोड़ें", directions: "रास्ता देखें",
+      storyEyebrow: "सब कुछ ऐसे शुरू हुआ",
+      storyTitle: "हमारी कहानी",
+      chapter: "अध्याय",
+      s1t: "पहली मुलाक़ात", s1: "एक कप चाय, कांदा-पोहे और कभी न ख़त्म होने वाली बातें।",
+      s2t: "परिवारों की हाँ", s2: "दो परिवार, एक मुस्कान। उसी शाम पेड़े बाँटे गए।",
+      s3t: "सगाई", s3: "अंगूठियाँ बदलीं, मिठाई बँटी और मुहूर्त तय हुआ: 02 दिसंबर 2026।",
+      s4t: "सात जन्मों का साथ", s4: "अब हमारी सप्तपदी के पलों में आप साथ हों, यही कामना है।",
+      demo: "नमूना फ़ोटो",
+      demoNote: "नमूना फ़ोटो और कहानी, वर-वधू की अपनी फ़ोटो से बदले जाएँगे",
+      galleryEyebrow: "यादगार पल",
+      galleryTitle: "ख़ुशियों की झलक",
+      nextPhoto: "अगली फ़ोटो",
+      preShoot: "प्री-वेडिंग शूट",
+      morePhotos: "और फ़ोटो जल्द ही",
+      hastMilap: "हस्त मिलाप",
+      ganeshBlessing: "श्री गणेश जी के आशीर्वाद से",
+      groomParents: "श्रीमती सुवर्णा गुरव एवं श्री सुहास गुरव",
+      inviteLine: "अपने प्रिय सुपुत्र के शुभ विवाह समारोह में आपको सादर आमंत्रित करते हैं",
+      groom: "चि. सुमीत", with: "संग", bride: "आयुष्मती प्रिया",
+      brideParents: "सुपुत्री <strong>श्रीमती नेहा पाटिल एवं श्री रामचंद्र पाटिल</strong>",
+      presence: "आपकी गरिमामयी उपस्थिति और आशीर्वाद इस उत्सव को अविस्मरणीय बना देंगे।",
+      venues: "स्थल",
+      venuesTitle: "समारोह स्थल",
+      venuesIntro: "इन विशेष पलों को आपके साथ मनाकर हमें अत्यंत प्रसन्नता होगी।",
+      tag1: "संगीत &bull; हल्दी &bull; विवाह",
+      akEyebrow: "अक्षत",
+      akTitle: "अक्षत बरसाएँ, आशीर्वाद दें",
+      akText: "दिन का इंतज़ार नहीं हो रहा? कलश पर टैप करके वर-वधू पर अक्षत बरसाएँ।",
+      akBtn: "अक्षत बरसाएँ",
+      akCount: "आपने {n} बार अक्षत बरसाए",
+      akWow: ["शुभ मंगल सावधान!", "सदा सौभाग्यवती भव!", "जोड़ी सलामत रहे!"],
+      rsvpEyebrow: "उपस्थिति",
+      rsvpTitle: "आप आएँगे न?",
+      rsvpText: "परिवार को बताएँ कि आप आ रहे हैं। आपका जवाब WhatsApp में तैयार हो जाएगा।",
+      rName: "आपका नाम", rGuests: "मेहमानों की संख्या", rEvents: "इनमें शामिल होंगे",
+      rWish: "वर-वधू के लिए शुभकामना (वैकल्पिक)", rSend: "WhatsApp पर भेजें",
+      rNeedName: "कृपया पहले अपना नाम लिखें।",
+      rmHead: "सुमीत और प्रिया के विवाह हेतु उपस्थिति", rmName: "नाम", rmGuests: "मेहमान", rmEvents: "कार्यक्रम", rmWish: "शुभकामना",
+      seeYou: "आपकी प्रतीक्षा रहेगी!",
+      withLove: "सप्रेम, गुरव एवं पाटिल परिवार",
+      closing: "आपकी उपस्थिति और आशीर्वाद ही हमारे उत्सव का सबसे अनमोल हिस्सा हैं।",
+      copyLink: "निमंत्रण का लिंक कॉपी करें", copied: "लिंक कॉपी हो गया", copyFail: "ब्राउज़र के पते से लिंक कॉपी करें",
+      muteMusic: "संगीत बंद करें", playMusic: "संगीत चलाएँ", changeLang: "भाषा बदलें"
+    }
+  };
+
+  /* Optional: WhatsApp number (with country code, digits only, e.g. "919876543210")
+     that RSVPs go to. Leave empty and guests pick the contact themselves. */
+  const RSVP_WHATSAPP = "";
+
+  const LANGS = ["en", "mr", "kn", "hi"];
+  let lang = "en";
+  let opened = false;
+  const $ = (s) => document.querySelector(s);
+  const t = (k) => I18N[lang][k];
+
+  /* =======================================================================
+     EVENTS DATA
+     ======================================================================= */
+  const EVENTS = [
+    { id: "sangeet", cls: "", img: "images/sangeet.jpg", day: "day1", date: "tue", time: "t7", venue: "v1", addr: "v1addr", dress: "dSangeet", sub: "sangeetSub",
+      cal: ["20261201T133000Z", "20261201T163000Z"], map: "Tara+Bhavan+Mangal+Karyalay+Ambewadi+Belagavi+Karnataka" },
+    { id: "haldi", cls: "haldi", img: "images/haldi.jpg", day: "day1", date: "tue", time: "t8", venue: "v1", addr: "v1addr", dress: "dHaldi", sub: "haldiSub",
+      cal: ["20261201T143000Z", "20261201T163000Z"], map: "Tara+Bhavan+Mangal+Karyalay+Ambewadi+Belagavi+Karnataka" },
+    { id: "marriage", cls: "wed", img: "images/marriage.jpg", day: "day2", date: "wed", time: "t1255", venue: "v1", addr: "v1addr", dress: "dWedding", sub: "marriageSub",
+      cal: ["20261202T072500Z", "20261202T110000Z"], map: "Tara+Bhavan+Mangal+Karyalay+Ambewadi+Belagavi+Karnataka" },
+    { id: "pooja", cls: "pooja", img: "images/pooja.jpg", day: "day3", date: "thu", time: "t1", venue: "v2", addr: "v2addr", dress: "dPooja", sub: "poojaSub",
+      cal: ["20261203T073000Z", "20261203T103000Z"], map: "Ravalnath+Temple+Bazar+Peth+Khanapur+Karnataka" }
+  ];
+  const ICON = {
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    nav: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m3 11 18-8-8 18-2-8-8-2z"/></svg>',
+    plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M12 11v6M9 14h6"/></svg>'
+  };
+
+  function renderEvents() {
+    const track = $("#track");
+    const keep = track.scrollLeft;
+    track.innerHTML = EVENTS.map(function (e) {
+      const title = t(e.id);
+      const calUrl = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(title + " · Sumeet & Priya") +
+        "&dates=" + e.cal[0] + "/" + e.cal[1] + "&location=" + encodeURIComponent(t(e.venue) + ", " + t(e.addr)) +
+        "&details=" + encodeURIComponent(t("heroBody"));
+      return '<article class="ev ' + e.cls + '">' +
+        '<div class="art"><img src="' + e.img + '" alt="" loading="lazy" /></div>' +
+        '<div class="body">' +
+          '<span class="day">' + t(e.day) + '</span>' +
+          '<h3>' + title + '</h3>' +
+          '<p class="sub">' + t(e.sub) + '</p>' +
+          '<div class="facts">' +
+            '<div>' + ICON.cal + '<span>' + t(e.date) + '</span></div>' +
+            '<div>' + ICON.clock + '<span>' + t(e.time) + '</span></div>' +
+            '<div>' + ICON.pin + '<span>' + t(e.venue) + ', ' + t(e.addr) + '</span></div>' +
+          '</div>' +
+          '<span class="dress"><i></i>' + t(e.dress) + '</span>' +
+          '<div class="actions">' +
+            '<a class="btn" target="_blank" rel="noopener" href="' + calUrl + '">' + ICON.plus + '<span>' + t("addCal") + '</span></a>' +
+            '<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + e.map + '">' + ICON.nav + '<span>' + t("directions") + '</span></a>' +
+          '</div>' +
+        '</div></article>';
+    }).join("");
+    track.scrollLeft = keep;
+    const dots = $("#dots");
+    dots.innerHTML = EVENTS.map(function (e, i) { return '<button type="button" aria-label="' + t(e.id) + '"' + (i === 0 ? ' aria-current="true"' : "") + '></button>'; }).join("");
+    dots.querySelectorAll("button").forEach(function (b, i) {
+      b.addEventListener("click", function () { const card = track.children[i]; track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: "smooth" }); });
+    });
+    updateDots();
+  }
+  function updateDots() {
+    const track = $("#track");
+    const mid = track.scrollLeft + track.clientWidth / 2;
+    let best = 0, bestD = Infinity;
+    Array.from(track.children).forEach(function (c, i) { const d = Math.abs(c.offsetLeft + c.clientWidth / 2 - mid); if (d < bestD) { bestD = d; best = i; } });
+    $("#dots").querySelectorAll("button").forEach(function (b, i) { b.setAttribute("aria-current", String(i === best)); });
+  }
+  $("#track").addEventListener("scroll", function () { requestAnimationFrame(updateDots); }, { passive: true });
+
+  /* =======================================================================
+     STORY + GALLERY (demo pictures reuse the couple's illustrations)
+     ======================================================================= */
+  const STORY = [
+    { img: "images/haldi.jpg", pos: "60% 40%", k: "s1", demo: true },
+    { img: "images/sangeet.jpg", pos: "50% 45%", k: "s2", demo: true },
+    { img: "images/pooja.jpg", pos: "50% 45%", k: "s3", demo: true },
+    { img: "images/marriage.jpg", pos: "50% 40%", k: "s4", demo: false }
+  ];
+  function renderStory() {
+    const list = $("#story-list");
+    list.querySelectorAll(".chapter").forEach(function (n) { n.remove(); });
+    STORY.forEach(function (s, i) {
+      const el = document.createElement("article");
+      el.className = "chapter rv";
+      el.innerHTML = '<div class="ph">' + (s.demo ? '<span class="demo-tag">' + t("demo") + '</span>' : '') +
+        '<img src="' + s.img + '" alt="" loading="lazy" style="object-position:' + s.pos + '" /></div>' +
+        '<p class="no">' + t("chapter") + ' ' + (i + 1) + '</p><h3>' + t(s.k + "t") + '</h3><p>' + t(s.k) + '</p>';
+      list.appendChild(el);
+    });
+  }
+
+  const GALLERY = [
+    { img: "images/marriage.jpg", cap: "marriage" },
+    { img: "images/cover.jpg", cap: "hastMilap" },
+    { img: "images/haldi.jpg", cap: "haldi" },
+    { img: "images/sangeet.jpg", cap: "sangeet" },
+    { img: "images/pooja.jpg", cap: "pooja" },
+    { img: "", cap: "preShoot" }
+  ];
+  let galleryOrder = GALLERY.map(function (_, i) { return i; });
+  function renderGallery() {
+    const stack = $("#stack");
+    stack.innerHTML = "";
+    galleryOrder.slice().reverse().forEach(function (gi, ri) {
+      const g = GALLERY[gi];
+      const depth = galleryOrder.length - 1 - ri;
+      const f = document.createElement("figure");
+      f.className = "polaroid" + (g.img ? "" : " empty");
+      const rot = [-2, 4, -5, 3, -3, 5][gi % 6];
+      f.style.transform = "translate(" + depth * 3 + "px," + depth * 4 + "px) rotate(" + (depth === 0 ? rot / 2 : rot) + "deg)";
+      f.style.zIndex = 20 - depth;
+      f.innerHTML = (g.img ? '<img src="' + g.img + '" alt="" draggable="false" />' : '<div class="slot"><span>' + t("morePhotos") + '</span></div><span class="demo-tag">' + t("demo") + '</span>') +
+        '<figcaption>' + t(g.cap) + '</figcaption>';
+      stack.appendChild(f);
+    });
+    const top = stack.lastElementChild;
+    if (top) attachDrag(top);
+  }
+  function nextPhoto(dir) {
+    const top = $("#stack").lastElementChild;
+    if (!top) return;
+    top.style.transform = "translate(" + (dir || 1) * 130 + "%, -6%) rotate(" + (dir || 1) * 22 + "deg)";
+    top.style.opacity = "0";
+    setTimeout(function () { galleryOrder.push(galleryOrder.shift()); renderGallery(); }, 320);
+  }
+  function attachDrag(card) {
+    let sx = 0, sy = 0, dx = 0, dragging = false;
+    card.addEventListener("pointerdown", function (e) { dragging = true; sx = e.clientX; sy = e.clientY; dx = 0; card.style.transition = "none"; card.setPointerCapture(e.pointerId); });
+    card.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      dx = e.clientX - sx; const dy = e.clientY - sy;
+      card.style.transform = "translate(" + dx + "px," + dy * 0.3 + "px) rotate(" + dx / 12 + "deg)";
+    });
+    function end() {
+      if (!dragging) return;
+      dragging = false; card.style.transition = "";
+      if (Math.abs(dx) > 70) nextPhoto(dx > 0 ? 1 : -1);
+      else if (Math.abs(dx) < 6) nextPhoto(1);
+      else renderGallery();
+    }
+    card.addEventListener("pointerup", end);
+    card.addEventListener("pointercancel", end);
+  }
+  $("#stack-next").addEventListener("click", function () { nextPhoto(1); });
+
+  /* =======================================================================
+     MUSIC — sanai–chaughada: shehnai over dhol & tasha, played live
+     by the browser. To use your own song instead, put the file next to
+     this page (e.g. audio/music.mp3) and set MUSIC_FILE below.
+     ======================================================================= */
+  const Music = (function () {
+    const MUSIC_FILE = "";
+    const VOL = 0.9;
+    const BPM = 88, B = 60 / BPM;
+    const SA = 293.66;
+    const R = { "D_": 5 / 6, "n_": 9 / 10, S: 1, R: 9 / 8, g: 6 / 5, m: 4 / 3, P: 3 / 2, D: 5 / 3, n: 9 / 5, "S'": 2, "R'": 9 / 4 };
+    const PH = {
+      A: [["P", 1], ["D", .5], ["P", .5], ["m", 1], ["g", 1], ["R", .5], ["g", .5], ["R", 1], ["S", 2]],
+      B: [["S", .5], ["R", .5], ["g", 1], ["m", 1], ["P", 1], ["n", .5], ["D", .5], ["P", 1], ["P", 2]],
+      C: [["P", .5], ["D", .5], ["n", 1], ["S'", 1.5], ["R'", .5], ["S'", 1], ["n", .5], ["D", .5], ["P", 2]],
+      D: [["g", 1], ["m", .5], ["P", .5], ["D", 1], ["P", 1], ["m", .5], ["g", .5], ["R", 1], ["S", 2]],
+      E: [["D_", .5], ["S", .5], ["R", 1], ["g", 1.5], ["R", .5], ["S", 1], ["n_", .5], ["D_", .5], ["S", 2]]
     };
+    const SONG = ["-", "-", "B", "A", "C", "D", "~", "E", "A", "C", "D", "-", "B", "C", "A", "E", "~"];
+    let ac, master, bus, drums, noise, el, started = false, muted = false, nextBar = 0, bar = 0;
 
-    const LANGS = ["en", "mr", "kn", "hi"];
-    let lang = "en";
-    let scratchTouched = false;
-
-    function pickInitialLang() {
-      const fromUrl = (new URLSearchParams(location.search).get("lang") || location.hash.replace("#", "")).toLowerCase();
-      if (LANGS.includes(fromUrl)) return fromUrl;
-      try {
-        const saved = localStorage.getItem("invite-lang");
-        if (LANGS.includes(saved)) return saved;
-      } catch (e) {}
-      const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
-      return LANGS.includes(nav) ? nav : "en";
+    function reverb(sec) {
+      const len = Math.floor(ac.sampleRate * sec), buf = ac.createBuffer(2, len, ac.sampleRate);
+      for (let c = 0; c < 2; c++) { const d = buf.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+      const cv = ac.createConvolver(); cv.buffer = buf; return cv;
     }
-
-    function applyLang(next) {
-      lang = next;
-      const t = I18N[lang];
-      document.documentElement.lang = lang;
-      document.title = t.title;
-      document.querySelectorAll("[data-i18n]").forEach(function (el) {
-        const v = t[el.dataset.i18n];
-        if (typeof v === "string") el.innerHTML = v;
+    function setup() {
+      ac = new (window.AudioContext || window.webkitAudioContext)();
+      master = ac.createGain(); master.gain.value = 0;
+      const comp = ac.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 3;
+      master.connect(comp); comp.connect(ac.destination);
+      const rv = reverb(2.6), wet = ac.createGain(); wet.gain.value = .32; rv.connect(wet); wet.connect(master);
+      bus = ac.createGain(); const dry = ac.createGain(); dry.gain.value = .8; bus.connect(dry); dry.connect(master); bus.connect(rv);
+      drums = ac.createGain(); drums.gain.value = .75; drums.connect(master); const ds = ac.createGain(); ds.gain.value = .25; drums.connect(ds); ds.connect(rv);
+      noise = ac.createBuffer(1, ac.sampleRate, ac.sampleRate);
+      const nd = noise.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+      // the "sur" — a soft, steady drone behind the shehnai
+      [[SA / 2, .022], [SA * 3 / 4, .012]].forEach(function (v) {
+        const o = ac.createOscillator(); o.type = "sawtooth"; o.frequency.value = v[0];
+        const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 800;
+        const g = ac.createGain(); g.gain.value = v[1];
+        o.connect(lp); lp.connect(g); g.connect(bus); o.start();
       });
-      const openBtn = document.getElementById("open-seal-btn");
-      if (openBtn.disabled) openBtn.textContent = t.revealing;
-      document.querySelectorAll("[data-set-lang]").forEach(function (b) {
-        b.setAttribute("aria-pressed", String(b.dataset.setLang === lang));
-      });
-      document.getElementById("lang-fab").setAttribute("aria-label", t.changeLang);
-      buildCalendar();
-      if (!scratchTouched) drawScratchCover();
-      Music.refreshLabel();
-      try { localStorage.setItem("invite-lang", lang); } catch (e) {}
     }
-
-    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        applyLang(b.dataset.setLang);
-        closeLangMenu();
-      });
-    });
-
-    const langFab = document.getElementById("lang-fab");
-    const langMenu = document.getElementById("lang-menu");
-    function closeLangMenu() { langMenu.hidden = true; langFab.setAttribute("aria-expanded", "false"); }
-    langFab.addEventListener("click", function (e) {
-      e.stopPropagation();
-      const open = langMenu.hidden;
-      langMenu.hidden = !open;
-      langFab.setAttribute("aria-expanded", String(open));
-    });
-    document.addEventListener("click", function (e) {
-      if (!langMenu.hidden && !langMenu.contains(e.target)) closeLangMenu();
-    });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLangMenu(); });
-
-    /* =====================================================================
-       BACKGROUND MUSIC
-       A gentle bansuri (flute) melody in Raag Bhupali over a tanpura drone,
-       played live by the browser — no file to download, no copyright issue.
-       To use your own song instead, put the file next to this page
-       (e.g. audio/music.mp3) and set MUSIC_FILE below.
-       ===================================================================== */
-    const Music = (function () {
-      const MUSIC_FILE = "";
-      const VOLUME = 0.85;
-      const BEAT = 0.62;          // seconds per beat (slow, alaap-like)
-      const SA = 293.66;          // melody tonic (D4)
-      const DRONE_SA = 146.83;    // tanpura tonic (D3)
-      const SW = { "P_": 3 / 4, "D_": 5 / 6, S: 1, R: 9 / 8, G: 5 / 4, P: 3 / 2, D: 5 / 3, "S'": 2, "R'": 9 / 4 };
-      const PHRASES = [
-        [["S", 2], ["R", 1], ["G", 2], ["R", 1], ["S", 2], ["D_", 1], ["S", 3]],
-        [["G", 1], ["P", 1], ["D", 2], ["P", 1], ["G", 1], ["R", 1], ["G", 3]],
-        [["P", 1], ["D", 1], ["S'", 3], ["D", 1], ["P", 1], ["G", 2], ["R", 1], ["S", 3]],
-        [["G", 2], ["P", 1], ["D", 1], ["S'", 2], ["R'", 1], ["S'", 1], ["D", 1], ["P", 3]],
-        [["D", 1], ["P", 1], ["G", 1], ["P", 2], ["G", 1], ["R", 1], ["S", 1], ["R", 1], ["G", 3]],
-        [["S", 1], ["D_", 1], ["P_", 2], ["D_", 1], ["S", 1], ["R", 1], ["G", 2], ["R", 1], ["S", 4]]
-      ];
-      const ORDER = [0, 1, 2, 4, 3, 2, 5];
-
-      let ac, master, bus, noiseBuf, timer, audioEl;
-      let started = false, muted = false;
-      let nextDrone = 0, nextPhrase = 0, phraseIdx = 0;
-
-      function makeReverb() {
-        const len = Math.floor(ac.sampleRate * 3.2);
-        const buf = ac.createBuffer(2, len, ac.sampleRate);
-        for (let ch = 0; ch < 2; ch++) {
-          const d = buf.getChannelData(ch);
-          for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
-        }
-        const cv = ac.createConvolver();
-        cv.buffer = buf;
-        return cv;
-      }
-
-      function setup() {
-        ac = new (window.AudioContext || window.webkitAudioContext)();
-        master = ac.createGain();
-        master.gain.value = 0;
-        const comp = ac.createDynamicsCompressor();
-        master.connect(comp);
-        comp.connect(ac.destination);
-        bus = ac.createGain();
-        const dry = ac.createGain(); dry.gain.value = 0.7;
-        const wet = ac.createGain(); wet.gain.value = 0.5;
-        const rv = makeReverb();
-        bus.connect(dry); dry.connect(master);
-        bus.connect(rv); rv.connect(wet); wet.connect(master);
-        noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
-        const nd = noiseBuf.getChannelData(0);
-        for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
-      }
-
-      // One tanpura string pluck
-      function pluck(f, t, amp) {
-        [0, 5].forEach(function (cents) {
-          const o = ac.createOscillator();
-          o.type = "sawtooth";
-          o.frequency.value = f;
-          o.detune.value = cents;
-          const lp = ac.createBiquadFilter();
-          lp.type = "lowpass";
-          lp.frequency.setValueAtTime(2600, t);
-          lp.frequency.exponentialRampToValueAtTime(420, t + 3.2);
-          const g = ac.createGain();
-          g.gain.setValueAtTime(0, t);
-          g.gain.linearRampToValueAtTime(amp, t + 0.02);
-          g.gain.exponentialRampToValueAtTime(0.0001, t + 4.4);
-          o.connect(lp); lp.connect(g); g.connect(bus);
-          o.start(t); o.stop(t + 4.5);
-        });
-      }
-
-      // Tanpura cycle: Pa – Sa – Sa – low Sa
-      function droneCycle(t) {
-        pluck(DRONE_SA * 3 / 4, t, 0.045);
-        pluck(DRONE_SA, t + 0.9, 0.04);
-        pluck(DRONE_SA, t + 1.8, 0.04);
-        pluck(DRONE_SA / 2, t + 2.7, 0.06);
-      }
-
-      // A bansuri phrase with meend (glides) and vibrato on long notes
-      function playPhrase(notes, t) {
+    function hit(kind, t0, amp) {
+      if (kind === "D") {           // dhol bass
         const o = ac.createOscillator(); o.type = "sine";
-        const o2 = ac.createOscillator(); o2.type = "triangle";
-        const g2 = ac.createGain(); g2.gain.value = 0.22;
-        const vib = ac.createOscillator(); vib.frequency.value = 5.2;
-        const vibDepth = ac.createGain(); vibDepth.gain.value = 0;
-        vib.connect(vibDepth); vibDepth.connect(o.frequency); vibDepth.connect(o2.frequency);
-
-        const breath = ac.createBufferSource(); breath.buffer = noiseBuf; breath.loop = true;
-        const bp = ac.createBiquadFilter(); bp.type = "bandpass"; bp.frequency.value = 1900; bp.Q.value = 0.9;
-        const bg = ac.createGain(); bg.gain.value = 0.05;
-        breath.connect(bp); bp.connect(bg);
-
-        const env = ac.createGain();
-        env.gain.setValueAtTime(0, t);
-        const A = 0.1;
-        let tt = t;
-        notes.forEach(function (n, i) {
-          const f = SA * SW[n[0]];
-          const dur = n[1] * BEAT;
-          if (i === 0) {
-            o.frequency.setValueAtTime(f, tt);
-            o2.frequency.setValueAtTime(f, tt);
-            env.gain.linearRampToValueAtTime(A, tt + 0.3);
-          } else {
-            o.frequency.setTargetAtTime(f, tt, 0.05);
-            o2.frequency.setTargetAtTime(f, tt, 0.05);
-            env.gain.setTargetAtTime(A * 0.8, tt - 0.05, 0.02);
-            env.gain.setTargetAtTime(A, tt + 0.04, 0.06);
-          }
-          vibDepth.gain.setTargetAtTime(n[1] >= 2 ? f * 0.007 : f * 0.002, tt + 0.25, 0.2);
-          tt += dur;
-        });
-        env.gain.setTargetAtTime(0, tt - 0.15, 0.28);
-
-        o.connect(env); o2.connect(g2); g2.connect(env); bg.connect(env);
-        env.connect(bus);
-        [o, o2, vib, breath].forEach(function (n) { n.start(t); n.stop(tt + 2); });
-        return tt;
+        o.frequency.setValueAtTime(120, t0); o.frequency.exponentialRampToValueAtTime(52, t0 + .25);
+        const g = ac.createGain(); g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(.5 * amp, t0 + .005); g.gain.exponentialRampToValueAtTime(.001, t0 + .45);
+        o.connect(g); g.connect(drums); o.start(t0); o.stop(t0 + .5);
       }
-
-      function scheduler() {
-        const ahead = ac.currentTime + 1.2;
-        while (nextDrone < ahead) { droneCycle(nextDrone); nextDrone += 3.6; }
-        while (nextPhrase < ahead) {
-          const end = playPhrase(PHRASES[ORDER[phraseIdx % ORDER.length]], nextPhrase);
-          phraseIdx++;
-          nextPhrase = end + BEAT * (2 + Math.random() * 3);
-        }
+      const n = ac.createBufferSource(); n.buffer = noise;
+      const f = ac.createBiquadFilter(), g = ac.createGain();
+      if (kind === "D") { f.type = "lowpass"; f.frequency.value = 900; g.gain.setValueAtTime(.18 * amp, t0); g.gain.exponentialRampToValueAtTime(.001, t0 + .05); }
+      else if (kind === "T") {      // dhol treble slap
+        f.type = "bandpass"; f.frequency.value = 2300; f.Q.value = 1.4;
+        g.gain.setValueAtTime(.32 * amp, t0); g.gain.exponentialRampToValueAtTime(.001, t0 + .09);
+        const o = ac.createOscillator(); o.type = "triangle"; o.frequency.setValueAtTime(380, t0); o.frequency.exponentialRampToValueAtTime(300, t0 + .08);
+        const og = ac.createGain(); og.gain.setValueAtTime(.12 * amp, t0); og.gain.exponentialRampToValueAtTime(.001, t0 + .1);
+        o.connect(og); og.connect(drums); o.start(t0); o.stop(t0 + .12);
+      } else {                      // tasha snap
+        f.type = "highpass"; f.frequency.value = 3800;
+        g.gain.setValueAtTime(.16 * amp, t0); g.gain.exponentialRampToValueAtTime(.001, t0 + .045);
       }
-
-      function fadeTo(v, secs) {
-        if (audioEl) {
-          const from = audioEl.volume, steps = 20;
-          let k = 0;
-          const iv = setInterval(function () {
-            k++;
-            audioEl.volume = Math.max(0, Math.min(1, from + (v - from) * k / steps));
-            if (k >= steps) clearInterval(iv);
-          }, (secs * 1000) / steps);
-          return;
-        }
-        const now = ac.currentTime;
-        master.gain.cancelScheduledValues(now);
-        master.gain.setValueAtTime(master.gain.value, now);
-        master.gain.linearRampToValueAtTime(v, now + secs);
-      }
-
-      function start() {
-        if (started) return;
-        started = true;
-        try {
-          if (MUSIC_FILE) {
-            audioEl = new Audio(MUSIC_FILE);
-            audioEl.loop = true;
-            audioEl.volume = 0;
-            audioEl.play().catch(function () {});
-            fadeTo(VOLUME, 3);
-          } else {
-            setup();
-            ac.resume();
-            nextDrone = ac.currentTime + 0.1;
-            nextPhrase = ac.currentTime + 3.8;
-            scheduler();
-            timer = setInterval(scheduler, 250);
-            fadeTo(VOLUME, 4);
-          }
-        } catch (e) { started = false; }
-        refreshLabel();
-      }
-
-      function toggle() {
-        if (!started) { muted = false; start(); return; }
-        muted = !muted;
-        if (audioEl) {
-          if (muted) { fadeTo(0, 0.4); setTimeout(function () { if (muted) audioEl.pause(); }, 450); }
-          else { audioEl.play().catch(function () {}); fadeTo(VOLUME, 1); }
-        } else if (muted) {
-          fadeTo(0, 0.4);
-          setTimeout(function () { if (muted) ac.suspend(); }, 450);
+      n.connect(f); f.connect(g); g.connect(drums); n.start(t0, Math.random() * .5); n.stop(t0 + .12);
+    }
+    function drumBar(t0, fill) {
+      const h = B / 2;
+      const pats = [["D", "K", "T", "D", "", "T", "D", "T"], ["D", "K", "T", "K", "D", "T", "D", "T"]];
+      for (let rep = 0; rep < 2; rep++) {
+        const base = t0 + rep * 4 * B;
+        if (fill && rep === 1) {
+          for (let i = 0; i < 16; i++) hit(i % 4 === 0 ? "D" : (i % 2 ? "K" : "T"), base + i * B / 4, .5 + i / 32);
         } else {
-          ac.resume().then(function () { fadeTo(VOLUME, 1.2); });
+          pats[rep].forEach(function (k, i) { if (k) hit(k, base + i * h, i === 0 ? 1 : .8); });
         }
-        refreshLabel();
       }
-
-      function refreshLabel() {
-        const btn = document.getElementById("music-btn");
-        const playing = started && !muted;
-        btn.setAttribute("aria-pressed", String(playing));
-        btn.setAttribute("aria-label", I18N[lang][playing ? "muteMusic" : "playMusic"]);
-        document.getElementById("music-on").hidden = !playing;
-        document.getElementById("music-off").hidden = playing;
-      }
-
-      // Pause when the guest switches apps or tabs
-      document.addEventListener("visibilitychange", function () {
-        if (!started || muted) return;
-        if (document.hidden) { audioEl ? audioEl.pause() : ac.suspend(); }
-        else { audioEl ? audioEl.play().catch(function () {}) : ac.resume(); }
-      });
-
-      return { start: start, toggle: toggle, refreshLabel: refreshLabel };
-    })();
-
-    document.getElementById("music-btn").addEventListener("click", Music.toggle);
-
-    /* =====================================================================
-       FALLING PETALS — marigold and rose petals drifting down gently
-       ===================================================================== */
-    const Petals = (function () {
-      const canvas = document.getElementById("petals");
-      const ctx = canvas.getContext("2d");
-      const COLORS = ["#f4a020", "#f7b733", "#e8762b", "#e79aa6", "#f2c94c", "#d9534f"];
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let W = 0, H = 0, petals = [], running = false, last = 0, base = 0;
-
-      function resize() {
-        const dpr = Math.min(2, window.devicePixelRatio || 1);
-        W = window.innerWidth; H = window.innerHeight;
-        canvas.width = W * dpr; canvas.height = H * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        base = Math.round(Math.min(24, Math.max(12, W / 18)));
-      }
-
-      function make(x, y, burst) {
-        const a = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 5;
-        return {
-          x: x, y: y,
-          vx: burst ? Math.cos(a) * sp : 0,
-          vy: burst ? Math.sin(a) * sp - 2 : 0.35 + Math.random() * 0.55,
-          r: 4 + Math.random() * 6,
-          rot: Math.random() * Math.PI * 2,
-          vr: (Math.random() - 0.5) * 0.04,
-          flip: Math.random() * Math.PI * 2,
-          vf: 0.02 + Math.random() * 0.03,
-          sway: 0.4 + Math.random() * 0.8,
-          phase: Math.random() * Math.PI * 2,
-          color: COLORS[(Math.random() * COLORS.length) | 0],
-          burst: !!burst,
-          ambient: !burst
-        };
-      }
-
-      function frame(ts) {
-        if (!running) return;
-        const dt = Math.min(3, (ts - last) / 16.7 || 1);
-        last = ts;
-        ctx.clearRect(0, 0, W, H);
-        for (let i = petals.length - 1; i >= 0; i--) {
-          const p = petals[i];
-          p.phase += 0.02 * dt;
-          if (p.burst) {
-            p.vx *= Math.pow(0.96, dt);
-            p.vy = p.vy * Math.pow(0.96, dt) + 0.05 * dt;
-            if (p.vy > 0.9) p.burst = false;
-          }
-          p.x += (p.vx + (p.burst ? 0 : Math.sin(p.phase) * p.sway)) * dt;
-          p.y += p.vy * dt;
-          p.rot += p.vr * dt;
-          p.flip += p.vf * dt;
-          if (p.y > H + 20 || p.x < -40 || p.x > W + 40) {
-            if (p.ambient && petals.filter(function (q) { return q.ambient; }).length <= base) {
-              Object.assign(p, make(Math.random() * W, -20, false));
-            } else {
-              petals.splice(i, 1);
-              continue;
-            }
-          }
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot);
-          ctx.scale(1, Math.abs(Math.cos(p.flip)) * 0.75 + 0.25);
-          ctx.globalAlpha = 0.85;
-          ctx.fillStyle = p.color;
-          ctx.beginPath();
-          ctx.ellipse(0, 0, p.r, p.r * 0.55, 0, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = 0.35;
-          ctx.fillStyle = "#fff4d6";
-          ctx.beginPath();
-          ctx.ellipse(-p.r * 0.3, -p.r * 0.12, p.r * 0.4, p.r * 0.16, 0, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.restore();
-        }
-        requestAnimationFrame(frame);
-      }
-
-      function start() {
-        if (reduce || running) return;
-        resize();
-        for (let i = 0; i < base; i++) petals.push(make(Math.random() * W, -20 - Math.random() * H, false));
-        running = true;
-        last = performance.now();
-        requestAnimationFrame(frame);
-      }
-
-      function burst(x, y, n) {
-        if (reduce) return;
-        if (!running) start();
-        for (let i = 0; i < (n || 30); i++) petals.push(make(x, y, true));
-      }
-
-      window.addEventListener("resize", function () { if (running) resize(); });
-      document.addEventListener("visibilitychange", function () {
-        if (document.hidden) { running = false; }
-        else if (petals.length && !running && !reduce) { running = true; last = performance.now(); requestAnimationFrame(frame); }
-      });
-
-      return { start: start, burst: burst };
-    })();
-
-    /* =====================================================================
-       SCROLL REVEAL — cards rise softly into view
-       ===================================================================== */
-    function setupScrollReveal() {
-      if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      const io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.remove("rv-pending"); io.unobserve(en.target); }
-        });
-      }, { threshold: 0.15 });
-      document.querySelectorAll(".rv").forEach(function (el) {
-        if (el.getBoundingClientRect().top > window.innerHeight) {
-          el.classList.add("rv-pending");
-          io.observe(el);
-        }
-      });
     }
-
-    /* =====================================================================
-       1. Grand ceremonial cover reveal
-       ===================================================================== */
-    document.getElementById("open-seal-btn").addEventListener("click", function () {
-      const cover = document.getElementById("seal-overlay");
-      const invitation = document.querySelector(".invite-wrapper");
-      const button = this;
-      if (cover.classList.contains("revealing") || cover.classList.contains("opened")) return;
-      button.disabled = true;
-      button.textContent = I18N[lang].revealing;
-      cover.classList.add("revealing");
-      invitation.classList.add("entering");
-      Music.start();
-
-      // A burst of warm golden sparkles radiates from the reveal button.
-      const rect = button.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      for (let i = 0; i < 46; i++) {
-        const spark = document.createElement("i");
-        const angle = (Math.PI * 2 * i / 46) + (Math.random() - .5) * .18;
-        const distance = 90 + Math.random() * Math.max(window.innerWidth, window.innerHeight) * .48;
-        spark.className = "reveal-spark";
-        spark.style.setProperty("--sx", cx + "px");
-        spark.style.setProperty("--sy", cy + "px");
-        spark.style.setProperty("--dx", Math.cos(angle) * distance + "px");
-        spark.style.setProperty("--dy", Math.sin(angle) * distance + "px");
-        spark.style.setProperty("--ss", (3 + Math.random() * 7) + "px");
-        spark.style.setProperty("--sd", (750 + Math.random() * 650) + "ms");
-        document.body.appendChild(spark);
-        spark.addEventListener("animationend", () => spark.remove(), { once: true });
+    function shehnai(notes, t0) {
+      const o = ac.createOscillator(); o.type = "sawtooth";
+      const o2 = ac.createOscillator(); o2.type = "square"; o2.detune.value = 6;
+      const g2 = ac.createGain(); g2.gain.value = .25;
+      const hp = ac.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 380;
+      const f1 = ac.createBiquadFilter(); f1.type = "peaking"; f1.frequency.value = 1150; f1.Q.value = 2.2; f1.gain.value = 9;
+      const f2 = ac.createBiquadFilter(); f2.type = "peaking"; f2.frequency.value = 2700; f2.Q.value = 3; f2.gain.value = 6;
+      const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4200;
+      const vib = ac.createOscillator(); vib.frequency.value = 5.8;
+      const vd = ac.createGain(); vd.gain.value = 0; vib.connect(vd); vd.connect(o.frequency); vd.connect(o2.frequency);
+      const env = ac.createGain(); env.gain.setValueAtTime(0, t0);
+      const A = .075; let tt = t0;
+      notes.forEach(function (n, i) {
+        const f = SA * R[n[0]], d = n[1] * B;
+        if (i === 0) { o.frequency.setValueAtTime(f * .97, tt); o.frequency.setTargetAtTime(f, tt, .04); o2.frequency.setValueAtTime(f, tt); env.gain.linearRampToValueAtTime(A, tt + .08); }
+        else { o.frequency.setTargetAtTime(f, tt - .03, .035); o2.frequency.setTargetAtTime(f, tt - .03, .035); env.gain.setTargetAtTime(A * .7, tt - .04, .015); env.gain.setTargetAtTime(A, tt + .02, .03); }
+        vd.gain.setTargetAtTime(n[1] >= 1.5 ? f * .014 : f * .003, tt + .18, .12);
+        tt += d;
+      });
+      env.gain.setTargetAtTime(0, tt - .12, .12);
+      o.connect(hp); o2.connect(g2); g2.connect(hp); hp.connect(f1); f1.connect(f2); f2.connect(lp); lp.connect(env); env.connect(bus);
+      [o, o2, vib].forEach(function (x) { x.start(t0); x.stop(tt + 1); });
+    }
+    function scheduler() {
+      while (nextBar < ac.currentTime + 1.5) {
+        const sec = SONG[bar % SONG.length];
+        drumBar(nextBar, sec === "~");
+        if (PH[sec]) shehnai(PH[sec], nextBar);
+        nextBar += 8 * B; bar++;
       }
-
-      window.setTimeout(function () {
-        cover.classList.add("opened");
-        cover.classList.remove("revealing");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        document.getElementById("floating-controls").hidden = false;
-        Petals.start();
-        setupScrollReveal();
-      }, 1450);
-      window.setTimeout(function () { invitation.classList.remove("entering"); }, 2600);
+    }
+    function fade(v, s) {
+      if (el) { const from = el.volume, n = 20; let k = 0; const iv = setInterval(function () { k++; el.volume = Math.max(0, Math.min(1, from + (v - from) * k / n)); if (k >= n) clearInterval(iv); }, s * 1000 / n); return; }
+      const now = ac.currentTime; master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now); master.gain.linearRampToValueAtTime(v, now + s);
+    }
+    function start() {
+      if (started) return; started = true;
+      try {
+        if (MUSIC_FILE) { el = new Audio(MUSIC_FILE); el.loop = true; el.volume = 0; el.play().catch(function () {}); fade(VOL, 3); }
+        else { setup(); ac.resume(); nextBar = ac.currentTime + .15; scheduler(); setInterval(scheduler, 250); fade(VOL, 2.5); }
+      } catch (e) { started = false; }
+      refresh();
+    }
+    function toggle() {
+      if (!started) { muted = false; start(); return; }
+      muted = !muted;
+      if (el) { if (muted) { fade(0, .4); setTimeout(function () { if (muted) el.pause(); }, 450); } else { el.play().catch(function () {}); fade(VOL, 1); } }
+      else if (muted) { fade(0, .4); setTimeout(function () { if (muted) ac.suspend(); }, 450); }
+      else { ac.resume().then(function () { fade(VOL, 1.2); }); }
+      refresh();
+    }
+    function refresh() {
+      const on = started && !muted, b = $("#music-btn");
+      b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", t(on ? "muteMusic" : "playMusic"));
+      $("#music-on").hidden = !on; $("#music-off").hidden = on;
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (!started || muted) return;
+      if (document.hidden) { el ? el.pause() : ac.suspend(); } else { el ? el.play().catch(function () {}) : ac.resume(); }
     });
+    return { start: start, toggle: toggle, refresh: refresh };
+  })();
+  $("#music-btn").addEventListener("click", Music.toggle);
 
-    /* =====================================================================
-       2. December 2026 Calendar
-       ===================================================================== */
-    function buildCalendar() {
-      const calGrid = document.getElementById("calendar-grid");
-      calGrid.innerHTML = "";
-      I18N[lang].weekdays.forEach(function (d) {
-        const h = document.createElement("div");
-        h.className = "cal-head";
-        h.textContent = d;
-        calGrid.appendChild(h);
-      });
-      const firstDay = new Date(2026, 11, 1).getDay();
-      for (let i = 0; i < firstDay; i++) calGrid.appendChild(document.createElement("div"));
-      for (let day = 1; day <= 31; day++) {
-        const cell = document.createElement("div");
-        cell.className = "cal-day";
-        if (day === 2) { cell.classList.add("wedding-day"); cell.textContent = "♥ " + day; }
-        else if (day === 1) { cell.classList.add("pre-event"); cell.textContent = day; }
-        else if (day === 3) { cell.classList.add("pooja-day"); cell.textContent = day; }
-        else { cell.textContent = day; }
-        calGrid.appendChild(cell);
+  /* =======================================================================
+     FX — petals and akshata (rice with turmeric & kumkum)
+     ======================================================================= */
+  const FX = (function () {
+    const cv = $("#fx"), ctx = cv.getContext("2d");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const PETAL = ["#f4a020", "#f7b733", "#e8762b", "#e79aa6", "#d63d6a", "#f2c94c"];
+    const GRAIN = ["#f6dd7a", "#fff1c2", "#f2c230", "#c8181f", "#e9b949", "#fff1c2"];
+    let W = 0, H = 0, ps = [], ambient = 0, running = false, last = 0;
+    function size() { const d = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); }
+    function mk(type, x, y, vx, vy) {
+      const grain = type === "grain";
+      return { type: type, x: x, y: y, vx: vx, vy: vy, g: grain ? .16 : .02, drag: grain ? .985 : .97,
+        r: grain ? 2.2 + Math.random() * 1.4 : 4 + Math.random() * 6, rot: Math.random() * 6.3, vr: (Math.random() - .5) * (grain ? .3 : .05),
+        flip: Math.random() * 6.3, vf: .02 + Math.random() * .04, sway: grain ? 0 : .3 + Math.random() * .7, ph: Math.random() * 6.3,
+        c: (grain ? GRAIN : PETAL)[(Math.random() * 6) | 0], amb: false };
+    }
+    function loop(ts) {
+      if (!running) return;
+      const dt = Math.min(3, (ts - last) / 16.7 || 1); last = ts;
+      ctx.clearRect(0, 0, W, H);
+      for (let i = ps.length - 1; i >= 0; i--) {
+        const p = ps[i];
+        p.vx *= Math.pow(p.drag, dt); p.vy = p.vy * Math.pow(p.drag, dt) + p.g * dt;
+        if (p.type === "petal" && p.vy > .9) p.vy = .9;
+        p.ph += .02 * dt; p.x += (p.vx + Math.sin(p.ph) * p.sway) * dt; p.y += p.vy * dt; p.rot += p.vr * dt; p.flip += p.vf * dt;
+        if (p.y > H + 20 || p.x < -50 || p.x > W + 50) {
+          if (p.amb) { Object.assign(p, mk("petal", Math.random() * W, -20, 0, .4 + Math.random() * .4)); p.amb = true; } else { ps.splice(i, 1); continue; }
+        }
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        if (p.type === "grain") {
+          ctx.fillStyle = p.c; ctx.beginPath(); ctx.ellipse(0, 0, p.r, p.r * .42, 0, 0, 6.3); ctx.fill();
+        } else {
+          ctx.scale(1, Math.abs(Math.cos(p.flip)) * .75 + .25); ctx.globalAlpha = p.amb ? .7 : .9; ctx.fillStyle = p.c;
+          ctx.beginPath(); ctx.ellipse(0, 0, p.r, p.r * .55, 0, 0, 6.3); ctx.fill();
+          ctx.globalAlpha = .35; ctx.fillStyle = "#fff4d6"; ctx.beginPath(); ctx.ellipse(-p.r * .3, -p.r * .12, p.r * .4, p.r * .16, 0, 0, 6.3); ctx.fill();
+        }
+        ctx.restore();
       }
+      if (ps.length) requestAnimationFrame(loop); else running = false;
     }
+    function run() { if (reduce) return; if (!W) size(); if (!running) { running = true; last = performance.now(); requestAnimationFrame(loop); } }
+    function burst(x, y, n, type) {
+      if (reduce) return;
+      for (let i = 0; i < n; i++) { const a = Math.random() * 6.3, s = (type === "grain" ? 3 : 2) + Math.random() * 5; ps.push(mk(type || "petal", x, y, Math.cos(a) * s, Math.sin(a) * s - 3)); }
+      run();
+    }
+    function rain(x0, x1, y, n, type) {
+      if (reduce) return;
+      for (let i = 0; i < n; i++) ps.push(mk(type, x0 + Math.random() * (x1 - x0), y - Math.random() * 120, (Math.random() - .5) * 1.5, 1 + Math.random() * 2));
+      run();
+    }
+    function ambientOn(n) {
+      if (reduce || ambient) return; ambient = n; size();
+      for (let i = 0; i < n; i++) { const p = mk("petal", Math.random() * W, -20 - Math.random() * H, 0, .4 + Math.random() * .4); p.amb = true; ps.push(p); }
+      run();
+    }
+    addEventListener("resize", function () { if (W) size(); });
+    document.addEventListener("visibilitychange", function () { if (document.hidden) running = false; else if (ps.length) run(); });
+    return { burst: burst, rain: rain, ambientOn: ambientOn };
+  })();
 
-    /* =====================================================================
-       3. Live Countdown to 02 Dec 2026, 12:55 PM IST
-       ===================================================================== */
-    const targetTime = new Date("2026-12-02T12:55:00+05:30").getTime();
-    function updateCountdown() {
-      const diff = Math.max(0, targetTime - Date.now());
-      document.getElementById("cd-days").textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
-      document.getElementById("cd-hours").textContent = String(Math.floor((diff / 3600000) % 24)).padStart(2, "0");
-      document.getElementById("cd-mins").textContent = String(Math.floor((diff / 60000) % 60)).padStart(2, "0");
-      document.getElementById("cd-secs").textContent = String(Math.floor((diff / 1000) % 60)).padStart(2, "0");
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+  // a pinch of akshata wherever a guest taps
+  document.addEventListener("click", function (e) {
+    if (!opened || e.target.closest("button, a, input, textarea, label, .polaroid, #scratch, .floating")) return;
+    FX.burst(e.clientX, e.clientY, 10, "grain");
+  });
 
-    /* =====================================================================
-       4. Scratch Card — reveals with a shower of petals
-       ===================================================================== */
-    const canvas = document.getElementById("scratch-canvas");
-    const sctx = canvas.getContext("2d");
-    let scratchDone = false;
+  /* =======================================================================
+     HERO DECOR — toran (mango leaves & marigolds) and a slow mandala
+     ======================================================================= */
+  (function buildToran() {
+    let s = '<path d="M0 6 Q200 26 400 6" stroke="#d9a93f" stroke-width="2" fill="none"/>';
+    for (let i = 0; i < 21; i++) {
+      const x = 10 + i * 19, y = 6 + 20 * (1 - Math.pow((x - 200) / 200, 2)) * .95;
+      const d = (-i * .23).toFixed(2);
+      if (i % 2 === 0) s += '<g class="swing" style="animation-delay:' + d + 's"><path d="M' + x + ' ' + y + ' q-7 18 0 36 q7 -18 0 -36z" fill="#2f7d4f"/><path d="M' + x + ' ' + (y + 2) + ' v32" stroke="#1e5a37" stroke-width=".8"/></g>';
+      else s += '<g class="swing" style="animation-delay:' + d + 's"><circle cx="' + x + '" cy="' + (y + 9) + '" r="7" fill="#f39c1e"/><circle cx="' + x + '" cy="' + (y + 9) + '" r="4" fill="#e8762b"/><circle cx="' + x + '" cy="' + (y + 22) + '" r="5" fill="#f7b733"/></g>';
+    }
+    $("#toran").innerHTML = s;
+  })();
+  (function buildMandala() {
+    let s = "";
+    for (let ring = 0; ring < 3; ring++) {
+      const n = [12, 18, 24][ring], r = [34, 58, 84][ring], len = [22, 26, 22][ring];
+      for (let i = 0; i < n; i++) s += '<ellipse cx="0" cy="' + (-r) + '" rx="' + (len / 3.2) + '" ry="' + (len / 2) + '" transform="rotate(' + (360 / n * i) + ')" fill="none" stroke="#d9a93f" stroke-width=".8"/>';
+    }
+    s += '<circle r="20" fill="none" stroke="#d9a93f" stroke-width=".8"/><circle r="96" fill="none" stroke="#d9a93f" stroke-width=".6"/>';
+    $("#mandala").innerHTML = s;
+  })();
 
-    function scratchFont() {
-      if (lang === "kn") return '"Noto Serif Kannada", serif';
-      if (lang === "mr" || lang === "hi") return '"Noto Serif Devanagari", serif';
-      return "sans-serif";
-    }
+  /* =======================================================================
+     COUNTDOWN
+     ======================================================================= */
+  const TARGET = new Date("2026-12-02T12:55:00+05:30").getTime();
+  function tick() {
+    const diff = TARGET - Date.now();
+    if (diff <= 0) { $("#countdown").hidden = true; $("#married").hidden = false; return; }
+    const p = function (n) { return String(n).padStart(2, "0"); };
+    $("#cd-d").textContent = p(Math.floor(diff / 864e5)); $("#cd-h").textContent = p(Math.floor(diff / 36e5) % 24);
+    $("#cd-m").textContent = p(Math.floor(diff / 6e4) % 60); $("#cd-s").textContent = p(Math.floor(diff / 1e3) % 60);
+  }
+  tick(); setInterval(tick, 1000);
 
-    function drawScratchCover() {
-      sctx.globalCompositeOperation = "source-over";
-      sctx.clearRect(0, 0, canvas.width, canvas.height);
-      sctx.fillStyle = "#c69738";
-      sctx.fillRect(0, 0, canvas.width, canvas.height);
-      sctx.fillStyle = "#fff8e7";
-      sctx.textAlign = "center";
-      sctx.font = "22px Georgia, serif";
-      sctx.fillText("♥   ♥   ♥", canvas.width / 2, 65);
-      sctx.font = "14px " + scratchFont();
-      sctx.fillText(I18N[lang].scratchHere, canvas.width / 2, 97);
-    }
+  /* =======================================================================
+     CALENDAR
+     ======================================================================= */
+  function renderCalendar() {
+    let h = "";
+    t("weekdays").forEach(function (d) { h += '<div class="h">' + d + '</div>'; });
+    for (let i = 0; i < new Date(2026, 11, 1).getDay(); i++) h += "<div></div>";
+    for (let d = 1; d <= 31; d++) h += '<div class="c' + (d === 1 ? " e1" : d === 2 ? " e2" : d === 3 ? " e3" : "") + '">' + d + '</div>';
+    $("#cal").innerHTML = h;
+  }
 
-    function finishScratch() {
-      if (scratchDone) return;
-      scratchDone = true;
-      canvas.style.opacity = "0";
-      setTimeout(function () { canvas.style.display = "none"; }, 600);
-      const r = canvas.getBoundingClientRect();
-      Petals.burst(r.left + r.width / 2, r.top + r.height / 2, 40);
-    }
+  /* =======================================================================
+     SCRATCH CARD
+     ======================================================================= */
+  const Scratch = (function () {
+    const cv = $("#scratch"), c = cv.getContext("2d");
+    let down = false, done = false;
+    const api = { touched: false };
+    api.draw = function () {
+      c.globalCompositeOperation = "source-over";
+      const g = c.createLinearGradient(0, 0, cv.width, cv.height);
+      g.addColorStop(0, "#c58b2a"); g.addColorStop(.5, "#f0cf78"); g.addColorStop(1, "#b07a22");
+      c.fillStyle = g; c.fillRect(0, 0, cv.width, cv.height);
+      c.globalAlpha = .18; c.fillStyle = "#fff";
+      for (let x = -cv.height; x < cv.width; x += 14) { c.beginPath(); c.moveTo(x, 0); c.lineTo(x + cv.height, cv.height); c.lineTo(x + cv.height + 5, cv.height); c.lineTo(x + 5, 0); c.fill(); }
+      c.globalAlpha = 1; c.fillStyle = "#4a1a12"; c.textAlign = "center";
+      c.font = "24px Georgia, serif"; c.fillText("♥  ♥  ♥", cv.width / 2, 70);
+      c.font = "600 16px " + (lang === "kn" ? '"Baloo Tamma 2", sans-serif' : '"Mukta", sans-serif');
+      c.fillText(t("scratchHere"), cv.width / 2, 104);
+    };
+    function pos(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) * cv.width / r.width, y: (e.clientY - r.top) * cv.height / r.height }; }
+    function scratch(e) { api.touched = true; const p = pos(e); c.globalCompositeOperation = "destination-out"; c.beginPath(); c.arc(p.x, p.y, 24, 0, 6.3); c.fill(); }
+    function ratio() { const d = c.getImageData(0, 0, cv.width, cv.height).data; let k = 0, n = 0; for (let i = 3; i < d.length; i += 64) { n++; if (d[i] === 0) k++; } return k / n; }
+    api.finish = function () {
+      if (done) return; done = true; api.touched = true;
+      cv.style.opacity = "0"; setTimeout(function () { cv.hidden = true; }, 700);
+      $("#full-date").hidden = false; $("#scratch-skip").hidden = true;
+      const r = cv.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top + r.height / 2, 46, "petal"); FX.burst(r.left + r.width / 2, r.top + r.height / 2, 40, "grain");
+    };
+    function end() { if (!down) return; down = false; if (ratio() > .45) api.finish(); }
+    cv.addEventListener("pointerdown", function (e) { down = true; cv.setPointerCapture(e.pointerId); scratch(e); });
+    cv.addEventListener("pointermove", function (e) { if (down) scratch(e); });
+    cv.addEventListener("pointerup", end); cv.addEventListener("pointercancel", end);
+    $("#scratch-skip").addEventListener("click", api.finish);
+    return api;
+  })();
 
-    function clearedRatio() {
-      const data = sctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let clear = 0, total = 0;
-      for (let i = 3; i < data.length; i += 4 * 16) { total++; if (data[i] === 0) clear++; }
-      return clear / total;
-    }
+  /* =======================================================================
+     AKSHATA
+     ======================================================================= */
+  const Akshata = (function () {
+    let n = 0;
+    try { n = parseInt(localStorage.getItem("invite-akshata") || "0", 10) || 0; } catch (e) {}
+    function render() { $("#ak-count").textContent = n ? t("akCount").replace("{n}", n) : ""; }
+    $("#kalash").addEventListener("click", function () {
+      n++; try { localStorage.setItem("invite-akshata", String(n)); } catch (e) {}
+      const r = $("#couple-frame").getBoundingClientRect();
+      FX.rain(r.left, r.right, r.top - 20, 46, "grain");
+      if (n % 5 === 0) FX.rain(r.left - 30, r.right + 30, r.top - 20, 20, "petal");
+      render();
+      if (n === 1 || n % 11 === 0) {
+        const f = $("#ak-flash"), w = t("akWow"); f.textContent = w[(n / 11 | 0) % w.length]; f.style.opacity = 1;
+        clearTimeout(f._t); f._t = setTimeout(function () { f.style.opacity = 0; }, 2200);
+      }
+    });
+    return { render: render };
+  })();
 
-    let isDrawing = false;
-    function scratch(x, y) {
-      scratchTouched = true;
-      sctx.globalCompositeOperation = "destination-out";
-      sctx.beginPath();
-      sctx.arc(x, y, 22, 0, Math.PI * 2);
-      sctx.fill();
+  /* =======================================================================
+     RSVP via WhatsApp
+     ======================================================================= */
+  const Rsvp = (function () {
+    let guests = 2;
+    const out = $("#r-guests");
+    $("#r-minus").addEventListener("click", function () { guests = Math.max(1, guests - 1); out.textContent = guests; update(); });
+    $("#r-plus").addEventListener("click", function () { guests = Math.min(20, guests + 1); out.textContent = guests; update(); });
+    function update() {
+      const name = $("#r-name").value.trim();
+      const evs = Array.from(document.querySelectorAll("#r-events input:checked")).map(function (i) { return t(i.value); }).join(", ");
+      const wish = $("#r-wish").value.trim();
+      let msg = "🙏 " + t("rmHead") + "\n" + t("rmName") + ": " + name + "\n" + t("rmGuests") + ": " + guests + "\n" + t("rmEvents") + ": " + (evs || "-");
+      if (wish) msg += "\n" + t("rmWish") + ": " + wish;
+      $("#r-send").href = "https://wa.me/" + RSVP_WHATSAPP + "?text=" + encodeURIComponent(msg);
+      if (name) $("#r-error").hidden = true;
     }
-    function getPos(e) {
-      const rect = canvas.getBoundingClientRect();
-      const pt = e.touches ? e.touches[0] : e;
-      return {
-        x: (pt.clientX - rect.left) * (canvas.width / rect.width),
-        y: (pt.clientY - rect.top) * (canvas.height / rect.height)
-      };
-    }
-    function endScratch() {
-      if (!isDrawing) return;
-      isDrawing = false;
-      if (clearedRatio() > 0.45) finishScratch();
-    }
+    ["#r-name", "#r-wish"].forEach(function (s) { $(s).addEventListener("input", update); });
+    $("#r-events").addEventListener("change", update);
+    $("#r-send").addEventListener("click", function (e) {
+      if (!$("#r-name").value.trim()) { e.preventDefault(); $("#r-error").hidden = false; $("#r-name").focus(); return; }
+      update();
+      const r = this.getBoundingClientRect(); FX.burst(r.left + r.width / 2, r.top, 30, "petal");
+    });
+    $("#rsvp-form").addEventListener("submit", function (e) { e.preventDefault(); });
+    return { update: update };
+  })();
 
-    canvas.addEventListener("mousedown", function (e) { isDrawing = true; const p = getPos(e); scratch(p.x, p.y); });
-    window.addEventListener("mouseup", endScratch);
-    canvas.addEventListener("mousemove", function (e) { if (isDrawing) { const p = getPos(e); scratch(p.x, p.y); } });
-    canvas.addEventListener("touchstart", function (e) { isDrawing = true; const p = getPos(e); scratch(p.x, p.y); }, { passive: true });
-    canvas.addEventListener("touchend", endScratch);
-    canvas.addEventListener("touchmove", function (e) {
-      e.preventDefault();
-      if (isDrawing) { const p = getPos(e); scratch(p.x, p.y); }
-    }, { passive: false });
-    document.getElementById("tap-reveal-btn").addEventListener("click", finishScratch);
+  /* =======================================================================
+     COPY LINK + TOAST
+     ======================================================================= */
+  function toast(msg) { const el = $("#toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(el._t); el._t = setTimeout(function () { el.classList.remove("show"); }, 2400); }
+  $("#copy-link").addEventListener("click", function () {
+    const url = location.href.split("#")[0];
+    try { navigator.clipboard.writeText(url).then(function () { toast(t("copied")); }, function () { toast(t("copyFail")); }); }
+    catch (e) { toast(t("copyFail")); }
+  });
 
-    /* ===================================================================== */
-    applyLang(pickInitialLang());
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(function () { if (!scratchTouched) drawScratchCover(); });
-    }
+  /* =======================================================================
+     SCROLL: progress thread, story thread, reveal
+     ======================================================================= */
+  let io;
+  function observeReveal() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    if (!io) io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove("wait"); io.unobserve(e.target); } }); }, { threshold: .12 });
+    document.querySelectorAll(".rv:not(.seen)").forEach(function (el) {
+      el.classList.add("seen");
+      if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("wait"); io.observe(el); }
+    });
+  }
+  addEventListener("scroll", function () {
+    requestAnimationFrame(function () {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      $("#progress").style.transform = "scaleX(" + (h > 0 ? scrollY / h : 0) + ")";
+      const r = $("#story-list").getBoundingClientRect();
+      $("#thread").style.transform = "scaleY(" + Math.max(0, Math.min(1, (innerHeight * .7 - r.top) / r.height)) + ")";
+    });
+  }, { passive: true });
+
+  /* =======================================================================
+     LANGUAGE
+     ======================================================================= */
+  function pickInitialLang() {
+    const q = (new URLSearchParams(location.search).get("lang") || location.hash.replace("#", "")).toLowerCase();
+    if (LANGS.includes(q)) return q;
+    try { const s = localStorage.getItem("invite-lang"); if (LANGS.includes(s)) return s; } catch (e) {}
+    const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
+    return LANGS.includes(nav) ? nav : "en";
+  }
+  function applyLang(next) {
+    lang = next;
+    document.documentElement.lang = lang;
+    document.title = t("title");
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { const v = t(el.dataset.i18n); if (typeof v === "string") el.innerHTML = v; });
+    document.querySelectorAll("[data-i18n-aria]").forEach(function (el) { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.setLang === lang)); });
+    $("#lang-fab").setAttribute("aria-label", t("changeLang"));
+    renderCalendar(); renderEvents(); renderStory(); renderGallery();
+    if (!Scratch.touched) Scratch.draw();
+    Akshata.render(); Rsvp.update(); Music.refresh();
+    if (opened) observeReveal();
+    try { localStorage.setItem("invite-lang", lang); } catch (e) {}
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) { b.addEventListener("click", function () { applyLang(b.dataset.setLang); closeMenu(); }); });
+  const langMenu = $("#lang-menu"), langFab = $("#lang-fab");
+  function closeMenu() { langMenu.hidden = true; langFab.setAttribute("aria-expanded", "false"); }
+  langFab.addEventListener("click", function (e) { e.stopPropagation(); const o = langMenu.hidden; langMenu.hidden = !o; langFab.setAttribute("aria-expanded", String(o)); });
+  document.addEventListener("click", function (e) { if (!langMenu.hidden && !langMenu.contains(e.target)) closeMenu(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeMenu(); });
+
+  /* =======================================================================
+     COVER — lower the antarpat
+     ======================================================================= */
+  $("#open-btn").addEventListener("click", function () {
+    const cover = $("#cover");
+    if (cover.classList.contains("open")) return;
+    cover.classList.add("open");
+    Music.start();
+    FX.rain(0, innerWidth, -10, Math.min(260, innerWidth * .6), "grain");
+    setTimeout(function () { FX.rain(0, innerWidth, -10, 60, "petal"); }, 300);
+    setTimeout(function () {
+      cover.classList.add("gone");
+      document.body.classList.remove("locked");
+      $("#floating").hidden = false;
+      opened = true;
+      FX.ambientOn(Math.round(Math.min(12, Math.max(7, innerWidth / 40))));
+      observeReveal();
+    }, 3000);
+  });
+
+  /* ======================================================================= */
+  applyLang(pickInitialLang());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!Scratch.touched) Scratch.draw(); });
   </script>
 </body>
 </html>
